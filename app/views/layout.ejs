@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <title><%- title %></title>
+
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/frontend.css">
+
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/js/frontend.js"></script>
+  </head>
+  <body>
+    <%- include('_topbar', { user: user }) %>
+    <%- body %>
+  </body>
+</html>

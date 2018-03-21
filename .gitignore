@@ -1,0 +1,21 @@
+# Ignore editor configs
+*.vscode
+*.idea
+
+# Bower dependency directory
+bower_components
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# dotenv
+.env
+
+# Build artefacts
+public/dist
+
+# Ignore DS_Store
+*.DS_Store

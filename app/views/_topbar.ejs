@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-sm topbar">
+  <div class="container">
+    <a href="/" class="navbar-brand evergrande-title">Break</a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="/" class="topbar-link nav-link">Dashboard</a></li>
+        <li class="nav-item"><a class="topbar-link nav-link">Projects</a></li>
+        <li class="nav-item"><a class="topbar-link nav-link">Issues</a></li>
+      </ul>
+    </div>
+
+    <div class="pull-right dropdown show user-profile">
+      <a class="dropdown-toggle"
+          id="dropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+        <% if (user) { %>
+          <i class="fa fa-2x fa-user-circle"></i>
+        <% } %>
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-right">
+        <% if (user) { %>
+          <div class="dropdown-item dropdown-username"><%= user.username %></div>
+          <a href="" class="dropdown-item">Profile</a>
+          <a href="/settings" class="dropdown-item">Settings</a>
+          <div class="dropdown-divider"></div>
+          <a href="/logout" class="dropdown-item">Log out</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
