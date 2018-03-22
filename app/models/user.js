@@ -3,20 +3,28 @@
 let mongoose = require('mongoose');
 let bcrypt = require('bcryptjs');
 
+let Schema = mongoose.Schema;
+
 let schema = mongoose.Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         index: true
+    },
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
     },
     password: {
         type: String,
         required: true
     },
-    created_at: {
-        type: Date, default: Date.now
-    },
-    roles: [String]
+    organization: [{ type: Schema.Types.ObjectId, ref: 'Organization' }],
+    created_at: { type: Date, default: Date.now }
 });
 
 schema.pre('save', function(next) {
@@ -36,6 +44,10 @@ schema.pre('save', function(next) {
 
 schema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
+}
+
+schema.methods.name = function() {
+    return this.firstname + ' ' + this.lastname;
 }
 
 module.exports = mongoose.model('User', schema);

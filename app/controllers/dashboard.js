@@ -1,7 +1,7 @@
 let router = require('./application');
 
 router.get('/', (req, res) => {
-    res.render('index');
+    res.render('dashboard');
 });
 
 module.exports = router;

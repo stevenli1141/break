@@ -64,5 +64,5 @@ app.use(function(req, res, next) {
 let server = http.createServer(app);
 
 server.listen(config.port, () => {
-    debug('Ever Grande is running on port', config.port);
+    debug('Break is running on port', config.port);
 });

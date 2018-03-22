@@ -1,7 +1,8 @@
 'use strict';
 
 let LocalStrategy = require('passport-local').Strategy;
-let User = require('../app/models/user');
+let User = require(global.appRoot + '/app/models/user');
+let Organization = require(global.appRoot + '/app/models/organization');
 let debug = require('debug')('http');
 
 module.exports = (passport) => {
@@ -16,11 +17,11 @@ module.exports = (passport) => {
     });
 
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
     }, (req, username, password, done) => {
-        User.findOne({ username: username }, (err, user) => {
+        User.findOne({ email: username }, (err, user) => {
             if (err) return done(err);
             if (!user || !user.validPassword(password)) {
                 return done(null, false, req.flash('error', 'Incorrect username or password'));
@@ -30,24 +31,27 @@ module.exports = (passport) => {
     }));
 
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
     }, (req, username, password, done) => {
         process.nextTick(() => {
-            username = username.toLowerCase();
-            if (!username.match(/^([-_0-9a-z])*$/)) {
-                return done(null, false, req.flash('error', 'Invalid username'));
+            if (!username.match(/^[-_.+0-9a-zA-Z]+@[0-9a-z]+\.[0-9a-z]+$/)) {
+                return done(null, false, req.flash('error', 'Invalid email'));
             }
             if (password.length < 7) {
                 return done(null, false, req.flash('error', 'Password is too short'));
             }
-            User.findOne({ username: username }).exec().then((user) => {
-                if (user) return Promise.reject('Username already in use');
+            if (password != req.body.confirm) {
+                return done(null, false, req.flash('error', 'Confirmation does not match'));
+            }
+            User.findOne({ email: username }).exec().then((user) => {
+                if (user) return Promise.reject('Email already in use');
                 let newUser = new User();
-                newUser.username = username;
+                newUser.email = username;
                 newUser.password = password;
-                newUser.roles = [];
+                newUser.firstname = req.body.firstname;
+                newUser.lastname = req.body.lastname;
 
                 return newUser.save();
             }).then((newUser) => {

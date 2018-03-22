@@ -10,6 +10,7 @@ let registrationsController = require(global.appRoot + '/app/controllers/registr
 let sessionsController = require(global.appRoot + '/app/controllers/sessions');
 // let adminDashboard = require('./app/controllers/admin/dashboard');
 // let adminUsers = require('./app/controllers/admin/users');
+let landing = require(global.appRoot + '/app/controllers/landing');
 let dashboard = require(global.appRoot + '/app/controllers/dashboard');
 
 module.exports = (app) => {
@@ -19,11 +20,6 @@ module.exports = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use((req, res, next) => {
-        res.locals.user = req.user;
-        next();
-    });
-
     registrationsController(app, passport);
     sessionsController(app, passport);
 
@@ -32,5 +28,7 @@ module.exports = (app) => {
     // Issues
 
     // Dashboard
-    app.use('/', dashboard);
+    app.use('/board', dashboard);
+
+    app.use('/', landing);
 }

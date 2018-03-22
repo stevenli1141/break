@@ -1,0 +1,40 @@
+<div class="registration-form">
+  <h2>Get started</h2>
+  <hr>
+  <form action="signup" accept-charset="UTF-8" method="POST">
+    <div class="form-group">
+      <%- include('_flash') %>
+      <h3 class="narrow">Create an account for your organization and project</h3>
+      <div class="form-group">
+        <label for="username">Email</label>
+        <input type="text" class="form-control" name="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" class="form-control" name="firstname" id="firstname" required>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input type="text" class="form-control" name="lastname" id="lastname" required>
+      </div>
+      <div class="form-group">
+        <label for="organization">Organization name</label>
+        <input type="text" class="form-control" name="organization" id="organization" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password <small class="password-condition">Must be at least 7 characters long</small></label>
+        <input type="password" class="form-control" name="password" id="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm">Confirm Password</label>
+        <input type="password" class="form-control" name="confirm" id="confirm" required>
+      </div>
+      <div class="confirm-group">
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%- contentFor('title') %>
+Register

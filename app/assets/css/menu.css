@@ -1,0 +1,46 @@
+.topbar {
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.break-title,
+.break-title:hover {
+    display: inline-block;
+    color: black;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.topbar-link,
+.topbar-link:hover {
+    color: black;
+}
+
+.user-profile {
+    display: inline-block;
+    color: black;
+    cursor: pointer;
+}
+
+.dropdown-menu.dropdown-menu-right {
+    left: auto;
+    right: 0;
+    margin-top: 4px;
+}
+
+.dropdown-username,
+.dropdown-username:hover {
+    background-color: white;
+    font-weight: bold;
+}
+
+.dropdown-login-form {
+    margin: 10px;
+    min-width: 250px;
+}
+
+.footer {
+    margin-top: 20px;
+    border-top: 1px solid #e1e1e1;
+    padding: 16px;
+}
+
