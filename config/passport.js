@@ -34,33 +34,43 @@ module.exports = (passport) => {
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    }, (req, username, password, done) => {
-        process.nextTick(() => {
-            if (!username.match(/^[-_.+0-9a-zA-Z]+@[0-9a-z]+\.[0-9a-z]+$/)) {
-                return done(null, false, req.flash('error', 'Invalid email'));
-            }
-            if (password.length < 7) {
-                return done(null, false, req.flash('error', 'Password is too short'));
-            }
-            if (password != req.body.confirm) {
-                return done(null, false, req.flash('error', 'Confirmation does not match'));
-            }
-            User.findOne({ email: username }).exec().then((user) => {
-                if (user) return Promise.reject('Email already in use');
-                let newUser = new User();
-                newUser.email = username;
-                newUser.password = password;
-                newUser.firstname = req.body.firstname;
-                newUser.lastname = req.body.lastname;
+    }, async (req, username, password, done) => {
+        if (!username.match(/^[-_.+0-9a-zA-Z]+@[0-9a-z]+\.[0-9a-z]+$/)) {
+            return done(null, false, req.flash('error', 'Invalid email'));
+        }
+        if (password.length < 7) {
+            return done(null, false, req.flash('error', 'Password is too short'));
+        }
+        if (password != req.body.confirm) {
+            return done(null, false, req.flash('error', 'Confirmation does not match'));
+        }
 
-                return newUser.save();
-            }).then((newUser) => {
-                debug('New user created');
-                debug(newUser);
-                return done(null, newUser);
-            }).catch((err) => {
-                return done(null, false, req.flash('error', err));
-            });
-        });
+        try {
+            let user = await User.findOne({ email: username }).exec();
+            if (user) return done(null, false, 'Email already in use');
+
+            let org = await Organization.findOne({ name: req.body.orgname }).exec();
+            if (org) return done(null, false, 'An organization with this name already exists. Please use a different name');
+
+            let newUser = new User();
+            newUser.email = username;
+            newUser.password = password;
+            newUser.firstname = req.body.firstname;
+            newUser.lastname = req.body.lastname;
+            newUser = await newUser.save();
+
+            let newOrg = new Organization();
+            newOrg.name = req.body.orgname;
+            newOrg.type = req.body.orgtype;
+            newOrg.owner = newUser._id;
+            newOrg = await newOrg.save();
+
+            newUser.organization = newOrg._id;
+            newUser = await newUser.save(); 
+
+            return done(null, newUser);
+        } catch (err) {
+            return done(null, false, req.flash('error', err));
+        }
     }));
 }
