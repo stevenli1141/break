@@ -3,9 +3,9 @@
 let mongoose = require('mongoose');
 let bcrypt = require('bcryptjs');
 
-let Schema = mongoose.Schema;
+let schema = mongoose.Schema;
 
-let schema = mongoose.Schema({
+let user = mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -23,11 +23,22 @@ let schema = mongoose.Schema({
         type: String,
         required: true
     },
-    organization: [{ type: Schema.Types.ObjectId, ref: 'Organization' }],
-    created_at: { type: Date, default: Date.now }
+    title: {
+        type: String
+    },
+    siteAdmin: {
+        type: false
+    },
+    organization: {
+        type: schema.Types.ObjectId,
+        ref: 'Organization'
+    },
+    created_at: {
+        type: Date
+    }
 });
 
-schema.pre('save', function(next) {
+user.pre('save', function(next) {
     if (!this.isModified('password')) {
         return next();
     }
@@ -35,19 +46,19 @@ schema.pre('save', function(next) {
     next();
 });
 
-schema.pre('save', function(next) {
+user.pre('save', function(next) {
     if (!this.created_at) {
         this.created_at = Date.now;
     }
     next();
 });
 
-schema.methods.validPassword = function(password) {
+user.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 }
 
-schema.methods.name = function() {
+user.methods.name = function() {
     return this.firstname + ' ' + this.lastname;
 }
 
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('User', user);

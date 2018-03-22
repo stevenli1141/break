@@ -1,6 +1,7 @@
 'use strict';
 
 let mongoose = require('mongoose');
+let schema = mongoose.Schema;
 
 let schema = mongoose.Schema({
     name: {
@@ -12,8 +13,12 @@ let schema = mongoose.Schema({
         type: String,
         default: 'Organization'
     },
+    owner: {
+        type: schema.Types.ObjectId,
+        ref: 'User'
+    },
     created_at: {
-        type: Date, default: Date.now
+        type: Date
     }
 });
 
