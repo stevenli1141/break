@@ -12,10 +12,12 @@
 
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
     <script src="/js/frontend.js"></script>
   </head>
   <body>
-    <%- include('_topbar', { user: user }) %>
+    <%- include('_topbar') %>
     <%- body %>
+    <%- end %>
   </body>
 </html>

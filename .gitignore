@@ -11,6 +11,9 @@ node_modules/
 # Optional npm cache directory
 .npm
 
+# Don't need this
+nodemon.json
+
 # dotenv
 .env
 

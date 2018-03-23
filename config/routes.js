@@ -28,7 +28,7 @@ module.exports = (app) => {
     // Issues
 
     // Dashboard
-    app.use('/board', dashboard);
+    app.use('/dashboard', dashboard);
 
     app.use('/', landing);
 }

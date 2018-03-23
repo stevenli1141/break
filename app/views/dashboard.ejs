@@ -1,8 +1,20 @@
-
-
-<div class="row">
-  <div class="col-md-6"></div>
+<div ng-app="dashboard">
+  <div ng-controller="dashController">
+    <h2 ng-bind="org"></h2>
+    <p>Welcome, <%= user.firstname %></p>
+    <div class="row">
+      <div class="col-md-6"></div>
+    </div>
+  </div>
 </div>
 
 <%- contentFor('title') %>
 Dashboard - Break
+
+<%- contentFor('end') %>
+<input type="hidden" value="<%= user._id %>">
+<script>
+  var app = angular.module('dashboard', []);
+
+  app.controller('dashController', ['$scope', Dashboard]);
+</script>
