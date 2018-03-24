@@ -34,7 +34,8 @@
     "node": "9.8.0"
   },
   "scripts": {
-    "postinstall": ""
+    "start": "node app.js",
+    "postinstall": "gulp"
   },
   "repository": {
     "type": "git",
