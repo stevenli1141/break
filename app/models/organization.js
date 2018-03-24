@@ -3,6 +3,12 @@
 let mongoose = require('mongoose');
 let schema = mongoose.Schema;
 
+/**
+ * Organization
+ * has one: user (owner)
+ * has many: projects
+ */
+
 let organization = mongoose.Schema({
     name: {
         type: String,
@@ -21,6 +27,11 @@ let organization = mongoose.Schema({
         type: Date
     }
 });
+
+let includes = function(next) {
+    this.populate('projects');
+    next();
+}
 
 organization.pre('save', function(next) {
     if (!this.created_at) {

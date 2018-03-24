@@ -3,6 +3,7 @@
 let session = require('express-session');
 let flash = require('connect-flash');
 let passport = require('passport');
+let csrf = require('csurf');
 
 let passportConfig = require('./passport');
 
@@ -11,6 +12,7 @@ let sessionsController = require(global.appRoot + '/app/controllers/sessions');
 // let adminDashboard = require('./app/controllers/admin/dashboard');
 // let adminUsers = require('./app/controllers/admin/users');
 let landing = require(global.appRoot + '/app/controllers/landing');
+let projects = require(global.appRoot + '/app/controllers/projects');
 let dashboard = require(global.appRoot + '/app/controllers/dashboard');
 
 module.exports = (app) => {
@@ -19,16 +21,18 @@ module.exports = (app) => {
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(csrf({ cookie: true }));
 
     registrationsController(app, passport);
     sessionsController(app, passport);
 
     // Projects
+    app.use('/', projects);
 
     // Issues
 
     // Dashboard
-    app.use('/board', dashboard);
+    app.use('/dashboard', dashboard);
 
     app.use('/', landing);
 }

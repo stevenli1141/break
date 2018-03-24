@@ -19,6 +19,10 @@ let sprint = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    project: {
+        type: schema.Types.ObjectId,
+        ref: 'Project'
+    },
     created_at: {
         type: Date
     }

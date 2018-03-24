@@ -24,7 +24,7 @@ gulp.task('clean', () => {
     .pipe(clean());
 });
 
-gulp.task('build:css', () => {
+gulp.task('css', () => {
     return gulp.src(paths.cssSrcDir)
     .pipe(minify())
     .pipe(concat('frontend.css'))
@@ -35,7 +35,7 @@ gulp.task('build:css', () => {
     .pipe(debug());
 });
 
-gulp.task('build:js', () => {
+gulp.task('js', () => {
     return gulp.src(paths.jsSrcDir)
     .pipe(uglify())
     .pipe(concat('frontend.js'))
@@ -46,7 +46,7 @@ gulp.task('build:js', () => {
     .pipe(debug());
 });
 
-gulp.task('build', ['build:css', 'build:js']);
+gulp.task('build', ['css', 'js']);
 
 gulp.task('version', ['build'], () => {
     let manifest = gulp.src('./public/dist/**/rev-manifest.json');
@@ -57,4 +57,25 @@ gulp.task('version', ['build'], () => {
 });
 
 gulp.task('default', ['version']);
+
+// Development
+
+gulp.task('watch', () => {
+    gulp.watch(paths.jsSrcDir, ['devjs']);
+    gulp.watch(paths.cssSrcDir, ['devcss']);
+});
+
+gulp.task('devcss', () => {
+    return gulp.src(paths.cssSrcDir)
+    .pipe(concat('frontend.css'))
+    .pipe(gulp.dest(pths.cssDestDir));
+});
+
+gulp.task('devjs', () => {
+    return gulp.src(paths.jsSrcDir)
+    .pipe(concat('frontend.js'))
+    .pipe(gulp.dest(paths.jsDestDir));
+});
+
+gulp.task('devbuild', ['devcss', 'devjs']);
 

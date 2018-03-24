@@ -11,6 +11,10 @@ let schema = mongoose.Schema;
  */
 
 let project = mongoose.Schema({
+    key: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
