@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "postinstall": "gulp"
+    "postinstall": "bower install && gulp"
   },
   "repository": {
     "type": "git",

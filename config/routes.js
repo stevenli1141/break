@@ -23,6 +23,9 @@ module.exports = (app) => {
     app.use(passport.session());
     app.use(csrf({ cookie: true }));
 
+    // Landing root
+    app.use('/', landing);
+
     registrationsController(app, passport);
     sessionsController(app, passport);
 
@@ -32,7 +35,6 @@ module.exports = (app) => {
     // Issues
 
     // Dashboard
-    app.use('/dashboard', dashboard);
-
-    app.use('/', landing);
+    app.use('/', dashboard);
+    
 }
