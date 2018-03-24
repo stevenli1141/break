@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     if (req.isAuthenticated()) {
         return res.redirect('/dashboard');
     }
-    res.render('landing', { user: null, csrfToken: null }); 
+    res.render('landing', { user: null, csrfToken: req.csrfToken() }); 
 });
 
 module.exports = router;
