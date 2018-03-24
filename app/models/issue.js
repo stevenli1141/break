@@ -10,6 +10,9 @@ let schema = mongoose.Schema;
  */
 
 let issue = mongoose.Schema({
+    key: {
+        type: Number
+    },
     title: {
         type: String,
         required: true,

@@ -1,7 +1,7 @@
 <div ng-app="dashboard">
   <div ng-controller="dashController">
     <h2 ng-bind="org"></h2>
-    <p>Welcome, <%= user.firstname %></p>
+    <p>Welcome, <%= user.name() %></p>
     <div class="row">
       <div class="col-md-6"></div>
     </div>

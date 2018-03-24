@@ -39,6 +39,15 @@ let user = mongoose.Schema({
     }
 });
 
+let includes = function(next) {
+    this.populate('organization');
+    next();
+}
+
+user.pre('find', includes);
+user.pre('findOne', includes);
+user.pre('findById', includes);
+
 user.pre('save', function(next) {
     if (!this.isModified('password')) {
         return next();

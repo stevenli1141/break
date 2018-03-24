@@ -1,0 +1,19 @@
+<div ng-app="projects">
+  <table class="projects-table" ng-controller="projectsController">
+    <tbody>
+      <% for (let i = 0; i < projects.length; ++i) { %>
+        <tr class="project-name-row">
+          <td><a href="/projects/<%= projects[i].key %>"><%= projects[i].name %></a></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- contentFor('title') %>
+Projects
+
+<%- contentFor('end') %>
+<script>
+let projects = "<%= projects %>"
+console.log(projects);

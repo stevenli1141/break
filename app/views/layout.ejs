@@ -10,14 +10,18 @@
     <link rel="stylesheet" href="/components-font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="/css/frontend.css">
 
+    <script>var AUTH_TOKEN=''</script>
+
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/angular/angular.min.js"></script>
     <script src="/js/frontend.js"></script>
   </head>
   <body>
-    <%- include('_topbar') %>
+    <%- include('./_topbar') %>
     <%- body %>
-    <%- end %>
+    <% if (typeof end !== 'undefined') { %>
+      <%- end %>
+    <% } %>
   </body>
 </html>
