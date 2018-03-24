@@ -26,8 +26,9 @@ let user = mongoose.Schema({
     title: {
         type: String
     },
-    siteAdmin: {
-        type: false
+    admin: {
+        type: Boolean,
+        default: false
     },
     organization: {
         type: schema.Types.ObjectId,
