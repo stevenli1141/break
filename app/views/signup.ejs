@@ -5,6 +5,7 @@
     <div class="form-group">
       <%- include('_flash') %>
       <h3 class="narrow">Create an account for your organization and project</h3>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <div class="form-group">
         <label for="username">Email</label>
         <input type="text" class="form-control" name="email" id="email" required>
