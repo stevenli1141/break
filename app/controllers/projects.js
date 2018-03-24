@@ -11,7 +11,7 @@ router.get('/projects', async (req, res, next) => {
         let projects = await Project.find({ organization: req.user.organization._id });
         res.format({
             html: () => { res.render('projects/index', { projects: projects }); },
-            json: () => { res.json(projects); }
+            json: () => { res.send(projects); }
         });
     } catch (err) { next(err); }
 });
@@ -48,7 +48,7 @@ router.post('/projects', async (req, res) => {
             json: () => { res.json(project); }
         });
     }).catch((err) => {
-        req.flash('error', err);
+        req.flash('error', 'Failed to create project');
         res.format({
             html: () => { res.redirect('/projects/new'); },
             json: () => { res.status(500).send(err); }
@@ -65,7 +65,7 @@ router.put('/projects/:key', async (req, res) => {
             json: () => { res.json(project); }
         });
     }).catch((err) => {
-        req.flash('error', err);
+        req.flash('error', 'Failed to make changes');
         res.format({
             html: () => { res.redirect('/projects'); },
             json: () => { res.status(500).send(err); }

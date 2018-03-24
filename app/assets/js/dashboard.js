@@ -1,7 +1,5 @@
 function Dashboard($scope) {
     $scope.projects = [];
-    $scope.issues = [];
-
     var getJSON = function(url) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -17,13 +15,19 @@ function Dashboard($scope) {
         });
     }
 
-    $scope.update = function() {
-        //
-    };
-
-    getJSON('/projects').then((projects) => {
-        $scope.projects = projects;
+    getJSON('/projects').then((data) => {
+        $scope.projects = data;
+        $scope.$apply();
     }).catch((err) => {
         $scope.projects = [];
     });
+
+    /*$scope.update = function() {
+        getJSON('/projects').then((projects) => {
+            $scope.projects = projects;
+        }).catch((err) => {
+            $scope.projects = [];
+        });
+    };*/
+
 }

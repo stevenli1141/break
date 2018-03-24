@@ -1,0 +1,27 @@
+.main-dashboard {
+    padding: 0px 20px;
+}
+
+.panel {
+    border: 1px solid #990000;
+    border-radius: 4px;
+}
+
+.panel-title {
+    width: 100%;
+    padding: 8px;
+    background-color: #990000;
+    color: white;
+    font-weight: bold;
+}
+
+.panel-list-group {
+    margin: 0px;
+    padding: 0px;
+}
+
+.panel-list-item {
+    list-style-type: none;
+    border-top: 1px solid #e1e1e1;
+    padding: 8px;
+}

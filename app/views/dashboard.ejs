@@ -1,19 +1,34 @@
 <div ng-app="dashboard">
-  <div ng-controller="dashController">
+  <div class="main-dashboard" ng-controller="dashboardController">
     <h2 ng-bind="org"></h2>
     <p>Welcome, <%= user.name() %></p>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="panel">
-          <div class="panel-head">Projects</div>
+          <div class="panel-title">Projects</div>
           <div class="panel-body">
             <div class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</div>
-            <li ng-repeat="project in projects" ng-cloak>
-              <a href="/project/{{project.key}}">{{project.name}}</a>
-            </li>
+            <ul class="panel-list-group">
+              <li class="panel-list-item" ng-repeat="project in projects">
+                <a href="/projects/{{project.key}}">{{project.name}}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="panel">
+          <div class="panel-title">Issues</div>
+          <div class="panel-body">
+            <div class="no-records">No issues to show</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+          <div class="panel">
+            <div class="panel-title">Progress</div>
+          </div>
+        </div>
     </div>
   </div>
 </div>
@@ -26,5 +41,5 @@ Dashboard - Break
 <script>
   var app = angular.module('dashboard', []);
 
-  app.controller('dashController', ['$scope', Dashboard]);
+  app.controller('dashboardController', ['$scope', Dashboard]);
 </script>
