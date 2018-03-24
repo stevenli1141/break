@@ -1,7 +1,7 @@
 let router = require('./application');
 let User = require('../models/user');
 
-router.get('/', (req, res) => {
+router.get('/dashboard', (req, res) => {
     res.format({
         html: () => { res.render('dashboard'); }
     });
