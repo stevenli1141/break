@@ -3,14 +3,14 @@
 }
 
 .panel {
-    border: 1px solid #990000;
+    border: 1px solid #c40000;
     border-radius: 4px;
 }
 
 .panel-title {
     width: 100%;
     padding: 8px;
-    background-color: #990000;
+    background-color: #c40000;
     color: white;
     font-weight: bold;
 }

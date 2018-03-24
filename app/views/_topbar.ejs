@@ -1,14 +1,11 @@
 <nav class="navbar navbar-expand-sm topbar">
-  <a href="/" class="navbar-brand break-title">Break
-    
-  </a>
-  
+  <a href="/" class="navbar-brand break-title">Break</a>
 
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav">
       <% if (user) { %>
         <% if (user.admin && user.organization) { %>
-          <li class="nav-item"><a class="topbar-link nav-link">Administration</a></li>
+          <li class="nav-item"><a href="/admin" class="topbar-link nav-link">Administration</a></li>
         <% } %>
         <li class="nav-item"><a href="/" class="topbar-link nav-link">Dashboard</a></li>
         <li class="nav-item"><a href="/projects" class="topbar-link nav-link">Projects</a></li>

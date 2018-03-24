@@ -5,3 +5,13 @@
     font-style: italic;
     text-align: center;
 }
+
+.error-page {
+    padding: 40px;
+    text-align: center;
+}
+
+.error-title {
+    font-size: 24px;
+    font-weight: bold;
+}

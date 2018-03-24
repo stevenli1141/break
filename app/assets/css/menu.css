@@ -1,5 +1,11 @@
+.main-content {
+    margin-top: 50px
+}
+
 .topbar {
+    height: 50px;
     border-bottom: 1px solid #c4c4c4;
+    padding: 0px 20px;
 }
 
 .break-title,
@@ -10,9 +16,21 @@
     text-decoration: none;
 }
 
+.navbar-collapse, .navbar-nav{
+    height: 100%;
+}
+
 .topbar-link,
 .topbar-link:hover {
+    height: 100%;
+    padding-top: 12px;
     color: black;
+}
+.topbar-link{
+    background-color: white;
+}
+.topbar-link:hover{
+    background-color: #f6f6f6;
 }
 
 .user-profile {

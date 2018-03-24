@@ -15,8 +15,8 @@ exports.requireOffline = (req, res, next) => {
 }
 
 exports.requireAdmin = (req, res, next) => {
-    if (req.isAuthenticated && typeof req.user !== 'undefined' && req.user.roles.indexOf('admin') !== -1) {
+    if (req.isAuthenticated && typeof req.user !== 'undefined' && req.user.admin) {
         return next();
     }
-    res.sendFile(global.appRoot + '/public/404.html');
+    res.status(401);
 }

@@ -9,8 +9,7 @@ let passportConfig = require('./passport');
 
 let registrationsController = require(global.appRoot + '/app/controllers/registrations');
 let sessionsController = require(global.appRoot + '/app/controllers/sessions');
-// let adminDashboard = require('./app/controllers/admin/dashboard');
-// let adminUsers = require('./app/controllers/admin/users');
+let admin = require(global.appRoot + '/app/controllers/admin');
 let landing = require(global.appRoot + '/app/controllers/landing');
 let projects = require(global.appRoot + '/app/controllers/projects');
 let dashboard = require(global.appRoot + '/app/controllers/dashboard');
@@ -34,7 +33,17 @@ module.exports = (app) => {
 
     // Issues
 
+    // Administration
+    app.use('/', admin);
+
     // Dashboard
     app.use('/', dashboard);
+
+    // Error handlers
+
+    app.use((err, req, res, next) => {
+        res.status(404);
+        res.render('error');
+    });
     
 }

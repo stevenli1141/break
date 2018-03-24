@@ -19,7 +19,11 @@
   </head>
   <body>
     <%- include('_topbar') %>
-    <%- body %>
+
+    <div class="main-content">
+      <%- body %>
+    </div>
+
     <% if (typeof end !== 'undefined') { %>
       <%- end %>
     <% } %>

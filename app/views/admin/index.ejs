@@ -1,0 +1,23 @@
+<div class="admin-dashboard" ng-app="admin">
+  <div class="panel" ng-controller="usersController">
+    <div class="panel-title">Users</div>
+    <div class="panel-body">
+      <ul class="panel-list-group">
+        <li class="panel-list-item new-user">+ Add new user</li>
+        <li class="panel-list-item no-records" ng-if="users.length === 0" ng-cloak>No users to show</div>
+        <li class="panel-list-item" ng-repeat="user in users">
+          <a href="/users/{{user._id}}">{{user.firstname}} {{user.lastname}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%- contentFor('title') %>
+Break Administration
+
+<%- contentFor('end') %>
+<script>
+  var app = angular.module('admin', []);
+  app.controller('usersController', ['$scope', Admin]);
+</script>
