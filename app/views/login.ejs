@@ -3,7 +3,7 @@
   <%- include('_flash') %>
   <form action="/login" accept-charset="UTF-8" method="POST">
     <input name="utf8" type="hidden" value="&#x2713;" />
-    <input type="hidden" name="authenticity_token" value="AUTH_TOKEN" />
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
     <div class="form-group">
       <input class="form-control" placeholder="Email" autofocus="autofocus" type="text" value="" name="email" id="email" />
     </div>

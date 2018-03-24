@@ -3,7 +3,17 @@
     <h2 ng-bind="org"></h2>
     <p>Welcome, <%= user.name() %></p>
     <div class="row">
-      <div class="col-md-6"></div>
+      <div class="col-md-6">
+        <div class="panel">
+          <div class="panel-head">Projects</div>
+          <div class="panel-body">
+            <div class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</div>
+            <li ng-repeat="project in projects" ng-cloak>
+              <a href="/project/{{project.key}}">{{project.name}}</a>
+            </li>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -12,7 +22,7 @@
 Dashboard - Break
 
 <%- contentFor('end') %>
-<input type="hidden" value="<%= user._id %>">
+<input type="hidden" value="<%= user._id %>" id="user_id">
 <script>
   var app = angular.module('dashboard', []);
 

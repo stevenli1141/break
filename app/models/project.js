@@ -29,4 +29,9 @@ let project = mongoose.Schema({
     }
 });
 
+project.pre('save', function(next) {
+    this.key = this.key.toUppercase();
+    next();
+});
+
 module.exports = mongoose.model('Project', project);
