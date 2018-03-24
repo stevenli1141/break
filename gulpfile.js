@@ -16,7 +16,7 @@ let paths = {
     jsDestDir: './public/dist/js',
     jsSrcDir: './app/assets/js/*',
     viewDestDir: './public/dist',
-    viewSrcDir: './app/views/*'
+    viewSrcDir: './app/views/**'
 }
 
 gulp.task('clean', () => {
