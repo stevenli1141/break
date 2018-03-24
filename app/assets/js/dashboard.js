@@ -1,33 +1,34 @@
 function Dashboard($scope) {
     $scope.projects = [];
     var getJSON = function(url) {
-        return new Promise((resolve, reject) => {
+        return new Promise(function(resolve, reject) {
             $.ajax({
                 url: url,
                 method: 'GET',
                 dataType: 'json',
-                beforeSend: (xhr) => {
+                beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
                 },
-                success: (data) => { resolve(data); },
-                error: (err) => { reject(err); }
+                success: function(data) { resolve(data); },
+                error: function(err) { reject(err); }
             });
         });
     }
 
-    getJSON('/projects').then((data) => {
+    getJSON('/projects').then(function(data) {
         $scope.projects = data;
         $scope.$apply();
-    }).catch((err) => {
+    }).catch(function(err) {
         $scope.projects = [];
     });
 
-    /*$scope.update = function() {
-        getJSON('/projects').then((projects) => {
-            $scope.projects = projects;
-        }).catch((err) => {
+    $scope.update = function() {
+        getJSON('/projects').then(function(data) {
+            $scope.projects = data;
+            $scope.$apply();
+        }).catch(function(err) {
             $scope.projects = [];
         });
-    };*/
+    };
 
 }
