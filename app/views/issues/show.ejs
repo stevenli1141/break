@@ -1,11 +1,14 @@
 <div class="issue-content" ng-app="issue">
   <div class="issue-title"><%= issue.key %> <%= issue.title %></div>
+  <div class="issue-actions">
+    <a class="btn btn-issue">Edit</a>
+  </div>
   <table class="issue-table">
-    <tr><td>Project</td><td><%= issue.project.name %></td></tr>
-    <tr><td>Sprint</td><td><%= (issue.sprint || { name: 'None' }).name %></td></tr>
-    <tr><td>Type</td><td><%= issue.type %></td></tr>
-    <tr><td>Priority</td><td><%= issue.priority %></td></tr>
-    <tr><td>Status</td><td><%= issue.status %></td></tr>
+    <tr class="issue-property"><td>Project</td><td><%= issue.project.name %></td></tr>
+    <tr class="issue-property"><td>Sprint</td><td><%= (issue.sprint || { name: 'None' }).name %></td></tr>
+    <tr class="issue-property"><td>Type</td><td><%= issue.type %></td></tr>
+    <tr class="issue-property"><td>Priority</td><td><%= issue.priority %></td></tr>
+    <tr class="issue-property"><td>Status</td><td><%= issue.status %></td></tr>
   </table>
 
   <div class="issue-desc-header">Description</div>

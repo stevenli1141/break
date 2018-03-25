@@ -57,4 +57,11 @@ issue.pre('save', function(next) {
     next();
 });
 
+issue.pre('save', function(next) {
+    if (this.isModified('project')) {
+        return next(new Error());
+    }
+    next();
+});
+
 module.exports = mongoose.model('Issue', issue);

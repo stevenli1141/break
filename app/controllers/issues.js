@@ -53,4 +53,20 @@ router.post('/issues', async (req, res, next) => {
     }
 });
 
+router.put('/issues/:key', async (req, res, next) => {
+    try {
+        let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body).exec();
+        res.format({
+            html: () => { res.redirect('/issues/' + req.params.key); },
+            json: () => { res.send(issue); }
+        });
+    } catch (err) {
+        req.flash('error', 'Failed to update ' + req.params.key);
+        res.format({
+            html: () => { res.redirect('/issues/' + req.params.key); },
+            json: () => { res.status(500).send({}); }
+        });
+    }
+});
+
 module.exports = router;

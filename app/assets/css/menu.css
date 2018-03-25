@@ -1,11 +1,17 @@
 .main-content {
     margin-left: 80px;
+    margin-top: 50px;
 }
 
 .topbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
     height: 50px;
     border-bottom: 1px solid #c4c4c4;
     padding: 0px 20px;
+    background-color: white;
+    z-index: 1;
 }
 
 .break-title,
@@ -54,6 +60,13 @@
 .dropdown-login-form {
     margin: 10px;
     min-width: 250px;
+}
+
+.sidebar {
+    width: 80px;
+    height: 100%;
+    position: fixed;
+    border-right: 1px solid #c4c4c4;
 }
 
 .footer {
