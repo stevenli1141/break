@@ -6,7 +6,7 @@
     <div class="form-group row">
       <label for="project" class="col-md-3">Project</label>
       <div class="col-md-9" ng-controller="projectsController">
-        <select name="project" class="custom-select">
+        <select name="project" class="form-control">
           <option value="{{project._id}}"  ng-repeat="project in projects">{{project.key}}</option>
         </select>
       </div>
@@ -20,7 +20,7 @@
     <div class="form-group row">
         <label for="type" class="col-md-3 col-form-label">Type</label>
         <div class="col-md-9">
-          <select name="type" class="custom-select">
+          <select name="type" class="form-control">
             <option value="Task">Task</option>
             <option value="Subtask">Subtask</option>
             <option value="Project">Project</option>
@@ -32,7 +32,7 @@
     <div class="form-group row">
       <label for="priority" class="col-md-3 col-form-label">Priority</label>
       <div class="col-md-9">
-        <select name="priority" class="custom-select">
+        <select name="priority" class="form-control">
           <option value="Blocker">Blocker</option>
           <option value="High">High</option>
           <option value="Medium">Medium</option>

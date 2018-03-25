@@ -1,23 +1,7 @@
-<nav class="navbar navbar-expand-sm topbar">
-  <a href="/" class="navbar-brand break-title">Break</a>
-
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav">
-      <% if (user) { %>
-        <li class="nav-item"><a href="/" class="topbar-link nav-link">Dashboard</a></li>
-        <% if (user.admin && user.organization) { %>
-          <li class="nav-item"><a href="/admin" class="topbar-link nav-link">Administration</a></li>
-        <% } %>
-        <li class="nav-item"><a href="/projects" class="topbar-link nav-link">Projects</a></li>
-        <li class="nav-item"><a href="/issues" class="topbar-link nav-link">Issues</a></li>
-        <li class="nav-item"><a href="/issues/new" class="topbar-link nav-link">Create</a></li>
-      <% } %>
-    </ul>
-  </div>
-
-  <div class="pull-right dropdown show user-profile">
+<nav class="topbar">
+  <div class="navbar-right dropdown show user-profile">
     <% if (user) { %>
-      <a class="dropdown-toggle"
+      <a class="dropdown-toggle user-profile-toggle"
           id="dropdownMenuLink"
           data-toggle="dropdown"
           aria-haspopup="true"
@@ -36,4 +20,20 @@
       <a href="/login" class="btn btn-theme">Log in</a>
     <% } %>
   </div>
+
+  <div class="nav navbar-header">
+    <a href="/" class="navbar-brand break-title">Break</a>
+  </div>
+  
+  <ul class="navbar-items">
+    <% if (user) { %>
+      <li class="nav-item"><a href="/" class="topbar-link">Dashboard</a></li>
+      <% if (user.admin && user.organization) { %>
+        <li class="nav-item"><a href="/admin" class="topbar-link">Administration</a></li>
+      <% } %>
+      <li class="nav-item"><a href="/projects" class="topbar-link">Projects</a></li>
+      <li class="nav-item"><a href="/issues" class="topbar-link">Issues</a></li>
+      <li class="nav-item"><a href="/issues/new" class="topbar-link">Create</a></li>
+    <% } %>
+  </ul>
 </nav>

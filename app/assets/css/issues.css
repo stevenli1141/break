@@ -10,8 +10,8 @@
     width: 50%;
 }
 
-.issue-property {
-    height: 32px;
+.issue-property > td {
+    padding: 6px 0px;
 }
 
 .issue-desc-header {

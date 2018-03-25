@@ -26,11 +26,27 @@
     height: 100%;
 }
 
+.navbar-items {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav-item {
+    display: inline-block;
+    height: 100%;
+    list-style-type: none;
+}
+
 .topbar-link,
 .topbar-link:hover {
+    display: inline-block;
     height: 100%;
-    padding-top: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 15px;
     color: black;
+    text-decoration: none;
 }
 .topbar-link{
     background-color: white;
@@ -39,16 +55,45 @@
     background-color: #f6f6f6;
 }
 
+.navbar-right {
+    float: right;
+}
+
 .user-profile {
     display: inline-block;
+    height: 100%;
+    padding: 12px 16px;
     color: black;
     cursor: pointer;
+}
+.user-profile-toggle,
+.user-profile-toggle:hover {
+    color: black;
 }
 
 .dropdown-menu.dropdown-menu-right {
     left: auto;
     right: 0;
     margin-top: 4px;
+}
+
+.dropdown-item,
+.dropdown-item:hover {
+    display: block;
+    padding: 6px 8px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+.dropdown-item {
+    background-color: white;
+}
+.dropdown-item:hover {
+    background-color: #f6f6f6;
+}
+
+.dropdown-divider {
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .dropdown-username,

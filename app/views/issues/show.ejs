@@ -2,32 +2,32 @@
   <div ng-controller="issueController">
     <div class="issue-title"><%= issue.key %> <%= issue.title %></div>
     <div class="issue-actions">
-      <a class="btn btn-issue">Edit</a>
+      <a class="btn btn-issue" data-toggle="modal" data-target="#editIssue">Edit</a>
     </div>
     <table class="issue-table">
       <tr class="issue-property">
         <td>Project</td>
-        <td>{{issue.project.name}}</td>
+        <td>{{issue.property.name}}</td>
       </tr>
       <tr class="issue-property">
         <td>Sprint</td>
-        <td>{{issue.sprint.name || 'None'}}</td>
+        <td ng-cloak>{{issue.sprint.name || 'None'}}</td>
       </tr>
       <tr class="issue-property">
         <td>Type</td>
-        <td>{{issue.type}}</td>
+        <td ng-cloak>{{issue.type}}</td>
       </tr>
       <tr class="issue-property">
         <td>Priority</td>
-        <td>{{issue.priority}}</td>
+        <td ng-cloak>{{issue.priority}}</td>
       </tr>
       <tr class="issue-property">
         <td>Status</td>
-        <td>{{issue.status}}</td>
+        <td ng-cloak>{{issue.status}}</td>
       </tr>
       <tr class="issue-property">
         <td>Labels</td>
-        <td><%= issue.labels %></td>
+        <td ng-cloak><%= issue.labels %></td>
       </tr>
     </table>
 
@@ -37,6 +37,57 @@
     </div>
 
     <div class="activity" ng-controller="activity"></div>
+
+  </div>
+  <div class="modal fade" id="editIssue" ng-controller="modalController">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 ng-bind="issue.title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label for="title" class="col-md-3 col-form-label">Title</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" name="title" ng-model="issue.title">
+            </div>
+          </div>
+          <div class="form-group row">
+              <label for="type" class="col-md-3 col-form-label">Type</label>
+              <div class="col-md-9">
+                <select name="type" class="form-control">
+                  <option value="Task">Task</option>
+                  <option value="Subtask">Subtask</option>
+                  <option value="Project">Project</option>
+                  <option value="Bug">Bug</option>
+                  <option value="Upgrade">Upgrade</option>
+                </select>
+              </div>
+            </div>
+          <div class="form-group row">
+            <label for="priority" class="col-md-3 col-form-label">Priority</label>
+            <div class="col-md-9">
+              <select name="priority" class="form-control">
+                <option value="Blocker">Blocker</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="description" class="col-md-3 col-form-label">Description</label>
+            <div class="col-md-9">
+              <textarea name="description" class="form-control" ng-model="issue.description"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-theme" ngclick="updateIssue()">Create issue</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -45,6 +96,6 @@
 
 <%- contentFor('end') %>
 <script>
-  let app = angular.module('issue', []);
+  let app = angular.module('issue', ['ui.bootstrap']);
   app.controller('issueController', ['$scope', IssueEditor]);
 </script>
