@@ -3,6 +3,7 @@
     <tr>
       <th>Issue Key</th>
       <th>Title</th>
+      <th>Assigned to</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -13,6 +14,9 @@
       </td>
       <td>
         <a href="/issues/<%= issues[i].key %>"><%= issues[i].title %></a>
+      </td>
+      <td>
+        <% if (issues[i].assignee) { %><%= issues[i].assignee.name() %><% } %>
       </td>
       <td><%= issues[i].status %></td>
     </tr>

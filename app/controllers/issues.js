@@ -2,6 +2,7 @@ let router = require('./application');
 let Issue = require('../models/issue');
 let Project = require('../models/project');
 let Sprint = require('../models/sprint');
+let User = require('../models/user');
 
 router.get('/issues', async (req, res) => {
     try {
@@ -24,7 +25,8 @@ router.get('/issues/new', async (req, res) => {
 
 router.get('/issues/:key', async (req, res, next) => {
     try {
-        let issue = await Issue.findOne({ key: req.params.key }).populate('project').populate('sprint').exec();
+        let issue = await Issue.findOne({ key: req.params.key })
+        .populate('project').populate('sprint').populate('assignee').exec();
         res.format({
             html: () => { res.render('issues/show', { issue: issue }); },
             json: () => { res.send(issue); }

@@ -34,6 +34,10 @@ let issue = mongoose.Schema({
         type: String,
         required: true
     },
+    labels: {
+        type: [String],
+        default: []
+    },
     project: {
         type: schema.Types.ObjectId,
         ref: 'Project',

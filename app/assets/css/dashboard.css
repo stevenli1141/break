@@ -3,6 +3,7 @@
 }
 
 .panel {
+    margin-bottom: 20px;
     border: 1px solid #095adc;
     border-radius: 4px;
 }
@@ -23,5 +24,17 @@
 .panel-list-item {
     list-style-type: none;
     border-top: 1px solid #e1e1e1;
+    padding: 8px;
+}
+
+.panel-table {
+    width: 100%;
+}
+
+.panel-tr {
+    border-top: 1px solid #e1e1e1;
+}
+
+.panel-tr > td {
     padding: 8px;
 }

@@ -1,26 +1,35 @@
-<div ng-app="projects">
-  <h2>Projects</h2>
-  <% if (projects.length === 0) { %>
-    <p class="no-records-text">There are currently no projects</p>
-  <% } else { %>
-    <table class="table projects-table" ng-controller="projectsController">
-      <thead>
-        <tr>
-          <th>Project Key</th>
-          <th>Name</th>
+<h2>Projects</h2>
+<% if (projects.length === 0) { %>
+  <p class="no-records-text">There are currently no projects</p>
+<% } else { %>
+  <table class="table projects-table" ng-controller="projectsController">
+    <thead>
+      <tr>
+        <th>Project Key</th>
+        <th>Name</th>
+        <th>Lead</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i = 0; i < projects.length; ++i) { %>
+        <tr class="project-name-row">
+          <td><%= projects[i].key %></td>
+          <td><a href="/projects/<%= projects[i].key %>"><%= projects[i].name %></a></td>
+          <td>
+            <% if (projects[i].lead) { %>
+              <a href="/users/<%= projects[i].lead._id %>"><%= projects[i].lead.name() %></a>
+            <% } %>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <% for (let i = 0; i < projects.length; ++i) { %>
-          <tr class="project-name-row">
-            <td><%= projects[i].key %></td>
-            <td><a href="/projects/<%= projects[i].key %>"><%= projects[i].name %></a></td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
-  <% } %>
-</div>
+      <% } %>
+    </tbody>
+  </table>
+<% } %>
 
 <%- contentFor('title') %>
 Projects
+
+<%- contentFor('end') %>
+<script>
+  //
+</script>

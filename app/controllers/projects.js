@@ -3,12 +3,13 @@
 let router = require('./application');
 let authorize = require('../helpers/authorize');
 let Project = require('../models/project');
+let User = require('../models/user');
 
 router.use(authorize.requireLogin);
 
 router.get('/projects', async (req, res, next) => {
     try {
-        let projects = await Project.find({ organization: req.user.organization._id });
+        let projects = await Project.find({ organization: req.user.organization._id }).populate('lead').exec();
         res.format({
             html: () => { res.render('projects/index', { projects: projects }); },
             json: () => { res.send(projects); }

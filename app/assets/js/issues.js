@@ -1,10 +1,10 @@
-function Projects($scope, opts = {}) {
+function Issues($scope, opts = {}) {
     this.opts = opts;
     
-    $scope.projects = [];
-    var getProjects = new Promise(function(resolve, reject) {
+    $scope.issues = [];
+    var getIssues = new Promise(function(resolve, reject) {
         $.ajax({
-            url: '/projects',
+            url: '/issues',
             method: 'GET',
             dataType: 'json',
             beforeSend: function(xhr) {
@@ -15,20 +15,19 @@ function Projects($scope, opts = {}) {
         });
     });
 
-    getProjects.then(function(data) {
-        $scope.projects = data;
+    getIssues.then(function(data) {
+        $scope.issues = data;
         $scope.$apply();
     }).catch(function(err) {
-        $scope.projects = [];
+        $scope.issues = [];
     });
 
     $scope.update = function() {
-        getProjects.then(function(data) {
-            $scope.projects = data;
+        getIssues.then(function(data) {
+            $scope.issues = data;
             $scope.$apply();
         }).catch(function(err) {
-            $scope.projects = [];
+            $scope.issues = [];
         });
     };
-
 }

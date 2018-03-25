@@ -1,4 +1,6 @@
-function Admin($scope) {
+function Admin($scope, opts = {}) {
+    this.opts = opts;
+    
     $scope.users = [];
     var getJSON = function(url) {
         return new Promise(function(resolve, reject) {
