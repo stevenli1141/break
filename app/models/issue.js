@@ -22,6 +22,7 @@ let issue = mongoose.Schema({
     },
     type: {
         type: String,
+        required: true
     },
     priority: {
         type: String
