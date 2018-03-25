@@ -1,7 +1,16 @@
+.btn-theme {
+    background-color: #095adc;
+    color: white;
+}
+.btn-theme:hover {
+    background-color: #0a68f5;
+    color: white;
+}
+
 .no-records {
     width: 100%;
     padding: 8px;
-    color: #777;
+    color: #a1a1a1;
     font-style: italic;
     text-align: center;
 }

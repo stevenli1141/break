@@ -9,8 +9,8 @@
         <% } %>
         <li class="nav-item"><a href="/" class="topbar-link nav-link">Dashboard</a></li>
         <li class="nav-item"><a href="/projects" class="topbar-link nav-link">Projects</a></li>
-        <li class="nav-item"><a class="topbar-link nav-link">Issues</a></li>
-        <li class="nav-item"><a class="topbar-link nav-link">Create</a></li>
+        <li class="nav-item"><a href="/issues" class="topbar-link nav-link">Issues</a></li>
+        <li class="nav-item"><a href="/issues/new" class="topbar-link nav-link">Create</a></li>
       <% } %>
     </ul>
   </div>
@@ -33,7 +33,7 @@
         <a href="/logout" class="dropdown-item">Log out</a>
       </div>
     <% } else { %>
-      <a href="/login" class="topbar-link nav-link">Log in</a>
+      <a href="/login" class="btn btn-theme">Log in</a>
     <% } %>
   </div>
 </nav>

@@ -1,0 +1,48 @@
+<div class="issue-form" ng-app="issue">
+  <%- include('../_flash') %>
+  <form action="/issues" method="POST" id="issueform">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="status" value="Planning">
+    <div class="form-group row">
+      <label for="title" class="col-md-3">Project</label>
+      <div class="col-md-9" ng-controller="projectsController">
+        <select name="project" class="custom-select">
+          <option value="{{project._id}}"  ng-repeat="project in projects">{{project.key}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="title" class="col-md-3 col-form-label">Title</label>
+      <div class="col-md-9">
+        <input type="text" class="form-control" name="title" id="title" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="priority" class="col-md-3 col-form-label">Priority</label>
+      <div class="col-md-9">
+        <select name="priority" class="custom-select">
+          <option value="Blocker">Blocker</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-md-3 col-form-label">Description</label>
+      <div class="col-md-9">
+        <textarea name="description" form="issueform" class="form-control"></textarea>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-theme">Create issue</button>
+  </form>
+</div>
+
+<%- contentFor('title') %>
+Create new issue
+
+<%- contentFor('end') %>
+<script>
+  let app = angular.module('issue', []);
+  app.controller('projectsController', ['$scope', Projects]);
+</script>

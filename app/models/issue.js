@@ -11,7 +11,10 @@ let schema = mongoose.Schema;
 
 let issue = mongoose.Schema({
     key: {
-        type: Number
+        type: String,
+        required: true,
+        unique: true,
+        index: true
     },
     title: {
         type: String,
@@ -31,21 +34,26 @@ let issue = mongoose.Schema({
         required: true
     },
     project: {
-        type: Schema.Types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'Project',
         required: true
     },
     sprint: {
-        type: Schema.Types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'Sprint'
     },
     assignee: {
-        type: Schema.Types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'User'
     },
     created_at: {
         type: Date,
     }
+});
+
+issue.pre('save', function(next) {
+    if (!this.created_at) this.created_at = Date.now;
+    next();
 });
 
 module.exports = mongoose.model('Issue', issue);

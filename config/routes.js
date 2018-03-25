@@ -12,6 +12,7 @@ let sessionsController = require(global.appRoot + '/app/controllers/sessions');
 let admin = require(global.appRoot + '/app/controllers/admin');
 let landing = require(global.appRoot + '/app/controllers/landing');
 let projects = require(global.appRoot + '/app/controllers/projects');
+let issues = require(global.appRoot + '/app/controllers/issues');
 let dashboard = require(global.appRoot + '/app/controllers/dashboard');
 
 module.exports = (app) => {
@@ -32,6 +33,7 @@ module.exports = (app) => {
     app.use('/', projects);
 
     // Issues
+    app.use('/', issues);
 
     // Administration
     app.use('/', admin);
