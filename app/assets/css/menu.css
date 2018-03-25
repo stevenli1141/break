@@ -1,5 +1,5 @@
 .main-content {
-    margin-left: 20px;
+    margin-left: 80px;
 }
 
 .topbar {
@@ -62,3 +62,8 @@
     padding: 16px;
 }
 
+@media (max-width: 676px) {
+    .main-content {
+        margin-left: 0px;
+    }
+}

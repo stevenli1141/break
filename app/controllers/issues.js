@@ -6,10 +6,10 @@ let Sprint = require('../models/sprint');
 router.get('/issues', async (req, res) => {
     try {
         let issues = [];
-        if (req.params.project) {
-            issues = await Issue.find({ project: req.params.project }).exec();
+        if (req.query.project) {
+            issues = await Issue.find({ key: new RegExp('^' + req.query.project + '-') }).sort('key').exec();
         } else {
-            issues = await Issue.find({}).exec();
+            issues = await Issue.find({}).sort('key').exec();
         }
         res.format({
             html: () => { res.render('issues/index', { issues: issues }); },

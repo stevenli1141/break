@@ -1,2 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Issue Key</th>
+      <th>Title</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <% for (let i = 0; i < issues.length; ++i) { %>
+    <tr>
+      <td>
+        <%= issues[i].key %>
+      </td>
+      <td>
+        <a href="/issues/<%= issues[i].key %>"><%= issues[i].title %></a>
+      </td>
+      <td><%= issues[i].status %></td>
+    </tr>
+  <% } %>
+</table>
 <%- contentFor('title') %>
 Issues

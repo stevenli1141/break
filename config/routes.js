@@ -45,7 +45,7 @@ module.exports = (app) => {
 
     app.use((err, req, res, next) => {
         res.status(404);
-        res.render('error');
+        res.render('error', { err: err });
     });
     
 }
