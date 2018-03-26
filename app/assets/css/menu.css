@@ -1,5 +1,5 @@
 .main-content {
-    margin-left: 80px;
+    margin-left: 70px;
     margin-top: 50px;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .sidebar {
-    width: 80px;
+    width: 70px;
     height: 100%;
     position: fixed;
     border-right: 1px solid #c4c4c4;

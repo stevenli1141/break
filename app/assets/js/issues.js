@@ -1,5 +1,5 @@
-function Issues($scope, opts = {}) {
-    this.opts = opts;
+function IssuesCtrl($scope, opts) {
+    this.opts = opts || {};
     
     $scope.issues = [];
     var getIssues = new Promise(function(resolve, reject) {

@@ -19,17 +19,19 @@ router.get('/issues', async (req, res) => {
     } catch (err) { next(err); }
 });
 
-router.get('/issues/new', async (req, res) => {
+router.get('/issues/new', (req, res) => {
     res.render('issues/new', { error: req.flash('error') });
 });
 
-router.get('/issues/:key', async (req, res, next) => {
+router.get('/issues/:key', (req, res, next) => {
     try {
-        let issue = await Issue.findOne({ key: req.params.key })
-        .populate('project').populate('sprint').populate('assignee').exec();
         res.format({
-            html: () => { res.render('issues/show', { issue: issue }); },
-            json: () => { res.send(issue); }
+            html: () => { res.render('issues/show', { key: req.params.key }); },
+            json: async () => {
+                let issue = await Issue.findOne({ key: req.params.key })
+                    .populate('project').populate('sprint').populate('assignee').exec();
+                res.send(issue);
+            }
         });
     } catch (err) { next(err); }
 });

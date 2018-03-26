@@ -43,11 +43,5 @@ Dashboard - Break
 <%- contentFor('end') %>
 <input type="hidden" value="<%= user._id %>" id="user_id">
 <script>
-  var app = angular.module('dashboard', []);
-
-  app.constant('$projectOpts', { limit: 10 });
-  app.constant('$issueOpts', { userOnly: true });
-
-  app.controller('projectsController', ['$scope', '$projectOpts', Projects]);
-  app.controller('issuesController', ['$scope', Issues]);
+  Dashboard(angular);
 </script>

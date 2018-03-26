@@ -1,6 +1,6 @@
 <div class="issue-content" ng-app="issue">
   
-  <div ng-controller="modalController">
+  <div ng-controller="issueController">
     <div class="issue-title">{{issue.key}} {{issue.title}}</div>
     <div class="issue-actions">
       <a class="btn btn-issue" ng-click="open()">Edit</a>
@@ -29,7 +29,7 @@
       </tr>
       <tr class="issue-property">
         <td>Labels</td>
-        <td ng-cloak><%= issue.labels %></td>
+        <td ng-cloak>{{issue.labels | formatLabels}}</td>
       </tr>
     </table>
 
@@ -97,11 +97,5 @@
 </div>
 
 <%- contentFor('title') %>
-<%= issue.key %>
+<%= key %>
 
-<%- contentFor('end') %>
-<script>
-  var app = angular.module('issue', ['ngAnimate', 'ui.bootstrap']);
-  app.controller('modalController', ['$scope', '$uibModal', IssueEditor]);
-  app.controller('modalInstController', ['$scope', '$uibModalInstance', modalInstController]);
-</script>

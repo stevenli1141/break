@@ -1,5 +1,5 @@
-function Admin($scope, opts = {}) {
-    this.opts = opts;
+function UsersCtrl($scope, opts) {
+    this.opts = opts || {};
     
     $scope.users = [];
     var getJSON = function(url) {
@@ -29,8 +29,15 @@ function Admin($scope, opts = {}) {
             $scope.projects = data;
             $scope.$apply();
         }).catch(function(err) {
-            $scope.projects = [];
+            $scope.projects = []
+            $scope.$apply();
         });
     };
-
 }
+
+(function Admin(angular) {
+    angular.module('admin', [])
+    .controller('projectsController', ['$scope', ProjectsCtrl])
+    .controller('usersController', ['$scope', UsersCtrl]);
+    
+})(angular);
