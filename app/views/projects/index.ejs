@@ -2,7 +2,7 @@
 <% if (projects.length === 0) { %>
   <p class="no-records-text">There are currently no projects</p>
 <% } else { %>
-  <table class="table projects-table" ng-controller="projectsController">
+  <table class="table projects-table">
     <thead>
       <tr>
         <th>Project Key</th>
@@ -30,6 +30,4 @@
 Projects
 
 <%- contentFor('end') %>
-<script>
-  //
-</script>
+

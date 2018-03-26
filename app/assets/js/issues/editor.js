@@ -1,4 +1,4 @@
-function IssueEditor($scope, opts = {}) {
+function IssueEditor($scope, $uibModal) {
     $scope.issue = {};
 
     let getIssue = new Promise(function(resolve, reject) {
@@ -21,4 +21,31 @@ function IssueEditor($scope, opts = {}) {
     }).catch(function(err) {
         $scope.issue = {};
     });
+
+    $scope.open = function() {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modal.html',
+            controller: 'modalInstController',
+            scope: $scope,
+            resolve: {
+                issue: function() {
+                    return $scope.issue;
+                }
+            }
+        });
+
+        modalInstance.result.then(function(issue) {
+            $scope.issue = issue;
+        }, function() {});
+    };
+}
+
+function modalInstController($scope, $uibModalInstance, issue) {
+    $scope.update = function() {
+        $uibModalInstance.close($scope.issue);
+    }
+
+    $scope.close = function() {
+        $uibModalInstance.dismiss('cancel');
+    }
 }
