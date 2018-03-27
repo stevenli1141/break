@@ -4,8 +4,6 @@ let Project = require('../models/project');
 let Sprint = require('../models/sprint');
 let User = require('../models/user');
 
-let debug = require('debug')('http');
-
 router.get('/issues', async (req, res) => {
     try {
         let issues = [];
@@ -68,8 +66,6 @@ router.put('/issues/:key', async (req, res, next) => {
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
         }).populate('project').exec();
-        debug(req.body);
-        debug(issue);
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }

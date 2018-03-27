@@ -24,7 +24,7 @@ function IssueEditor($scope, $uibModal) {
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
                 },
-                success: function(data) { console.log(data); resolve(data); },
+                success: function(data) { resolve(data); },
                 error: function(err) { reject(err); }
             });
         });
@@ -51,11 +51,10 @@ function IssueEditor($scope, $uibModal) {
         });
 
         modalInstance.result.then(function(issue) {
-            console.log(issue);
             updateIssue(issue).then(function(data) {
                 $scope.issue = data;
             }).catch(function(err) {
-                console.log('Failed to update ', err);
+                // TODO Notify error
             });
         }, function() {});
     };
