@@ -44,7 +44,7 @@ router.post('/projects', async (req, res) => {
     let project = new Project();
     project.key = req.body.key;
     project.name = req.body.name;
-    project.total = 1;
+    project.total = 0;
     project.organization = req.user.organization._id;
     project.save().then((project) => {
         res.format({

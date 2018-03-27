@@ -40,7 +40,7 @@
   
     <script type="text/ng-template" id="modal.html">
       <div class="modal-header">
-        <h5 ng-bind="issue.title"></h5>
+        <h5 ng-bind="_issue.title"></h5>
         <button type="button" class="close" aria-label="close" ng-click="close()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -49,7 +49,7 @@
         <div class="form-group row">
           <label for="title" class="col-md-3 control-label">Title</label>
           <div class="col-md-9">
-            <input type="text" class="form-control" name="title" ng-model="issue.title">
+            <input type="text" class="form-control" name="title" ng-model="_issue.title">
           </div>
         </div>
         <div class="form-group row">
@@ -78,13 +78,13 @@
         <div class="form-group row">
           <label for="sprint" class="col-md-3 control-label">Sprint</label>
           <div class="col-md-9">
-            <input type="text" name="sprint" class="form-control" ng-model="sprintname">
+            <input type="text" name="sprint" class="form-control">
           </div>
         </div>
         <div class="form-group row">
           <label for="description" class="col-md-3 control-label">Description</label>
           <div class="col-md-9">
-            <textarea name="description" class="form-control" ng-model="issue.description"></textarea>
+            <textarea name="description" class="form-control" ng-model="_issue.description"></textarea>
           </div>
         </div>
       </div>

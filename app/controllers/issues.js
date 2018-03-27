@@ -4,6 +4,8 @@ let Project = require('../models/project');
 let Sprint = require('../models/sprint');
 let User = require('../models/user');
 
+let debug = require('debug')('http');
+
 router.get('/issues', async (req, res) => {
     try {
         let issues = [];
@@ -39,14 +41,18 @@ router.get('/issues/:key', (req, res, next) => {
 router.post('/issues', async (req, res, next) => {
     try {
         let issue = new Issue(req.body);
-        let project = await Project.findByIdAndUpdate(req.body.project, { $inc: { total: 1 }}).exec();
+        let project = await Project.findByIdAndUpdate(req.body.project, {
+            $inc: { total: 1 }
+        }, {
+            new: true
+        }).exec();
         issue.key = project.key + '-' + project.total.toString();
         
         issue = await issue.save();
         
         res.format({
             html: () => { res.redirect('/issues/' + issue.key); },
-            json: () => { res.send({}); }
+            json: () => { res.send(issue); }
         });
     } catch (err) {
         req.flash('error', 'Failed to create issue');
@@ -59,7 +65,11 @@ router.post('/issues', async (req, res, next) => {
 
 router.put('/issues/:key', async (req, res, next) => {
     try {
-        let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body).exec();
+        let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
+            new: true
+        }).populate('project').exec();
+        debug(req.body);
+        debug(issue);
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }

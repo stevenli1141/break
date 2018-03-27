@@ -1,7 +1,7 @@
 function IssueEditor($scope, $uibModal) {
     $scope.issue = {};
 
-    let getIssue = new Promise(function(resolve, reject) {
+    var getIssue = new Promise(function(resolve, reject) {
         $.ajax({
             url: window.location.pathname,
             method: 'GET',
@@ -13,6 +13,22 @@ function IssueEditor($scope, $uibModal) {
             error: function(err) { reject(err); }
         });
     });
+
+    var updateIssue = function(issue) {
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                url: window.location.pathname,
+                method: 'PUT',
+                data: issue,
+                dataType: 'json',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
+                },
+                success: function(data) { console.log(data); resolve(data); },
+                error: function(err) { reject(err); }
+            });
+        });
+    };
     
     getIssue.then(function(data) {
         data.sprint = {};
@@ -29,20 +45,26 @@ function IssueEditor($scope, $uibModal) {
             scope: $scope,
             resolve: {
                 issue: function() {
-                    return $scope.issue;
+                    return $scope._issue;
                 }
             }
         });
 
         modalInstance.result.then(function(issue) {
-            $scope.issue = issue;
+            console.log(issue);
+            updateIssue(issue).then(function(data) {
+                $scope.issue = data;
+            }).catch(function(err) {
+                console.log('Failed to update ', err);
+            });
         }, function() {});
     };
 }
 
 function modalInstController($scope, $uibModalInstance, issue) {
+    $scope._issue = Object.assign({}, $scope.issue);
     $scope.update = function() {
-        $uibModalInstance.close($scope.issue);
+        $uibModalInstance.close($scope._issue);
     }
 
     $scope.close = function() {
