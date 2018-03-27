@@ -12,9 +12,9 @@ let debug = require('gulp-debug');
 let paths = {
     appDestDir: './public/dist',
     cssDestDir: './public/dist/css',
-    cssSrcDir: './app/assets/css/*',
+    cssSrcDir: './app/assets/css/**',
     jsDestDir: './public/dist/js',
-    jsSrcDir: './app/assets/js/*',
+    jsSrcDir: './app/assets/js/**',
     viewDestDir: './public/dist',
     viewSrcDir: './app/views/**'
 }

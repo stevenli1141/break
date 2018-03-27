@@ -1,0 +1,22 @@
+.issue-content {
+    padding: 12px;
+}
+
+.issue-title {
+    font-size: 24px;
+}
+
+.issue-table {
+    width: 50%;
+}
+
+.issue-property > td {
+    padding: 6px 0px;
+}
+
+.issue-desc-header {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #c4c4c4;
+    padding: 4px 0px;
+    font-weight: bold;
+}

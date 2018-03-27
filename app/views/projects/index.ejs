@@ -1,13 +1,15 @@
-<div ng-app="projects">
-  <h2>Projects</h2>
+<div class="project-list">
+  <h3>Projects</h3>
   <% if (projects.length === 0) { %>
     <p class="no-records-text">There are currently no projects</p>
   <% } else { %>
-    <table class="table projects-table" ng-controller="projectsController">
+    <table class="table projects-table">
       <thead>
         <tr>
           <th>Project Key</th>
           <th>Name</th>
+          <th>Type</th>
+          <th>Lead</th>
         </tr>
       </thead>
       <tbody>
@@ -15,6 +17,12 @@
           <tr class="project-name-row">
             <td><%= projects[i].key %></td>
             <td><a href="/projects/<%= projects[i].key %>"><%= projects[i].name %></a></td>
+            <td><%= projects[i].type %></td>
+            <td>
+              <% if (projects[i].lead) { %>
+                <a href="/users/<%= projects[i].lead._id %>"><%= projects[i].lead.name() %></a>
+              <% } %>
+            </td>
           </tr>
         <% } %>
       </tbody>
@@ -24,3 +32,6 @@
 
 <%- contentFor('title') %>
 Projects
+
+<%- contentFor('end') %>
+

@@ -52,21 +52,20 @@ module.exports = (passport) => {
             let org = await Organization.findOne({ name: req.body.orgname }).exec();
             if (org) return done(null, false, 'An organization with this name already exists. Please use a different name');
 
-            let newUser = new User();
-            newUser.email = username;
-            newUser.password = password;
-            newUser.firstname = req.body.firstname;
-            newUser.lastname = req.body.lastname;
-            newUser = await newUser.save();
-
             let newOrg = new Organization();
             newOrg.name = req.body.orgname;
             newOrg.type = req.body.orgtype;
             newOrg.owner = newUser._id;
             newOrg = await newOrg.save();
 
+            let newUser = new User();
+            newUser.email = username;
+            newUser.password = password;
+            newUser.firstname = req.body.firstname;
+            newUser.lastname = req.body.lastname;
+            newUser.admin = true;
             newUser.organization = newOrg._id;
-            newUser = await newUser.save(); 
+            newUser = await newUser.save();
 
             return done(null, newUser);
         } catch (err) {

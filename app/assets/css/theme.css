@@ -1,7 +1,61 @@
+.btn-theme {
+    background-color: #095adc;
+    color: white;
+}
+.btn-theme:hover {
+    background-color: #0a68f5;
+    color: white;
+}
+
+.btn-issue,
+.btn-issue:hover {
+    border: 1px solid #c4c4c4;
+    color: black;
+    cursor: pointer;
+}
+.btn-issue {
+    background-color: white;
+}
+.btn-issue:hover {
+    background-color: #f6f6f6;
+}
+
 .no-records {
     width: 100%;
     padding: 8px;
-    color: #777;
+    color: #a1a1a1;
     font-style: italic;
     text-align: center;
+}
+
+.error-page {
+    padding: 40px;
+    text-align: center;
+}
+
+.error-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.org-icon,
+.org-icon:hover {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    padding-top: 4px;
+    border-radius: 500px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+    background-color: #a1a1a1;
+    color: white;
+    user-select: none;
+}
+
+textarea {
+    white-space: pre-line;
 }

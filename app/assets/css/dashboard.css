@@ -3,14 +3,15 @@
 }
 
 .panel {
-    border: 1px solid #990000;
-    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #e1e1e1;
+    border-radius: 0px;
 }
 
 .panel-title {
     width: 100%;
     padding: 8px;
-    background-color: #990000;
+    background-color: #095adc;
     color: white;
     font-weight: bold;
 }
@@ -23,5 +24,21 @@
 .panel-list-item {
     list-style-type: none;
     border-top: 1px solid #e1e1e1;
+    padding: 8px;
+}
+
+.panel-body {
+    padding: 0px;
+}
+
+.panel-table {
+    width: 100%;
+}
+
+.panel-tr {
+    border-top: 1px solid #e1e1e1;
+}
+
+.panel-tr > td {
     padding: 8px;
 }

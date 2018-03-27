@@ -3,12 +3,16 @@
 let router = require('./application');
 let authorize = require('../helpers/authorize');
 let Project = require('../models/project');
+let User = require('../models/user');
+
+let debug = require('debug')('http');
 
 router.use(authorize.requireLogin);
 
 router.get('/projects', async (req, res, next) => {
     try {
-        let projects = await Project.find({ organization: req.user.organization._id });
+        let projects = await Project.find({ organization: req.user.organization._id })
+                        .sort('name').populate('lead').exec();
         res.format({
             html: () => { res.render('projects/index', { projects: projects }); },
             json: () => { res.send(projects); }
@@ -41,6 +45,7 @@ router.post('/projects', async (req, res) => {
     let project = new Project();
     project.key = req.body.key;
     project.name = req.body.name;
+    project.total = 0;
     project.organization = req.user.organization._id;
     project.save().then((project) => {
         res.format({
@@ -48,6 +53,7 @@ router.post('/projects', async (req, res) => {
             json: () => { res.json(project); }
         });
     }).catch((err) => {
+        debug(err);
         req.flash('error', 'Failed to create project');
         res.format({
             html: () => { res.redirect('/projects/new'); },

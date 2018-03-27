@@ -5,7 +5,7 @@ let schema = mongoose.Schema;
 
 /**
  * Organization
- * has one: user (owner)
+ * belongs to: user
  * has many: projects
  */
 
@@ -18,10 +18,6 @@ let organization = mongoose.Schema({
     type: {
         type: String,
         default: 'Organization'
-    },
-    owner: {
-        type: schema.Types.ObjectId,
-        ref: 'User'
     },
     created_at: {
         type: Date

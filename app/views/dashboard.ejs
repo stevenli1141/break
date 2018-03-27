@@ -1,10 +1,22 @@
 <div ng-app="dashboard">
-  <div class="main-dashboard" ng-controller="dashboardController">
+  <div class="main-dashboard">
     <h2 ng-bind="org"></h2>
     <p>Welcome, <%= user.name() %></p>
     <div class="row">
-      <div class="col-md-4">
-        <div class="panel">
+      <div class="col-md-6">
+        <div class="panel" ng-controller="issuesController">
+          <div class="panel-title">My Issues</div>
+          <div class="panel-body">
+            <div class="no-records" ng-if="issues.length === 0" ng-cloak>No issues to show</div>
+            <table class="panel-table">
+              <tr class="panel-tr" ng-repeat="issue in issues">
+                <td>{{issue.key}}</td>
+                <td><a href="/issues/{{issue.key}}">{{issue.title}}</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="panel" ng-controller="projectsController">
           <div class="panel-title">Projects</div>
           <div class="panel-body">
             <div class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</div>
@@ -16,15 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="panel">
-          <div class="panel-title">Issues</div>
-          <div class="panel-body">
-            <div class="no-records">No issues to show</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
           <div class="panel">
             <div class="panel-title">Progress</div>
           </div>
@@ -39,7 +43,5 @@ Dashboard - Break
 <%- contentFor('end') %>
 <input type="hidden" value="<%= user._id %>" id="user_id">
 <script>
-  var app = angular.module('dashboard', []);
-
-  app.controller('dashboardController', ['$scope', Dashboard]);
+  Dashboard(angular);
 </script>

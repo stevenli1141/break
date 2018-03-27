@@ -1,24 +1,19 @@
 <div class="login-form">
-  <p>Log in</p>
+  <p>Log in to your account</p>
   <%- include('_flash') %>
   <form action="/login" accept-charset="UTF-8" method="POST">
     <input name="utf8" type="hidden" value="&#x2713;" />
     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
     <div class="form-group">
-      <input class="form-control" placeholder="Email" autofocus="autofocus" type="text" value="" name="email" id="email" />
+      <input class="form-control" placeholder="Enter your email" autofocus="autofocus" type="text" value="" name="email" id="email" />
     </div>
     <div class="form-group">
       <input class="form-control" placeholder="Password" autocomplete="off" type="password" name="password" id="password" />
     </div>
-      <div class="form-group form-group-light">
-        <input name="remember_me" type="hidden" value="0" /><input type="checkbox" value="1" name="remember_me" id="remember_me" />
-        <label class="small-label" for="remember_me">Remember me</label>
-      </div>
-    <input type="submit" name="commit" value="Log in" class="btn btn-primary" data-disable-with="Log in" />
+    <input type="submit" name="commit" value="Continue" class="btn btn-theme" data-disable-with="Log in" />
   </form>
   <div class="dropdown-divider"></div>
-  <p>Don't have an account?</p>
-  <a class="btn btn-outline-primary" href="/signup">Sign up</a>
+  <a href="/signup">Sign up for an account</a>
 </div>
 
 <%- contentFor('title') %>

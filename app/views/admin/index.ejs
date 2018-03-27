@@ -1,0 +1,35 @@
+<div class="admin-dashboard" ng-app="admin">
+  <div class="panel" ng-controller="usersController">
+    <div class="panel-title">Users</div>
+    <div class="panel-body">
+      <ul class="panel-list-group">
+        <li class="panel-list-item new-user">
+          <a class="btn btn-theme"><i class="fa fa-plus"></i> Add new user</a>
+        </li>
+        <li class="panel-list-item no-records" ng-if="users.length === 0" ng-cloak>No users to show</li>
+        <li class="panel-list-item" ng-repeat="user in users">
+          <a href="/users/{{user._id}}">{{user.firstname}} {{user.lastname}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel" ng-controller="projectsController">
+    <div class="panel-title">Projects</div>
+    <div class="panel-body">
+      <ul class="panel-list-group">
+        <li class="panel-list-item new-user">
+          <a class="btn btn-theme" href="/projects/new"><i class="fa fa-plus"></i> Add new project</a>
+        </li>
+        <li class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</li>
+        <li class="panel-list-item" ng-repeat="project in projects">
+          <a href="/projects/{{project.key}}" ng-cloak>{{project.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%- contentFor('title') %>
+Break Administration
+

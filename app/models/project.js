@@ -19,14 +19,29 @@ let project = mongoose.Schema({
         type: String,
         required: true
     },
+    type: {
+        type: String
+    },
+    total: {
+        type: Number
+    },
     organization: {
         type: schema.Types.ObjectId,
         ref: 'Organization',
         required: true
     },
+    lead: {
+        type: schema.Types.ObjectId,
+        ref: 'User'
+    },
     created_at: {
         type: Date
     }
+});
+
+project.pre('save', function(next) {
+    if (!this.created_at) this.created_at = Date.now;
+    next();
 });
 
 module.exports = mongoose.model('Project', project);

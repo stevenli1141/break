@@ -51,15 +51,6 @@ app.use(morgan('dev', { stream: { write: msg => debug(msg) }}));
 routes(app);
 
 // Handle 404 error
-app.use(function(req, res, next) {
-    res.status(404);
-    if (req.accepts('html')) {
-        res.sendFile(__dirname + '/public/404.html');
-        return;
-    }
-
-    res.type('txt').send('Not found');
-});
 
 let server = http.createServer(app);
 
