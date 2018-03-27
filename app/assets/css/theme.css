@@ -55,3 +55,7 @@
     color: white;
     user-select: none;
 }
+
+textarea {
+    white-space: pre-line;
+}

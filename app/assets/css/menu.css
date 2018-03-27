@@ -42,7 +42,7 @@
 .topbar-link:hover {
     display: inline-block;
     height: 100%;
-    padding: 12px;
+    padding: 14px 10px;
     box-sizing: border-box;
     font-size: 15px;
     color: black;
@@ -69,6 +69,7 @@
 .user-profile-toggle,
 .user-profile-toggle:hover {
     color: black;
+    text-decoration: none;
 }
 
 .dropdown-menu.dropdown-menu-right {
@@ -118,6 +119,10 @@
     margin-top: 20px;
     border-top: 1px solid #e1e1e1;
     padding: 16px;
+}
+
+.project-list {
+    padding: 12px;
 }
 
 @media (max-width: 676px) {

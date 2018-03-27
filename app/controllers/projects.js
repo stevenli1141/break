@@ -11,7 +11,8 @@ router.use(authorize.requireLogin);
 
 router.get('/projects', async (req, res, next) => {
     try {
-        let projects = await Project.find({ organization: req.user.organization._id }).populate('lead').exec();
+        let projects = await Project.find({ organization: req.user.organization._id })
+                        .sort('name').populate('lead').exec();
         res.format({
             html: () => { res.render('projects/index', { projects: projects }); },
             json: () => { res.send(projects); }

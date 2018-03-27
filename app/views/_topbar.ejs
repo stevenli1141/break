@@ -1,12 +1,13 @@
 <nav class="topbar">
-  <div class="navbar-right dropdown show user-profile">
-    <% if (user) { %>
+  <% if (user) { %>
+    <div class="navbar-right dropdown user-profile">
       <a class="dropdown-toggle user-profile-toggle"
           id="dropdownMenuLink"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
         <i class="fa fa-2x fa-user-circle"></i>
+        <i class="fa fa-caret-down"></i>
       </a>
 
       <div class="dropdown-menu dropdown-menu-right">
@@ -16,10 +17,10 @@
         <div class="dropdown-divider"></div>
         <a href="/logout" class="dropdown-item">Log out</a>
       </div>
-    <% } else { %>
-      <a href="/login" class="btn btn-theme">Log in</a>
-    <% } %>
-  </div>
+    </div>
+  <% } else { %>
+    <a href="/login" class="btn btn-theme">Log in</a>
+  <% } %>
 
   <div class="nav navbar-header">
     <a href="/" class="navbar-brand break-title">Break</a>

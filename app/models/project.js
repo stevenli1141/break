@@ -19,6 +19,9 @@ let project = mongoose.Schema({
         type: String,
         required: true
     },
+    type: {
+        type: String
+    },
     total: {
         type: Number
     },
