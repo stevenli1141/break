@@ -125,7 +125,8 @@
 }
 
 .project-list,
-.issue-list {
+.issue-list,
+.record-list {
     padding: 12px;
 }
 

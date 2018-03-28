@@ -35,7 +35,7 @@
 
     <div class="issue-desc-header">Description</div>
     <div class="issue-desc">
-      <p class="issue-desc-text" ng-cloak>{{issue.description}}</p>
+      <p class="issue-desc-text" ng-bind-html="issue.description | markdown"></p>
     </div>
 
     <!--<div class="activity" ng-controller="activity"></div>-->

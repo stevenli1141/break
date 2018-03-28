@@ -13,6 +13,7 @@ let admin = require(global.appRoot + '/app/controllers/admin');
 let landing = require(global.appRoot + '/app/controllers/landing');
 let projects = require(global.appRoot + '/app/controllers/projects');
 let issues = require(global.appRoot + '/app/controllers/issues');
+let users = require(global.appRoot + '/app/controllers/users');
 let dashboard = require(global.appRoot + '/app/controllers/dashboard');
 
 module.exports = (app) => {
@@ -29,11 +30,9 @@ module.exports = (app) => {
     registrationsController(app, passport);
     sessionsController(app, passport);
 
-    // Projects
     app.use('/', projects);
-
-    // Issues
     app.use('/', issues);
+    app.use('/', users);
 
     // Administration
     app.use('/', admin);

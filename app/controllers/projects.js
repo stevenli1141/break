@@ -7,8 +7,6 @@ let User = require('../models/user');
 
 let debug = require('debug')('http');
 
-router.use(authorize.requireLogin);
-
 router.get('/projects', async (req, res, next) => {
     try {
         let projects = await Project.find({ organization: req.user.organization._id })
@@ -20,7 +18,7 @@ router.get('/projects', async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
-router.get('/projects/new', (req, res) => {
+router.get('/projects/new', authorize.requireAdmin, (req, res) => {
     res.render('projects/new', { error: req.flash('error') });
 });
 
@@ -41,7 +39,7 @@ router.get('/projects/:key/edit', async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
-router.post('/projects', async (req, res) => {
+router.post('/projects', authorize.requireAdmin, async (req, res) => {
     let project = new Project();
     project.key = req.body.key;
     project.name = req.body.name;
@@ -62,7 +60,7 @@ router.post('/projects', async (req, res) => {
     });
 });
 
-router.put('/projects/:key', async (req, res) => {
+router.put('/projects/:key', authorize.requireAdmin, async (req, res) => {
     let project = await Project.find({ key: req.params.key });
     project.name = req.body.name;
     project.save().then((project) => {
@@ -79,7 +77,7 @@ router.put('/projects/:key', async (req, res) => {
     });
 });
 
-router.delete('/projects/:key', async (req, res) => {
+router.delete('/projects/:key', authorize.requireLogin, async (req, res) => {
     let project = await Project.find({ key: req.params.key });
     project.remove().then((project) => {
         res.format({

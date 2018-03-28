@@ -1,0 +1,30 @@
+<div class="record-list">
+  <h3>Users</h3>
+  <% if (users.length === 0) { %>
+    <p class="no-records-text">There are currently no users</p>
+  <% } else { %>
+    <table class="table projects-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Projects</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < users.length; ++i) { %>
+          <tr>
+            <td><a href="/users/<%= users[i]._id %>"><%= users[i].name() %></a></td>
+            <td><%= users[i].email %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- contentFor('title') %>
+Projects
+
+<%- contentFor('end') %>
+

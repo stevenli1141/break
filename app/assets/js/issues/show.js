@@ -1,5 +1,5 @@
 (function Issue(angular) {
-    angular.module('issue', ['ngAnimate', 'ui.bootstrap'])
+    angular.module('issue', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
     .controller('issueController', ['$scope', '$uibModal', IssueEditor])
     .controller('modalInstController', ['$scope', '$uibModalInstance', modalInstController])
     .filter('formatLabels', function() {
@@ -9,5 +9,11 @@
             a.forEach(function(e) { s = s + e + ' '; });
             return s;
         }
-    });
+    })
+    .filter('markdown', ['$sce', function($sce) {
+        return function(text) {
+            var converter = new showdown.Converter();
+            return converter.makeHtml(text || '');
+        }
+    }]);
 })(angular);
