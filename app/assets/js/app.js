@@ -19,5 +19,11 @@
             var converter = new showdown.Converter();
             return converter.makeHtml(text || '');
         }
-    }]);
+    }])
+    .filter('fullname', function() {
+        return function(user) {
+            if (!user) return '';
+            return user.firstname + ' ' + user.lastname;
+        }
+    });
 })(angular)
