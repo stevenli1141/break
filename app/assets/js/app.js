@@ -1,7 +1,11 @@
-(function Issue(angular) {
-    angular.module('issue', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
-    .controller('issueController', ['$scope', '$uibModal', IssueEditor])
-    .controller('modalInstController', ['$scope', '$uibModalInstance', modalInstController])
+(function(angular) {
+    angular.module('break', [
+        'ngAnimate',
+        'ngSanitize',
+        'ui.bootstrap'
+    ]);
+
+    angular.module('break')
     .filter('formatLabels', function() {
         return function(a) {
             a = a || [];
@@ -16,4 +20,4 @@
             return converter.makeHtml(text || '');
         }
     }]);
-})(angular);
+})(angular)

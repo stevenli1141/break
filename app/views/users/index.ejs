@@ -1,26 +1,29 @@
-<div class="record-list">
+<div class="record-list" ng-controller="usersController">
   <h3>Users</h3>
-  <% if (users.length === 0) { %>
-    <p class="no-records-text">There are currently no users</p>
-  <% } else { %>
-    <table class="table projects-table">
-      <thead>
+  <p class="no-records-text" ng-if="users.length === 0">There are currently no users</p>
+  <table ng-if="users.length > 0" class="table projects-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Projects</th>
+      </tr>
+    </thead>
+    <tbody>
+        </li>
+        <li class="panel-list-item no-records" ng-if="users.length === 0" ng-cloak>No users to show</li>
+        <li class="panel-list-item" ng-repeat="user in users">
+          <a href="/users/{{user._id}}">{{user.firstname}} {{user.lastname}}</a>
+        </li>
+      <% for (let i = 0; i < users.length; ++i) { %>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Projects</th>
+          <td><a href="/users/<%= users[i]._id %>"><%= users[i].name() %></a></td>
+          <td><%= users[i].email %></td>
         </tr>
-      </thead>
-      <tbody>
-        <% for (let i = 0; i < users.length; ++i) { %>
-          <tr>
-            <td><a href="/users/<%= users[i]._id %>"><%= users[i].name() %></a></td>
-            <td><%= users[i].email %></td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
-  <% } %>
+      <% } %>
+    </tbody>
+  </table>
+  <a class="btn btn-theme"><i class="fa fa-plus"></i> Add new user</a>
 </div>
 
 <%- contentFor('title') %>

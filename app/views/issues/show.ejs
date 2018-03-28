@@ -1,4 +1,4 @@
-<div class="issue-content" ng-app="issue">
+<div class="issue-content">
   
   <div ng-controller="issueController">
     <div class="issue-title">{{issue.key}} {{issue.title}}</div>
@@ -44,7 +44,7 @@
       <div class="modal-header">
         <h5 ng-bind="_issue.title"></h5>
         <button type="button" class="close" aria-label="close" ng-click="close()">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true"><i class="fa fa-times"></i></span>
         </button>
       </div>
       <div class="modal-body form-horizontal">

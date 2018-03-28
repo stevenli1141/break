@@ -38,7 +38,6 @@ gulp.task('css', () => {
 gulp.task('js', () => {
     return gulp.src(paths.jsSrcDir)
     .pipe(uglify())
-    .pipe(concat('frontend.js'))
     .pipe(rev())
     .pipe(gulp.dest(paths.jsDestDir))
     .pipe(rev.manifest())
