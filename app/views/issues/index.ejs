@@ -1,31 +1,33 @@
-<h2>Issues</h2>
-<% if (issues.length === 0) { %>
-  <p class="no-records-text">There are currently no issues</p>
-<% } else { %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Issue Key</th>
-        <th>Title</th>
-        <th>Assigned to</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <% for (let i = 0; i < issues.length; ++i) { %>
-      <tr>
-        <td>
-          <%= issues[i].key %>
-        </td>
-        <td>
-          <a href="/issues/<%= issues[i].key %>"><%= issues[i].title %></a>
-        </td>
-        <td>
-          <% if (issues[i].assignee) { %><%= issues[i].assignee.name() %><% } %>
-        </td>
-        <td><%= issues[i].status %></td>
-      </tr>
-    <% } %>
-  </table>
-<% } %>
+<div class="issue-list">
+  <h3>Issues</h3>
+  <% if (issues.length === 0) { %>
+    <p class="no-records-text">No issues were found</p>
+  <% } else { %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Issue Key</th>
+          <th>Title</th>
+          <th>Assigned to</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <% for (let i = 0; i < issues.length; ++i) { %>
+        <tr>
+          <td>
+            <%= issues[i].key %>
+          </td>
+          <td>
+            <a href="/issues/<%= issues[i].key %>"><%= issues[i].title %></a>
+          </td>
+          <td>
+            <% if (issues[i].assignee) { %><%= issues[i].assignee.name() %><% } %>
+          </td>
+          <td><%= issues[i].status %></td>
+        </tr>
+      <% } %>
+    </table>
+  <% } %>
+</div>
 <%- contentFor('title') %>
 Issues

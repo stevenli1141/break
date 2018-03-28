@@ -55,7 +55,6 @@ module.exports = (passport) => {
             let newOrg = new Organization();
             newOrg.name = req.body.orgname;
             newOrg.type = req.body.orgtype;
-            newOrg.owner = newUser._id;
             newOrg = await newOrg.save();
 
             let newUser = new User();

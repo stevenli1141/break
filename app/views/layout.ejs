@@ -21,8 +21,9 @@
   </head>
   <body>
     <%- include('_topbar') %>
-    <%- include('_sidebar') %>
-
+    <% if (typeof showSidebar !== 'undefined') { %>
+      <%- include('_sidebar') %>
+    <% } %>
     <div class="main-content">
       <%- body %>
     </div>

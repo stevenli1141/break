@@ -9,8 +9,11 @@ router.get('/issues', async (req, res) => {
         let issues = [];
         if (req.query.project) {
             issues = await Issue.find({ key: new RegExp('^' + req.query.project + '-') }).sort('key').exec();
+        } else if(req.query.assigned) {
+            issues = await Issue.find({ assignee: req.user._id}).sort('key').exec();
         } else {
-            issues = await Issue.find({}).sort('key').exec();
+            let project_ids = await Project.find({ organization: req.user.organization._id }).select('_id');
+            issues = await Issue.find({ project: project_ids }).sort('key').exec();
         }
         res.format({
             html: () => { res.render('issues/index', { issues: issues }); },
