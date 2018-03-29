@@ -1,39 +1,28 @@
-<div class="project-list">
+<div class="project-list" ng-controller="projectsController">
   <h3>Projects</h3>
-  <% if (projects.length === 0) { %>
-    <p class="no-records-text">There are currently no projects</p>
-  <% } else { %>
-    <table class="table projects-table">
-      <thead>
-        <tr>
-          <th>Project Key</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Lead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for (let i = 0; i < projects.length; ++i) { %>
-          <tr class="project-name-row">
-            <td><%= projects[i].key %></td>
-            <td><a href="/projects/<%= projects[i].key %>"><%= projects[i].name %></a></td>
-            <td><%= projects[i].type %></td>
-            <td>
-              <% if (projects[i].lead) { %>
-                <a href="/users/<%= projects[i].lead._id %>"><%= projects[i].lead.name() %></a>
-              <% } %>
-            </td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
-  <% } %>
+  <p class="no-records-text" ng-if="projects.length === 0" ng-cloak>There are currently no projects</p>
+  <table class="table projects-table">
+    <thead>
+      <tr>
+        <th>Project Key</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Lead</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="project-name-row" ng-repeat="project in projects">
+        <td ng-bind="project.key"></td>
+        <td><a href="/projects/{{project.key}}" ng-bind="project.name"></a></td>
+        <td ng-bind="project.type"></td>
+        <td ng-cloak>{{project.lead.name | fullname}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-theme" href="/projects/new"><i class="fa fa-plus"></i> Add new project</a>
 </div>
-
-<a class="btn btn-theme" href="/projects/new"><i class="fa fa-plus"></i> Add new project</a>
 
 <%- contentFor('title') %>
 Projects
 
-<%- contentFor('end') %>
 

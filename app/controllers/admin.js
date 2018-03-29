@@ -1,9 +1,7 @@
 let router = require('./application');
 let authorize = require('../helpers/authorize');
 
-router.use(authorize.requireAdmin);
-
-router.get('/admin', (req, res) => {
+router.get('/admin', authorize.requireAdmin, (req, res) => {
     res.render('admin/index');
 });
 

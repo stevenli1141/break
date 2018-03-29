@@ -9,11 +9,13 @@ let debug = require('debug')('http');
 
 router.get('/projects', async (req, res, next) => {
     try {
-        let projects = await Project.find({ organization: req.user.organization._id })
-                        .sort('name').populate('lead').exec();
         res.format({
-            html: () => { res.render('projects/index', { projects: projects }); },
-            json: () => { res.send(projects); }
+            html: () => { res.render('projects/index'); },
+            json: async () => {
+                let projects = await Project.find({ organization: req.user.organization._id })
+                        .sort('name').populate('lead').exec();
+                res.send(projects);
+            }
         });
     } catch (err) { next(err); }
 });

@@ -46,5 +46,4 @@ module.exports = (app) => {
         res.status(404);
         res.render('error', { err: err });
     });
-    
 }

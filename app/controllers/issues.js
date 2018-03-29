@@ -6,18 +6,22 @@ let User = require('../models/user');
 
 router.get('/issues', async (req, res) => {
     try {
-        let issues = [];
-        if (req.query.project) {
-            issues = await Issue.find({ key: new RegExp('^' + req.query.project + '-') }).sort('key').exec();
-        } else if(req.query.assigned) {
-            issues = await Issue.find({ assignee: req.user._id}).sort('key').exec();
-        } else {
-            let project_ids = await Project.find({ organization: req.user.organization._id }).select('_id');
-            issues = await Issue.find({ project: project_ids }).sort('key').exec();
-        }
         res.format({
-            html: () => { res.render('issues/index', { issues: issues }); },
-            json: () => { res.send(issues); }
+            html: () => { res.render('issues/index'); },
+            json: async () => {
+                let params = {};
+                if (req.query.projectkey && req.query.projectkey.length > 0) {
+                    params = Object.assign(params, { key: new RegExp('^' + req.query.projectkey + '-') });
+                }
+                if (req.query.title && req.query.title.length > 0) {
+                    params = Object.assign(params, { title: new RegExp(' ' + req.query.title, 'i') });
+                }
+                if (req.query.assigned) {
+                    params = Object.assign(params, { assignee: req.user._id });
+                }
+                let issues = await Issue.find(params).sort('key').exec();
+                res.send(issues);
+            }
         });
     } catch (err) { next(err); }
 });

@@ -1,33 +1,32 @@
-<div class="issue-list">
+<div class="issue-list" ng-controller="issuesController">
   <h3>Issues</h3>
-  <% if (issues.length === 0) { %>
-    <p class="no-records-text">No issues were found</p>
-  <% } else { %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Issue Key</th>
-          <th>Title</th>
-          <th>Assigned to</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <% for (let i = 0; i < issues.length; ++i) { %>
-        <tr>
-          <td>
-            <%= issues[i].key %>
-          </td>
-          <td>
-            <a href="/issues/<%= issues[i].key %>"><%= issues[i].title %></a>
-          </td>
-          <td>
-            <% if (issues[i].assignee) { %><%= issues[i].assignee.name() %><% } %>
-          </td>
-          <td><%= issues[i].status %></td>
-        </tr>
-      <% } %>
-    </table>
-  <% } %>
+  <div class="filters">
+    <strong>Filter</strong>
+    Contains: <input type="text" ng-model="filters.title" ng-change="update()">
+    Project: <input type="text" ng-model="filters.project">
+    <button class="btn btn-theme" ng-click="update()">Apply filter</button>
+  </div>
+  <p class="no-records-text" ng-if="issues.length === 0" ng-cloak>No issues were found</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Issue Key</th>
+        <th>Title</th>
+        <th>Assigned to</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="issue in issues">
+      <td ng-cloak>{{issue.key}}</td>
+      <td>
+        <a href="/issues/{{issue.key}}" ng-cloak>{{issue.title}}</a>
+      </td>
+      <td ng-cloak>
+        {{issue.assignee.name | fullname}}
+      </td>
+      <td ng-cloak>{{issue.status}}</td>
+    </tr>
+  </table>
 </div>
 <%- contentFor('title') %>
 Issues

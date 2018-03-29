@@ -1,6 +1,7 @@
 let express = require('express');
 
 let router = express.Router();
+let debug = require('debug')('http');
 
 router.get('/', (req, res) => {
     if (req.isAuthenticated()) {

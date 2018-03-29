@@ -20,14 +20,17 @@ module.exports = (passport) => {
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    }, (req, username, password, done) => {
-        User.findOne({ email: username }, (err, user) => {
-            if (err) return done(err);
+    }, async (req, username, password, done) => {
+        try {
+            let user = await User.findOne({ email: username }).exec();
             if (!user || !user.validPassword(password)) {
                 return done(null, false, req.flash('error', 'Incorrect username or password'));
             }
             return done(null, user);
-        });
+        } catch (err) {
+            debug(err);
+            return done(err);
+        }
     }));
 
     passport.use('local-signup', new LocalStrategy({

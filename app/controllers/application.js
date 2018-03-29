@@ -1,5 +1,6 @@
 let express = require('express');
 let authorize = require(global.appRoot + '/app/helpers/authorize');
+let debug = require('debug')('http');
 
 let router = express.Router();
 

@@ -1,6 +1,5 @@
 (function() {
     function ProjectsCtrl($scope) {
-        $scope.projects = [];
         var getProjects = new Promise(function(resolve, reject) {
             $.ajax({
                 url: '/projects',
@@ -13,6 +12,8 @@
                 error: function(err) { reject(err); }
             });
         });
+
+        
 
         getProjects.then(function(data) {
             $scope.projects = data;
