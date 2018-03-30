@@ -3,6 +3,7 @@ let Issue = require('../models/issue');
 let Project = require('../models/project');
 let Sprint = require('../models/sprint');
 let User = require('../models/user');
+let debug = require('debug')('http');
 
 router.get('/issues', async (req, res) => {
     try {
@@ -78,6 +79,7 @@ router.put('/issues/:key', async (req, res, next) => {
             json: () => { res.send(issue); }
         });
     } catch (err) {
+        debug(err);
         req.flash('error', 'Failed to update ' + req.params.key);
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },

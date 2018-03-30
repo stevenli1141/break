@@ -11,7 +11,7 @@
         $http.get('/user').then(function(data) { deferred.resolve(data); });
         return deferred.promise;
     }])
-    .factory('resourceFactory', function() {
+    .factory('restFactory', function() {
         return {
             get: function(url, params) {
                 params = params || {};
@@ -20,6 +20,38 @@
                         url: url,
                         method: 'GET',
                         data: params,
+                        dataType: 'json',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
+                        },
+                        success: function(data) { resolve(data); },
+                        error: function(err) { reject(err); }
+                    });
+                });
+            },
+            post: function(url, data) {
+                data = data || {};
+                return new Promise(function(resolve, reject) {
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: params,
+                        dataType: 'json',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
+                        },
+                        success: function(data) { resolve(data); },
+                        error: function(err) { reject(err); }
+                    });
+                });
+            },
+            put: function(url, data) {
+                data = data || {};
+                return new Promise(function(resolve, reject) {
+                    $.ajax({
+                        url: url,
+                        method: 'PUT',
+                        data: data,
                         dataType: 'json',
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);

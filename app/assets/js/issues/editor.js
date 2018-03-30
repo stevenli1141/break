@@ -1,26 +1,20 @@
 (function() {
-    function IssueEditor($scope, $uibModal) {
+    function IssueEditor($scope, $uibModal, restFactory) {
         $scope.issue = {};
-
-        var getIssue = new Promise(function(resolve, reject) {
-            $.ajax({
-                url: window.location.pathname,
-                method: 'GET',
-                dataType: 'json',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
-                },
-                success: function(data) { resolve(data); },
-                error: function(err) { reject(err); }
-            });
+        
+        restFactory.get(window.location.pathname).then(function(data) {
+            $scope.issue = data;
+            $scope.$apply();
+        }).catch(function(err) {
+            $scope.issue = {};
         });
 
-        var updateIssue = function(issue) {
+        var update = function(params) {
             return new Promise(function(resolve, reject) {
                 $.ajax({
                     url: window.location.pathname,
                     method: 'PUT',
-                    data: issue,
+                    data: params,
                     dataType: 'json',
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
@@ -30,14 +24,6 @@
                 });
             });
         };
-        
-        getIssue.then(function(data) {
-            data.sprint = {};
-            $scope.issue = data;
-            $scope.$apply();
-        }).catch(function(err) {
-            $scope.issue = {};
-        });
 
         $scope.open = function() {
             var modalInstance = $uibModal.open({
@@ -53,9 +39,11 @@
             });
 
             modalInstance.result.then(function(issue) {
-                updateIssue(issue).then(function(data) {
+                restFactory.put(window.location.pathname, issue).then(function(data) {
                     $scope.issue = data;
+                    $scope.$apply();
                 }).catch(function(err) {
+                    console.log(err);
                     // TODO Notify error
                 });
             }, function() {});
@@ -73,8 +61,10 @@
         }
     }
 
+    IssueEditor.$inject = ['$scope', '$uibModal', 'restFactory'];
+
     angular.module('break')
-    .controller('issueController', ['$scope', '$uibModal', IssueEditor])
+    .controller('issueController', IssueEditor)
     .controller('modalInstController', ['$scope', '$uibModalInstance', modalInstController]);
     
 })()

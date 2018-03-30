@@ -1,6 +1,6 @@
 (function() {
-    function ProjectsCtrl($scope, resourceFactory) {
-        resourceFactory.get('/projects').then(function(data) {
+    function ProjectsCtrl($scope, userFactory, restFactory) {
+        restFactory.get('/projects').then(function(data) {
             $scope.projects = data;
             $scope.$apply();
         }).catch(function(err) {
@@ -8,7 +8,7 @@
         });
 
         $scope.update = function() {
-            resourceFactory.get('/projects').then(function(data) {
+            restFactory.get('/projects').then(function(data) {
                 $scope.projects = data;
                 $scope.$apply();
             }).catch(function(err) {
@@ -17,7 +17,7 @@
         };
     }
 
-    ProjectsCtrl.$inject = ['$scope', 'resourceFactory'];
+    ProjectsCtrl.$inject = ['$scope', 'userFactory', 'restFactory'];
 
     angular.module('break').controller('projectsController', ProjectsCtrl);
 })()

@@ -1,5 +1,5 @@
 (function() {
-    function IssuesCtrl($scope, userFactory, resourceFactory) {
+    function IssuesCtrl($scope, userFactory, restFactory) {
         var self = this;
 
         $scope.filters = { title: '', project: { key: userFactory.project || '' } };
@@ -11,7 +11,7 @@
             };
         }
 
-        resourceFactory.get('/issues', getParams()).then(function(data) {
+        restFactory.get('/issues', getParams()).then(function(data) {
             $scope.issues = data;
             $scope.$apply();
         }).catch(function(err) {
@@ -19,7 +19,7 @@
         });
 
         $scope.update = function() {
-            resourceFactory.get('/issues', getParams()).then(function(data) {
+            restFactory.get('/issues', getParams()).then(function(data) {
                 $scope.issues = data;
                 $scope.$apply();
             }).catch(function(err) {
@@ -28,7 +28,7 @@
         };
 
         $scope.loadProjects = function() {
-            return resourceFactory.get('/projects', {
+            return restFactory.get('/projects', {
                 name: $scope.filters.project
             }).then(function(data) {
                 return data;
@@ -38,7 +38,7 @@
         }
     }
 
-    IssuesCtrl.$inject = ['$scope', 'userFactory', 'resourceFactory'];
+    IssuesCtrl.$inject = ['$scope', 'userFactory', 'restFactory'];
 
     angular.module('break').controller('issuesController', IssuesCtrl);
 })()
