@@ -1,9 +1,20 @@
 <div class="issue-list" ng-controller="issuesController">
   <h3>Issues</h3>
-  <div class="filters">
-    <strong>Filter</strong>
-    Contains: <input type="text" ng-model="filters.title" ng-change="update()">
-    Project: <input type="text" ng-model="filters.project">
+  <div class="filters form-inline">
+    <p class="filter-title">Filter</p>
+    <div class="form-group">
+      <label>Contains</label>
+      <input type="text" class="form-control" ng-model="filters.title" ng-change="update()">
+    </div>
+    <span class="horizontal-spacer"></span>
+    <div class="form-group">
+      <label>Project</label>
+      <input type="text" class="form-control" ng-model="filters.project"
+            uib-typeahead="project as project.key for project in loadProjects()"
+            typeahead-on-select="update()"
+            typeahead-template-url="typeaheadTemplate.html">
+    </div>
+    <span class="horizontal-spacer"></span>
     <button class="btn btn-theme" ng-click="update()">Apply filter</button>
   </div>
   <p class="no-records-text" ng-if="issues.length === 0" ng-cloak>No issues were found</p>
@@ -28,5 +39,12 @@
     </tr>
   </table>
 </div>
+<script type="text/ng-template" id="typeaheadTemplate.html">
+  <a>
+    <span class="break-icon"></span>
+    <strong>{{match.label}}</strong>
+    <small>&nbsp&nbsp{{match.model.name}}</small>
+  </a>
+</script>
 <%- contentFor('title') %>
 Issues

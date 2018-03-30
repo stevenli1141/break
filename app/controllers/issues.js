@@ -14,12 +14,12 @@ router.get('/issues', async (req, res) => {
                     params = Object.assign(params, { key: new RegExp('^' + req.query.projectkey + '-') });
                 }
                 if (req.query.title && req.query.title.length > 0) {
-                    params = Object.assign(params, { title: new RegExp(' ' + req.query.title, 'i') });
+                    params = Object.assign(params, { title: new RegExp(req.query.title, 'i') });
                 }
                 if (req.query.assigned) {
                     params = Object.assign(params, { assignee: req.user._id });
                 }
-                let issues = await Issue.find(params).sort('key').exec();
+                let issues = await Issue.find(params).sort({ key: -1 }).exec();
                 res.send(issues);
             }
         });

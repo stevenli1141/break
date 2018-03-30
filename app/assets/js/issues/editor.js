@@ -44,6 +44,7 @@
                 templateUrl: 'modal.html',
                 controller: 'modalInstController',
                 scope: $scope,
+                size: 'lg',
                 resolve: {
                     issue: function() {
                         return $scope._issue;

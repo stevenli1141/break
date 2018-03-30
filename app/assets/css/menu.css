@@ -127,6 +127,11 @@
     padding: 12px;
 }
 
+.horizontal-spacer {
+    display: inline-block;
+    padding-left: 20px;
+}
+
 @media (max-width: 676px) {
     .main-content {
         margin-left: 0px;

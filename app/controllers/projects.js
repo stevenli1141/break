@@ -12,7 +12,13 @@ router.get('/projects', async (req, res, next) => {
         res.format({
             html: () => { res.render('projects/index'); },
             json: async () => {
-                let projects = await Project.find({ organization: req.user.organization._id })
+                let params = { organization: req.user.organization._id };
+                if (req.query.name) {
+                    let match = [ { name: new RegExp(req.query.name, 'i') },
+                                  { key: new RegExp('^' + req.query.name, 'i') } ];
+                    params = Object.assign(params, { $or: match });
+                }
+                let projects = await Project.find(params)
                         .sort('name').populate('lead').exec();
                 res.send(projects);
             }

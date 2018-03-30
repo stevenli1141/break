@@ -1,3 +1,9 @@
+element {
+    --theme-color: #095adc;
+}
+
+/* Buttons */
+
 .btn-theme {
     background-color: #095adc;
     color: white;
@@ -5,6 +11,10 @@
 .btn-theme:hover {
     background-color: #0a68f5;
     color: white;
+}
+
+.btn-wide {
+    width: 100%;
 }
 
 .btn-issue,
@@ -19,6 +29,8 @@
 .btn-issue:hover {
     background-color: #f6f6f6;
 }
+
+/* Typography */
 
 .no-records {
     width: 100%;
@@ -37,6 +49,16 @@
     font-size: 24px;
     font-weight: bold;
 }
+
+.filter-title {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #a1a1a1;
+    text-transform: uppercase;
+}
+
+/* Iconography */
 
 .org-icon,
 .org-icon:hover {

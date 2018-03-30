@@ -6,6 +6,11 @@
     ]);
 
     angular.module('break')
+    .factory('userFactory', ['$q', '$http', '$rootScope', function($q, $http, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/user').then(function(data) { deferred.resolve(data); });
+        return deferred.promise;
+    }])
     .filter('formatLabels', function() {
         return function(a) {
             a = a || [];

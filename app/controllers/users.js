@@ -5,6 +5,10 @@ let authorize = require('../helpers/authorize');
 let User = require('../models/user');
 let debug = require('debug')('http');
 
+router.get('/user', async (req, res) => {
+    res.send(req.user);
+});
+
 router.get('/users', async (req, res) => {
     let filters = { organization: req.user.organization._id };
     let users = await User.find(filters).sort('firstname');
