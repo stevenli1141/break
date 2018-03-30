@@ -1,0 +1,7 @@
+<div ng-controller="userController">
+  <h3 ng-cloak>{{user | fullname}}</h3>
+  <p>{{user.title}}</p>
+</div>
+
+<%- contentFor('title') %>
+<%= user.name() %>

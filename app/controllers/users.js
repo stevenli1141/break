@@ -24,12 +24,19 @@ router.get('/users', async (req, res) => {
     });
 });
 
-router.get('/users/:id', async (req, res) => {
-    let user = await User.findById(req.params.id);
-    res.format({
-        html: () => { res.render('users/show', { user: user }); },
-        json: () => { res.send(user); }
-    });
+router.get('/users/:id', async (req, res, next) => {
+    try {
+        let user = await User.findById(req.params.id);
+        res.format({
+            html: () => { res.render('users/show', { user: user }); },
+            json: () => { res.send(user); }
+        });
+    } catch (err) {
+        res.format({
+            html: () => { next(new Error()); },
+            json: () => { res.status(500).send(); }
+        });
+    }
 });
 
 router.post('/users', authorize.requireAdmin, async (req, res) => {

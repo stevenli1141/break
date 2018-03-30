@@ -48,9 +48,8 @@
     function modalInstController($scope, $uibModalInstance, restFactory, issue) {
         $scope._issue = Object.assign({}, $scope.issue);
         
-        $scope.loadUsers = async function() {
+        $scope.loadUsers = function() {
             var params = { name: $scope._issue.assignee };
-            // if (typeof params !== 'String') { params.match = ''; }
             restFactory.get('/users', params).then(function(data) {
                 $scope.users = data;
                 return data;
@@ -81,9 +80,7 @@
 
     modalInstController.$inject = ['$scope', '$uibModalInstance', 'restFactory'];
 
-
     angular.module('break')
     .controller('issueController', IssueEditor)
     .controller('modalInstController', modalInstController);
-    
 })()

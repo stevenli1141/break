@@ -11,7 +11,7 @@
         <td>Project</td>
         <td ng-cloak>{{issue.project.name}}</td>
         <td>Assigned to</td>
-        <td ng-cloak>{{issue.assignee | fullname }}</td>
+        <td><a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname }}</a></td>
       </tr>
       <tr class="issue-property">
         <td>Sprint</td>
