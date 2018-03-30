@@ -12,13 +12,13 @@ router.get('/issues', async (req, res) => {
             json: async () => {
                 let params = {};
                 if (req.query.projectkey && req.query.projectkey.length > 0) {
-                    params = Object.assign(params, { key: new RegExp('^' + req.query.projectkey + '-') });
+                    params.key = new RegExp('^' + req.query.projectkey + '-');
                 }
                 if (req.query.title && req.query.title.length > 0) {
-                    params = Object.assign(params, { title: new RegExp(req.query.title, 'i') });
+                    params.title = new RegExp(req.query.title, 'i');
                 }
                 if (req.query.assigned) {
-                    params = Object.assign(params, { assignee: req.user._id });
+                    params.assignee = req.user._id;
                 }
                 let issues = await Issue.find(params).sort({ key: -1 }).exec();
                 res.send(issues);
@@ -71,9 +71,10 @@ router.post('/issues', async (req, res, next) => {
 
 router.put('/issues/:key', async (req, res, next) => {
     try {
+        req.body.assignee = req.body.assignee._id;
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
-        }).populate('project').exec();
+        }).populate('project').populate('assignee').exec();
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }

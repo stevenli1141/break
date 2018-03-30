@@ -10,11 +10,17 @@ router.get('/user', async (req, res) => {
 });
 
 router.get('/users', async (req, res) => {
-    let filters = { organization: req.user.organization._id };
-    let users = await User.find(filters).sort('firstname');
     res.format({
-        html: () => { res.render('users/index', { users: users }); },
-        json: () => { res.send(users); }
+        html: () => { res.render('users/index'); },
+        json: async () => {
+            let filters = { organization: req.user.organization._id };
+            if (req.query.name) {
+                let regex = new RegExp(req.query.name.replace(' ', '|'), 'i');
+                filters.$or = [ { firstname: regex }, { lastname: regex } ];
+            }
+            let users = await User.find(filters).sort('firstname');
+            res.send(users);
+        }
     });
 });
 

@@ -14,9 +14,7 @@ router.get('/projects', async (req, res, next) => {
             json: async () => {
                 let params = { organization: req.user.organization._id };
                 if (req.query.name) {
-                    let match = [ { name: new RegExp(req.query.name, 'i') },
-                                  { key: new RegExp('^' + req.query.name, 'i') } ];
-                    params = Object.assign(params, { $or: match });
+                    params['$or'] = [ { name: new RegExp(req.query.name, 'i') }, { key: new RegExp('^' + req.query.name, 'i') } ];
                 }
                 let projects = await Project.find(params)
                         .sort('name').populate('lead').exec();
