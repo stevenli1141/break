@@ -1,8 +1,8 @@
 (function() {
-    function IssuesCtrl($scope, user) {
+    function IssuesCtrl($scope, userFactory, resourceFactory) {
         var self = this;
 
-        $scope.filters = { title: '', project: { key: user.project || '' } };
+        $scope.filters = { title: '', project: { key: userFactory.project || '' } };
         
         var getParams = function() {
             return {
@@ -11,39 +11,7 @@
             };
         }
 
-        var getIssues = function() {
-            return new Promise(function(resolve, reject) {
-                $.ajax({
-                    url: '/issues',
-                    method: 'GET',
-                    data: getParams(),
-                    dataType: 'json',
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
-                    },
-                    success: function(data) { resolve(data); },
-                    error: function(err) { reject(err); }
-                });
-            });
-        };
-
-        var getProjects = function() {
-            return new Promise(function(resolve, reject) {
-                $.ajax({
-                    url: '/projects',
-                    method: 'GET',
-                    data: { name: $scope.filters.project },
-                    dataType: 'json',
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
-                    },
-                    success: function(data) { resolve(data); },
-                    error: function(err) { reject(err); }
-                });
-            });
-        }
-
-        getIssues().then(function(data) {
+        resourceFactory.get('/issues', getParams()).then(function(data) {
             $scope.issues = data;
             $scope.$apply();
         }).catch(function(err) {
@@ -51,7 +19,7 @@
         });
 
         $scope.update = function() {
-            getIssues().then(function(data) {
+            resourceFactory.get('/issues', getParams()).then(function(data) {
                 $scope.issues = data;
                 $scope.$apply();
             }).catch(function(err) {
@@ -60,7 +28,9 @@
         };
 
         $scope.loadProjects = function() {
-            return getProjects().then(function(data) {
+            return resourceFactory.get('/projects', {
+                name: $scope.filters.project
+            }).then(function(data) {
                 return data;
             }).catch(function(err) {
                 return [];
@@ -68,7 +38,7 @@
         }
     }
 
-    IssuesCtrl.$inject = ['$scope', 'userFactory'];
+    IssuesCtrl.$inject = ['$scope', 'userFactory', 'resourceFactory'];
 
     angular.module('break').controller('issuesController', IssuesCtrl);
 })()

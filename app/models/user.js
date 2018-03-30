@@ -27,6 +27,11 @@ let user = mongoose.Schema({
         type: String,
         required: true
     },
+    projects: {
+        type: [schema.Types.ObjectId],
+        ref: 'Project',
+        default: []
+    },
     admin: {
         type: Boolean,
         default: false
