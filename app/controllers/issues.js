@@ -18,9 +18,9 @@ router.get('/issues', async (req, res) => {
                     params.title = new RegExp(req.query.title, 'i');
                 }
                 if (req.query.assigned) {
-                    params.assignee = req.user._id;
+                    params.assignee = req.query.assigned;
                 }
-                let issues = await Issue.find(params).sort({ key: -1 }).exec();
+                let issues = await Issue.find(params).populate('assignee').sort({ key: -1 }).exec();
                 res.send(issues);
             }
         });
@@ -46,6 +46,7 @@ router.get('/issues/:key', (req, res, next) => {
 
 router.post('/issues', async (req, res, next) => {
     try {
+        debug(req.body);
         let issue = new Issue(req.body);
         let project = await Project.findByIdAndUpdate(req.body.project, {
             $inc: { total: 1 }

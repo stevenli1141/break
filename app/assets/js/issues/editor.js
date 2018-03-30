@@ -50,11 +50,10 @@
         
         $scope.loadUsers = function() {
             var params = { name: $scope._issue.assignee };
-            restFactory.get('/users', params).then(function(data) {
-                $scope.users = data;
-                return data;
+            return restFactory.get('/users', params).then(function(data) {
+                return $scope.users = data;
             }).catch(function(err) {
-                $scope.users = [];
+                return $scope.users = [];
             });
         }
 
@@ -62,12 +61,6 @@
             var fullname = user.firstname + ' ' + user.lastname;
             return fullname.match(new RegExp($scope._issue.assignee, 'i'));
         }
-
-        restFactory.get('/users').then(function(data) {
-            $scope.users = data;
-        }).catch(function(err) {
-            $scope.users = [];
-        });
 
         $scope.update = function() {
             $uibModalInstance.close($scope._issue);

@@ -12,7 +12,7 @@
 
       <div class="dropdown-menu dropdown-menu-right">
         <div class="dropdown-item dropdown-username"><%= user.name() %></div>
-        <a href="" class="dropdown-item">Profile</a>
+        <a href="/users/<%= user._id %>" class="dropdown-item">Profile</a>
         <a href="/settings" class="dropdown-item">Settings</a>
         <div class="dropdown-divider"></div>
         <a href="/logout" class="dropdown-item">Log out</a>

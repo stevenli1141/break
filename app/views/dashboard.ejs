@@ -1,9 +1,9 @@
-<div class="main-dashboard">
+<div class="main-dashboard" ng-controller="dashboardController">
   <h2 ng-bind="org"></h2>
   <p>Welcome, <%= user.name() %></p>
   <div class="row">
     <div class="col-md-6">
-      <div class="panel" ng-controller="issuesController">
+      <div class="panel">
         <div class="panel-title">My Issues</div>
         <div class="panel-body">
           <div class="no-records" ng-if="issues.length === 0" ng-cloak>No issues to show</div>
@@ -15,7 +15,7 @@
           </table>
         </div>
       </div>
-      <div class="panel" ng-controller="projectsController">
+      <div class="panel">
         <div class="panel-title">Projects</div>
         <div class="panel-body">
           <div class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</div>
