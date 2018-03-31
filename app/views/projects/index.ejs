@@ -1,6 +1,6 @@
 <div class="project-list" ng-controller="projectsController">
   <h3>Projects</h3>
-  <table class="table projects-table">
+  <table class="table table-responsive">
     <thead>
       <tr>
         <th>Project Key</th>
@@ -11,10 +11,10 @@
     </thead>
     <tbody>
       <tr class="project-name-row" ng-repeat="project in projects">
-        <td ng-bind="project.key"></td>
+        <td  ng-cloak><a ng-if="admin()" href="/projects/{{project.key}}/edit">Edit</a> {{project.key}}</td>
         <td><a href="/projects/{{project.key}}" ng-bind="project.name"></a></td>
         <td ng-bind="project.type"></td>
-        <td ng-cloak>{{project.lead.name | fullname}}</td>
+        <td ng-cloak>{{project.lead | fullname}}</td>
       </tr>
     </tbody>
   </table>

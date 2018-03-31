@@ -24,13 +24,9 @@ router.get('/projects', async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
-router.get('/projects/new', authorize.requireAdmin, (req, res) => {
-    res.render('projects/new', { error: req.flash('error') });
-});
-
 router.get('/projects/:key', async (req, res, next) => {
     try {
-        let project = await Project.findOne({ key: req.params.key });
+        let project = await Project.findOne({ key: req.params.key }).populate('lead').exec();
         res.format({
             html: () => { res.render('projects/main', { project: project }); },
             json: () => { res.json(project); }
@@ -38,11 +34,19 @@ router.get('/projects/:key', async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
-router.get('/projects/:key/edit', async (req, res, next) => {
+router.get('/projects/:key/edit', authorize.requireAdmin, async (req, res, next) => {
     try {
-        res.locals.project = await Project.find({ key: req.params.key })
-        res.render('projects/edit', { error: req.flash('error') });
-    } catch (err) { next(err); }
+        let project = await Project.findOne({ key: req.params.key }).populate('lead').exec();
+        res.format({
+            html: () => { res.render('projects/edit', { error: req.flash('error') }); },
+            json: () => { res.send(project); }
+        });
+    } catch (err) {
+        res.format({
+            html: () => { next(err); },
+            json: () => { res.status(500).send(); }
+        });
+    }
 });
 
 router.post('/projects', authorize.requireAdmin, async (req, res) => {
@@ -65,20 +69,23 @@ router.post('/projects', authorize.requireAdmin, async (req, res) => {
 });
 
 router.put('/projects/:key', authorize.requireAdmin, async (req, res) => {
-    let project = await Project.find({ key: req.params.key });
-    project.name = req.body.name;
-    project.save().then((project) => {
+    try {
+        let params = req.body;
+        if (params.lead) { params.lead = params.lead._id; }
+        let project = await Project.findOneAndUpdate({ key: req.params.key }, params, {
+            new: true
+        }).populate('lead').exec();
         res.format({
             html: () => { res.redirect('/projects'); },
             json: () => { res.json(project); }
         });
-    }).catch((err) => {
+    } catch(err) {
         req.flash('error', 'Failed to make changes');
         res.format({
             html: () => { res.redirect('/projects'); },
             json: () => { res.status(500).send(err); }
         });
-    });
+    }
 });
 
 router.delete('/projects/:key', authorize.requireLogin, async (req, res) => {

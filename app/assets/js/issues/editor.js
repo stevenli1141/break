@@ -48,7 +48,7 @@
         $scope.open = function() {
             var modalInstance = $uibModal.open({
                 templateUrl: 'modal.html',
-                controller: 'modalInstController',
+                controller: 'issueModalController',
                 scope: $scope,
                 size: 'lg',
                 resolve: {
@@ -102,5 +102,5 @@
 
     angular.module('break')
     .controller('issueController', IssueEditor)
-    .controller('modalInstController', modalInstController);
+    .controller('issueModalController', modalInstController);
 })()
