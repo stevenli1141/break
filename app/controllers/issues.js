@@ -89,7 +89,7 @@ router.put('/issues/:key', async (req, res, next) => {
         }
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
-        }).populate('project').populate('assignee').exec();
+        }).populate('project').populate('sprint').populate('assignee').populate('reporter').exec();
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }
