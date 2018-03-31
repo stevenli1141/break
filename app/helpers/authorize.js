@@ -4,19 +4,28 @@ exports.requireLogin = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/login');
+    res.format({
+        html: () => { redirect('/login'); },
+        json: () => { res.status(401).send(); }
+    });
 }
 
 exports.requireOffline = (req, res, next) => {
     if (!req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/');
+    res.format({
+        html: () => { redirect('/'); },
+        json: () => { res.status(500).send(); }
+    });
 }
 
 exports.requireAdmin = (req, res, next) => {
-    if (req.isAuthenticated && typeof req.user !== 'undefined' && req.user.admin) {
+    if (req.isAuthenticated() && req.user.admin) {
         return next();
     }
-    res.status(401);
+    res.format({
+        html: () => { next(new Error('Unauthorized access')); },
+        json: () => { res.status(401).send(); }
+    });
 }

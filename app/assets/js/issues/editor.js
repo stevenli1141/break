@@ -1,72 +1,79 @@
-function IssueEditor($scope, $uibModal) {
-    $scope.issue = {};
-
-    var getIssue = new Promise(function(resolve, reject) {
-        $.ajax({
-            url: window.location.pathname,
-            method: 'GET',
-            dataType: 'json',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
-            },
-            success: function(data) { resolve(data); },
-            error: function(err) { reject(err); }
-        });
-    });
-
-    var updateIssue = function(issue) {
-        return new Promise(function(resolve, reject) {
-            $.ajax({
-                url: window.location.pathname,
-                method: 'PUT',
-                data: issue,
-                dataType: 'json',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);
-                },
-                success: function(data) { resolve(data); },
-                error: function(err) { reject(err); }
-            });
-        });
-    };
-    
-    getIssue.then(function(data) {
-        data.sprint = {};
-        $scope.issue = data;
-        $scope.$apply();
-    }).catch(function(err) {
+(function() {
+    function IssueEditor($scope, $uibModal, restFactory) {
         $scope.issue = {};
-    });
-
-    $scope.open = function() {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'modal.html',
-            controller: 'modalInstController',
-            scope: $scope,
-            resolve: {
-                issue: function() {
-                    return $scope._issue;
-                }
-            }
+        
+        restFactory.get(window.location.pathname).then(function(data) {
+            $scope.issue = data;
+            $scope.$apply();
+        }).catch(function(err) {
+            $scope.issue = {};
         });
 
-        modalInstance.result.then(function(issue) {
-            updateIssue(issue).then(function(data) {
-                $scope.issue = data;
+        $scope.loadUsers = function() {
+            restFactory.get('/users').then(function(data) {
+                return data;
             }).catch(function(err) {
-                // TODO Notify error
+                return [];
             });
-        }, function() {});
-    };
-}
+        }
 
-function modalInstController($scope, $uibModalInstance, issue) {
-    $scope._issue = Object.assign({}, $scope.issue);
-    $scope.update = function() {
-        $uibModalInstance.close($scope._issue);
+        $scope.open = function() {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'modal.html',
+                controller: 'modalInstController',
+                scope: $scope,
+                size: 'lg',
+                resolve: {
+                    issue: function() {
+                        return $scope._issue;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(issue) {
+                issue.assignee_id = issue.assignee._id;
+                restFactory.put(window.location.pathname, issue).then(function(data) {
+                    $scope.issue = data;
+                    $scope.$apply();
+                }).catch(function(err) {
+                    console.log(err);
+                    // TODO Notify error
+                });
+            }, function() {});
+        };
     }
 
-    $scope.close = function() {
-        $uibModalInstance.dismiss('cancel');
+    IssueEditor.$inject = ['$scope', '$uibModal', 'restFactory'];
+
+    function modalInstController($scope, $uibModalInstance, restFactory, issue) {
+        $scope._issue = Object.assign({}, $scope.issue);
+        
+        $scope.loadUsers = function() {
+            var params = { name: $scope._issue.assignee };
+            return restFactory.get('/users', params).then(function(data) {
+                return $scope.users = data;
+            }).catch(function(err) {
+                return $scope.users = [];
+            });
+        }
+
+        $scope.userFilter = function(user) {
+            var fullname = user.firstname + ' ' + user.lastname;
+            return fullname.match(new RegExp($scope._issue.assignee, 'i'));
+        }
+
+        $scope.update = function() {
+            $uibModalInstance.close($scope._issue);
+        }
+    
+        $scope.close = function() {
+            $uibModalInstance.dismiss('cancel');
+        }
     }
-}
+
+    modalInstController.$inject = ['$scope', '$uibModalInstance', 'restFactory'];
+
+    angular.module('break')
+    .controller('issueController', IssueEditor)
+    .controller('modalInstController', modalInstController);
+})()

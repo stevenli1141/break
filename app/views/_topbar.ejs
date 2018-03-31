@@ -1,4 +1,4 @@
-<nav class="topbar">
+<nav class="navbar topbar">
   <div class="navbar-right dropdown user-profile">
     <% if (user) { %>
       <a class="dropdown-toggle user-profile-toggle"
@@ -12,7 +12,7 @@
 
       <div class="dropdown-menu dropdown-menu-right">
         <div class="dropdown-item dropdown-username"><%= user.name() %></div>
-        <a href="" class="dropdown-item">Profile</a>
+        <a href="/users/<%= user._id %>" class="dropdown-item">Profile</a>
         <a href="/settings" class="dropdown-item">Settings</a>
         <div class="dropdown-divider"></div>
         <a href="/logout" class="dropdown-item">Log out</a>
@@ -21,12 +21,12 @@
       <a href="/login" class="btn btn-theme">Log in</a>
     <% } %>
   </div>
-
-  <div class="nav navbar-header">
+  
+  <div class="navbar-left navbar-header">
     <a href="/" class="navbar-brand break-title">Break</a>
   </div>
   
-  <ul class="navbar-items">
+  <ul class="navbar-left navbar-items hidden-xs hidden-sm">
     <% if (user) { %>
       <li class="nav-item"><a href="/" class="topbar-link">Dashboard</a></li>
       <% if (user.admin && user.organization) { %>
@@ -37,4 +37,6 @@
       <li class="nav-item"><a href="/issues/new" class="topbar-link">Create</a></li>
     <% } %>
   </ul>
+
+  
 </nav>

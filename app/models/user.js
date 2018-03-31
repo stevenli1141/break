@@ -8,8 +8,9 @@ let schema = mongoose.Schema;
 let user = mongoose.Schema({
     email: {
         type: String,
-        required: true,
-        index: true
+        index: true,
+        unique: true,
+        required: true
     },
     firstname: {
         type: String,
@@ -24,7 +25,13 @@ let user = mongoose.Schema({
         required: true
     },
     title: {
-        type: String
+        type: String,
+        required: true
+    },
+    projects: {
+        type: [schema.Types.ObjectId],
+        ref: 'Project',
+        default: []
     },
     admin: {
         type: Boolean,
@@ -39,6 +46,8 @@ let user = mongoose.Schema({
         default: Date.now
     }
 });
+
+user.index({ email: 1 }, { unique: true });
 
 let includes = function(next) {
     this.populate('organization');

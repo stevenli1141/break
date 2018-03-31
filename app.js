@@ -35,7 +35,7 @@ app.set('view engine', 'ejs');
 
 app.use(layouts);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('secretKey'));
 app.use(cookieSession({
     key: 'secretKey',

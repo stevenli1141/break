@@ -9,6 +9,7 @@
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #c4c4c4;
+    border-radius: 0px;
     padding: 0px 20px;
     background-color: white;
     z-index: 1;
@@ -22,9 +23,6 @@
     text-decoration: none;
 }
 
-.navbar-collapse, .navbar-nav{
-    height: 100%;
-}
 
 .navbar-items {
     height: 100%;
@@ -125,8 +123,19 @@
 }
 
 .project-list,
-.issue-list {
+.issue-list,
+.record-list {
     padding: 12px;
+}
+
+.horizontal-spacer {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.dropdown-menu {
+    overflow-y: auto;
+    z-index: 1051;
 }
 
 @media (max-width: 676px) {

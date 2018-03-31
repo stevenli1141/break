@@ -3,21 +3,27 @@ let Issue = require('../models/issue');
 let Project = require('../models/project');
 let Sprint = require('../models/sprint');
 let User = require('../models/user');
+let debug = require('debug')('http');
 
 router.get('/issues', async (req, res) => {
     try {
-        let issues = [];
-        if (req.query.project) {
-            issues = await Issue.find({ key: new RegExp('^' + req.query.project + '-') }).sort('key').exec();
-        } else if(req.query.assigned) {
-            issues = await Issue.find({ assignee: req.user._id}).sort('key').exec();
-        } else {
-            let project_ids = await Project.find({ organization: req.user.organization._id }).select('_id');
-            issues = await Issue.find({ project: project_ids }).sort('key').exec();
-        }
         res.format({
-            html: () => { res.render('issues/index', { issues: issues }); },
-            json: () => { res.send(issues); }
+            html: () => { res.render('issues/index'); },
+            json: async () => {
+                let projects = await Project.find({ organization: req.user.organization._id });
+                let params = { project: projects };
+                if (req.query.projectkey && req.query.projectkey.length > 0) {
+                    params.key = new RegExp('^' + req.query.projectkey + '-');
+                }
+                if (req.query.title && req.query.title.length > 0) {
+                    params.title = new RegExp(req.query.title, 'i');
+                }
+                if (req.query.assigned) {
+                    params.assignee = req.query.assigned;
+                }
+                let issues = await Issue.find(params).populate('assignee').sort({ key: -1 }).exec();
+                res.send(issues);
+            }
         });
     } catch (err) { next(err); }
 });
@@ -32,7 +38,10 @@ router.get('/issues/:key', (req, res, next) => {
             html: () => { res.render('issues/show', { key: req.params.key }); },
             json: async () => {
                 let issue = await Issue.findOne({ key: req.params.key })
-                    .populate('project').populate('sprint').populate('assignee').exec();
+                    .populate('project')
+                    .populate('sprint')
+                    .populate('assignee')
+                    .populate('reporter').exec();
                 res.send(issue);
             }
         });
@@ -42,6 +51,7 @@ router.get('/issues/:key', (req, res, next) => {
 router.post('/issues', async (req, res, next) => {
     try {
         let issue = new Issue(req.body);
+        issue.reporter = req.user._id;
         let project = await Project.findByIdAndUpdate(req.body.project, {
             $inc: { total: 1 }
         }, {
@@ -66,14 +76,16 @@ router.post('/issues', async (req, res, next) => {
 
 router.put('/issues/:key', async (req, res, next) => {
     try {
+        req.body.assignee = req.body.assignee._id;
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
-        }).populate('project').exec();
+        }).populate('project').populate('assignee').exec();
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }
         });
     } catch (err) {
+        debug(err);
         req.flash('error', 'Failed to update ' + req.params.key);
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },

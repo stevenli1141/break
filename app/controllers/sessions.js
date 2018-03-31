@@ -7,11 +7,16 @@ module.exports = (app, passport) => {
         res.render('login', { title: 'Log in', error: req.flash('error'), user: null, csrfToken: req.csrfToken() });
     });
 
-    app.post('/login', authorize.requireOffline, passport.authenticate('local-login', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
+    app.post('/login', authorize.requireOffline, (req, res, next) => {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) { return next(err); }
+            if (!user) { return res.redirect('/login'); }
+            req.logIn(user, (err) => {
+                if (err) return next(err);
+                return res.redirect('/dashboard');
+            });
+        })(req, res, next);
+    });
 
     app.get('/logout', authorize.requireLogin, (req, res) => {
         req.logout();

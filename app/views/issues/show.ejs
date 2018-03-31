@@ -1,4 +1,4 @@
-<div class="issue-content" ng-app="issue">
+<div class="issue-content">
   
   <div ng-controller="issueController">
     <div class="issue-title">{{issue.key}} {{issue.title}}</div>
@@ -6,97 +6,127 @@
       <a class="btn btn-issue" ng-click="open()">Edit</a>
     </div>
 
-    <table class="issue-table">
-      <tr class="issue-property">
-        <td>Project</td>
-        <td ng-cloak>{{issue.project.name}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Sprint</td>
-        <td ng-cloak>{{issue.sprint.name || 'None'}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Type</td>
-        <td ng-cloak>{{issue.type}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Priority</td>
-        <td ng-cloak>{{issue.priority}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Status</td>
-        <td ng-cloak>{{issue.status}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Labels</td>
-        <td ng-cloak>{{issue.labels | formatLabels}}</td>
-      </tr>
-    </table>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="issue-table">
+          <tr class="issue-property">
+            <td class="issue-property-label">Project</td>
+            <td ng-cloak>{{issue.project.name}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Sprint</td>
+            <td ng-cloak>{{issue.sprint.name || 'None'}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Type</td>
+            <td ng-cloak>{{issue.type}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Priority</td>
+            <td ng-cloak>{{issue.priority}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Status</td>
+            <td ng-cloak>{{issue.status}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Labels</td>
+            <td ng-cloak>{{issue.labels | formatLabels}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="issue-table">
+          <tr class="issue-property">
+            <td class="issue-property-label">Assigned to</td>
+            <td><a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a></td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Reporter</td>
+            <td><a href="/users/{{issue.reporter._id}}">{{issue.reporter | fullname}}</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
     <div class="issue-desc-header">Description</div>
     <div class="issue-desc">
-      <p class="issue-desc-text" ng-cloak>{{issue.description}}</p>
+      <p class="issue-desc-text" ng-bind-html="issue.description | markdown"></p>
     </div>
 
     <!--<div class="activity" ng-controller="activity"></div>-->
-  
-    <script type="text/ng-template" id="modal.html">
-      <div class="modal-header">
-        <h5 ng-bind="_issue.title"></h5>
-        <button type="button" class="close" aria-label="close" ng-click="close()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body form-horizontal">
-        <div class="form-group row">
-          <label for="title" class="col-md-3 control-label">Title</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" name="title" ng-model="_issue.title">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="type" class="col-md-3 control-label">Type</label>
-          <div class="col-md-9">
-            <select name="type" class="form-control">
-              <option value="Task">Task</option>
-              <option value="Subtask">Subtask</option>
-              <option value="Project">Project</option>
-              <option value="Bug">Bug</option>
-              <option value="Upgrade">Upgrade</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="priority" class="col-md-3 control-label">Priority</label>
-          <div class="col-md-9">
-            <select name="priority" class="form-control">
-              <option value="Blocker">Blocker</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="sprint" class="col-md-3 control-label">Sprint</label>
-          <div class="col-md-9">
-            <input type="text" name="sprint" class="form-control">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="description" class="col-md-3 control-label">Description</label>
-          <div class="col-md-9">
-            <textarea name="description" class="form-control" ng-model="_issue.description"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-theme" ng-click="update()">Update issue</button>
-        <button class="btn btn-default" ng-click="close()">Cancel</button>
-      </div>
-    </script>
   </div>
 </div>
+<script type="text/ng-template" id="modal.html">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="close" ng-click="close()">
+      <span aria-hidden="true"><i class="fa fa-times"></i></span>
+    </button>
+    <h5 class="modal-title" ng-bind="_issue.title"></h5>
+  </div>
+  <div class="modal-body form-horizontal">
+    <div class="form-group row">
+      <label for="title" class="col-md-3 control-label">Title</label>
+      <div class="col-md-9">
+        <input type="text" class="form-control" name="title" ng-model="_issue.title">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="assignee" class="col-md-3 control-label">Assign to</label>
+      <div class="col-md-9">
+        <input type="text" class="form-control" name="assignee" autocomplete="off" ng-model="_issue.assignee"
+          ng-change="loadUsers()" uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
+          typeahead-template-url="typeaheadTemplate.html">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="type" class="col-md-3 control-label">Type</label>
+      <div class="col-md-9">
+        <select name="type" class="form-control">
+          <option value="Task">Task</option>
+          <option value="Subtask">Subtask</option>
+          <option value="Project">Project</option>
+          <option value="Bug">Bug</option>
+          <option value="Upgrade">Upgrade</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="priority" class="col-md-3 control-label">Priority</label>
+      <div class="col-md-9">
+        <select name="priority" class="form-control">
+          <option value="Blocker">Blocker</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="sprint" class="col-md-3 control-label">Sprint</label>
+      <div class="col-md-9">
+        <input type="text" name="sprint" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-md-3 control-label">Description</label>
+      <div class="col-md-9">
+        <textarea name="description" class="form-control" ng-model="_issue.description" rows="7"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-theme" ng-click="update()">Update issue</button>
+    <button class="btn btn-default" ng-click="close()">Cancel</button>
+  </div>
+</script>
+<script type="text/ng-template" id="typeaheadTemplate.html">
+  <a>
+    <span class="break-icon"></span>
+    <strong>{{match.model | fullname}}</strong>
+    <small>{{match.model.title}}</small>
+  </a>
+</script>
 
 <%- contentFor('title') %>
 <%= key %>
