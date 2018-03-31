@@ -1,5 +1,21 @@
 (function() {
     function IssueEditor($scope, $uibModal, restFactory) {
+        var resolutions = {
+            'Planning': 'Start Progress',
+            'In Progress': 'Resolve',
+            'Resolved': 'Promote',
+            'Promoted': 'Close',
+            'Closed': 'Reopen'
+        };
+
+        var next_status = {
+            'Planning': 'In Progress',
+            'In Progress': 'Resolved',
+            'Resolved': 'Promoted',
+            'Promoted': 'Closed',
+            'Closed': 'Planning'
+        };
+
         $scope.issue = {};
         
         restFactory.get(window.location.pathname).then(function(data) {
@@ -14,6 +30,18 @@
                 return data;
             }).catch(function(err) {
                 return [];
+            });
+        }
+
+        $scope.nextStatus = function() {
+            return resolutions[$scope.issue.status];
+        }
+
+        $scope.advance = function() {
+            $scope.issue.status = next_status[$scope.issue.status];
+            restFactory.put(window.location.pathname, $scope.issue).then(function(data) {
+                $scope.issue = data;
+                $scope.$apply;
             });
         }
 

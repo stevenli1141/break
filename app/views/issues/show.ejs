@@ -4,6 +4,7 @@
     <div class="issue-title">{{issue.key}} {{issue.title}}</div>
     <div class="issue-actions">
       <a class="btn btn-issue" ng-click="open()">Edit</a>
+      <a class="btn btn-issue" ng-click="advance()" ng-cloak>{{nextStatus()}}</a>
     </div>
 
     <div class="row">
