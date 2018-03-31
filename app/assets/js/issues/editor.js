@@ -59,7 +59,6 @@
             });
 
             modalInstance.result.then(function(issue) {
-                issue.assignee_id = issue.assignee._id;
                 restFactory.put(window.location.pathname, issue).then(function(data) {
                     $scope.issue = data;
                     $scope.$apply();

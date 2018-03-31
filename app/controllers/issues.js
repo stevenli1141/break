@@ -10,7 +10,7 @@ router.get('/issues', async (req, res) => {
         res.format({
             html: () => { res.render('issues/index'); },
             json: async () => {
-                let projects = await Project.find({ organization: req.user.organization._id });
+                let projects = await Project.find({ organization: req.user.organization._id }).select('_id').exec();
                 let params = { project: projects };
                 if (req.query.projectkey && req.query.projectkey.length > 0) {
                     params.key = new RegExp('^' + req.query.projectkey + '-');
@@ -18,10 +18,15 @@ router.get('/issues', async (req, res) => {
                 if (req.query.title && req.query.title.length > 0) {
                     params.title = new RegExp(req.query.title, 'i');
                 }
-                if (req.query.assigned) {
-                    params.assignee = req.query.assigned;
+                debug('Query');
+                debug(req.query);
+                if (req.query.assigned === 'true') {
+                    params.assignee = req.user._id;
                 }
-                let issues = await Issue.find(params).populate('assignee').sort({ key: -1 }).exec();
+                if (req.query.openOnly === 'true') {
+                    params.status = { $not: /^Closed$/ };
+                }
+                let issues = await Issue.find(params).sort({ created_at: -1 }).populate('assignee').exec();
                 res.send(issues);
             }
         });
@@ -50,6 +55,8 @@ router.get('/issues/:key', (req, res, next) => {
 
 router.post('/issues', async (req, res, next) => {
     try {
+        let params = req.body;
+        if (params.assignee === '') { delete params.assignee; }
         let issue = new Issue(req.body);
         issue.reporter = req.user._id;
         let project = await Project.findByIdAndUpdate(req.body.project, {
@@ -58,7 +65,7 @@ router.post('/issues', async (req, res, next) => {
             new: true
         }).exec();
         issue.key = project.key + '-' + project.total.toString();
-        
+
         issue = await issue.save();
         
         res.format({
@@ -66,6 +73,7 @@ router.post('/issues', async (req, res, next) => {
             json: () => { res.send(issue); }
         });
     } catch (err) {
+        debug(err);
         req.flash('error', 'Failed to create issue');
         res.format({
             html: () => { res.redirect('/issues/new'); },
@@ -76,7 +84,9 @@ router.post('/issues', async (req, res, next) => {
 
 router.put('/issues/:key', async (req, res, next) => {
     try {
-        req.body.assignee = req.body.assignee._id;
+        if (req.body.assignee) {
+            req.body.assignee = req.body.assignee._id;
+        }
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
         }).populate('project').populate('assignee').exec();

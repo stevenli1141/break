@@ -142,4 +142,8 @@
     .main-content {
         margin-left: 0px;
     }
+
+    .horizontal-spacer {
+        display: none;
+    }
 }

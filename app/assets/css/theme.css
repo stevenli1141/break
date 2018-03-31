@@ -48,8 +48,11 @@
 .type-task {
     background-color: #5bc0de;
 }
-.type-upgrade {
+.type-feature {
     background-color: #095adc;
+}
+.type-upgrade {
+    background-color: #c4a100;
 }
 .type-project {
     background-color: #60c400;
@@ -127,6 +130,14 @@
 
 .center-block {
     text-align: center;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right: {
+    float: right;
 }
 
 textarea {
