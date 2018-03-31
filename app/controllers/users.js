@@ -61,4 +61,20 @@ router.post('/users', authorize.requireAdmin, async (req, res) => {
     }
 });
 
+router.put('/users', authorize.requireAdmin, async (req, res) => {
+    try {
+        //
+        res.format({
+            html: () => { res.redirect('/users/' + req.bodys._id); },
+            json: () => { res.send(user); }
+        });
+    } catch (err) {
+        req.flash('error', 'Failed');
+        res.format({
+            html: () => { res.redirect('/users/' + req.body._id); },
+            json: () => { res.status(500).send(err); }
+        });
+    }
+});
+
 module.exports = router;

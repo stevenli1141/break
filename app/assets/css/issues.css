@@ -3,6 +3,7 @@
 }
 
 .issue-title {
+    padding: 8px 0px;
     font-size: 24px;
 }
 
@@ -15,7 +16,7 @@
 }
 
 .issue-property-label {
-    width: 40%;
+    width: 30%;
 }
 
 .issue-desc-header {

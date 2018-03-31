@@ -57,11 +57,14 @@ let issue = mongoose.Schema({
     },
     created_at: {
         type: Date,
+        default: Date.now
     }
 });
 
 issue.pre('save', function(next) {
-    if (!this.created_at) this.created_at = Date.now;
+    if (!this.created_at) {
+        this.created_at = Date.now;
+    }
     next();
 });
 

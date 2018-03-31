@@ -3,11 +3,6 @@
   <div class="filters form-inline">
     <p class="filter-title">Filter</p>
     <div class="form-group">
-      <label>Contains</label>
-      <input type="text" class="form-control" ng-model="filters.title" ng-change="update()">
-    </div>
-    <span class="horizontal-spacer"></span>
-    <div class="form-group">
       <label>Project</label>
       <input type="text" class="form-control" ng-model="filters.project"
             uib-typeahead="project as project.key for project in loadProjects()"
@@ -15,27 +10,50 @@
             typeahead-template-url="typeaheadTemplate.html">
     </div>
     <span class="horizontal-spacer"></span>
+    <div class="form-group">
+      <label>Contains</label>
+      <input type="text" class="form-control" ng-model="filters.title" ng-change="update()">
+    </div>
+    <span class="horizontal-spacer"></span>
+    <div class="form-group">
+      <label>Open only</label>
+      <input type="checkbox" ng-model="filters.openOnly" ng-change="update()">
+    </div>
+    <span class="horizontal-spacer"></span>
+    <div class="form-group">
+      <label>My issues only</label>
+      <input type="checkbox" ng-model="filters.assigned" ng-change="update()">
+    </div>
+    <span class="horizontal-spacer"></span>
     <button class="btn btn-theme" ng-click="update()">Apply filter</button>
   </div>
-  <table class="table">
+  <table class="table table-responsive">
     <thead>
       <tr>
-        <th>Issue Key</th>
+        <th class="hidden-xs">Issue Key</th>
         <th>Title</th>
-        <th>Assigned to</th>
-        <th>Status</th>
+        <th class="hidden-xs">Assigned to</th>
+        <th class="hidden-xs">Status</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="issue in issues">
-        <td ng-cloak>{{issue.key}}</td>
+        <td class="hidden-xs" ng-cloak>{{issue.key}}</td>
         <td>
+          <span class="visible-xs" ng-cloak>{{issue.key}}</span>
           <a href="/issues/{{issue.key}}" ng-cloak>{{issue.title}}</a>
+          <div class="badge type-{{issue.type | cssclass}}" ng-cloak>{{issue.type}}</div>
+          <div class="visible-xs">
+            <span ng-if="issue.assignee">Assigned to</span>
+            <a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a>
+          </div>
         </td>
-        <td>
+        <td class="hidden-xs">
           <a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a>
         </td>
-        <td ng-cloak>{{issue.status}}</td>
+        <td class="hidden-xs">
+          <span class="badge status-{{issue.status | cssclass}}" ng-cloak>{{issue.status}}</span>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -7,7 +7,9 @@
         var getParams = function() {
             return {
                 title: $scope.filters.title,
-                projectkey: $scope.filters.project.key
+                projectkey: $scope.filters.project.key,
+                openOnly: $scope.filters.openOnly,
+                assigned: $scope.filters.assigned
             };
         }
 
@@ -22,6 +24,7 @@
         });
 
         $scope.update = function() {
+            console.log(getParams());
             restFactory.get('/issues', getParams()).then(function(data) {
                 $scope.issues = data;
                 $scope.$apply();
@@ -31,9 +34,7 @@
         };
 
         $scope.loadProjects = function() {
-            return restFactory.get('/projects', {
-                name: $scope.filters.project
-            }).then(function(data) {
+            return restFactory.get('/projects', { name: $scope.filters.project }).then(function(data) {
                 return data;
             }).catch(function(err) {
                 return [];

@@ -1,9 +1,10 @@
 <div class="issue-content">
   
   <div ng-controller="issueController">
-    <div class="issue-title">{{issue.key}} {{issue.title}}</div>
+    <div class="issue-title"><strong>{{issue.key}}</strong> {{issue.title}}</div>
     <div class="issue-actions">
       <a class="btn btn-issue" ng-click="open()">Edit</a>
+      <a class="btn btn-issue" ng-click="advance()" ng-cloak>{{nextStatus()}}</a>
     </div>
 
     <div class="row">
@@ -12,7 +13,7 @@
           <tr class="issue-property">
             <td class="issue-property-label">Project</td>
             <td ng-cloak>{{issue.project.name}}</td>
-          </tr>
+          </tr>         
           <tr class="issue-property">
             <td class="issue-property-label">Sprint</td>
             <td ng-cloak>{{issue.sprint.name || 'None'}}</td>
@@ -45,6 +46,10 @@
             <td class="issue-property-label">Reporter</td>
             <td><a href="/users/{{issue.reporter._id}}">{{issue.reporter | fullname}}</a></td>
           </tr>
+          <tr class="issue-property">
+              <td class="issue-property-label">Created on</td>
+              <td ng-cloak>{{issue.created_at | date:'MMM d, y h:mm a'}}</td>
+            </tr>
         </table>
       </div>
     </div>

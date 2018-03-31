@@ -40,7 +40,9 @@ let project = mongoose.Schema({
 });
 
 project.pre('save', function(next) {
-    if (!this.created_at) this.created_at = Date.now;
+    if (!this.created_at) {
+        this.created_at = Date.now;
+    }
     next();
 });
 
