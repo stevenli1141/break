@@ -46,9 +46,7 @@ router.get('/projects/:key/edit', async (req, res, next) => {
 });
 
 router.post('/projects', authorize.requireAdmin, async (req, res) => {
-    let project = new Project();
-    project.key = req.body.key;
-    project.name = req.body.name;
+    let project = new Project(req.body);
     project.total = 0;
     project.organization = req.user.organization._id;
     project.save().then((project) => {

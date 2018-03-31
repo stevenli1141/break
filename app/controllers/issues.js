@@ -10,7 +10,8 @@ router.get('/issues', async (req, res) => {
         res.format({
             html: () => { res.render('issues/index'); },
             json: async () => {
-                let params = {};
+                let projects = await Project.find({ organization: req.user.organization._id });
+                let params = { project: projects };
                 if (req.query.projectkey && req.query.projectkey.length > 0) {
                     params.key = new RegExp('^' + req.query.projectkey + '-');
                 }
@@ -37,7 +38,10 @@ router.get('/issues/:key', (req, res, next) => {
             html: () => { res.render('issues/show', { key: req.params.key }); },
             json: async () => {
                 let issue = await Issue.findOne({ key: req.params.key })
-                    .populate('project').populate('sprint').populate('assignee').exec();
+                    .populate('project')
+                    .populate('sprint')
+                    .populate('assignee')
+                    .populate('reporter').exec();
                 res.send(issue);
             }
         });
@@ -46,8 +50,8 @@ router.get('/issues/:key', (req, res, next) => {
 
 router.post('/issues', async (req, res, next) => {
     try {
-        debug(req.body);
         let issue = new Issue(req.body);
+        issue.reporter = req.user._id;
         let project = await Project.findByIdAndUpdate(req.body.project, {
             $inc: { total: 1 }
         }, {

@@ -3,29 +3,28 @@
     <div class="panel-title"><a href="/users">Manage Users</a></div>
     <div class="panel-body">
       <ul class="panel-list-group">
-        <li class="panel-list-item new-user">
-          <a class="btn btn-theme"><i class="fa fa-plus"></i> Add new user</a>
-        </li>
         <li class="panel-list-item no-records" ng-if="users.length === 0" ng-cloak>No users to show</li>
-        <li class="panel-list-item" ng-repeat="user in users">
+        <li class="panel-list-item" ng-repeat="user in users | limitTo:4">
           <a href="/users/{{user._id}}">{{user.firstname}} {{user.lastname}}</a>
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="panel" ng-controller="projectsController">
-    <div class="panel-title"><a href="/projects">Manage Projects</a></div>
-    <div class="panel-body">
-      <ul class="panel-list-group">
-        <li class="panel-list-item new-user">
-          <a class="btn btn-theme" href="/projects/new"><i class="fa fa-plus"></i> Add new project</a>
-        </li>
-        <li class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</li>
-        <li class="panel-list-item" ng-repeat="project in projects">
-          <a href="/projects/{{project.key}}" ng-cloak>{{project.name}}</a>
-        </li>
-      </ul>
+  <div class="grid-panel" ng-controller="projectsController">
+    <div class="grid-panel-header">
+      <a class="grid-panel-title" href="/projects">Manage Projects</a>
+    </div>
+    <div class="grid-panel-body">
+      <div class="row">
+        <p class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</li>
+        <div class="col-md-3" ng-repeat="project in projects | limitTo:8">
+          <div class="grid-item">
+            <strong><a href="/projects/{{project.key}}" ng-cloak>{{project.name}}</a></strong>
+            <div ng-cloak>{{project.type}}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -7,11 +7,15 @@
 }
 
 .issue-table {
-    width: 50%;
+    width: 100%;
 }
 
 .issue-property > td {
     padding: 6px 0px;
+}
+
+.issue-property-label {
+    width: 40%;
 }
 
 .issue-desc-header {

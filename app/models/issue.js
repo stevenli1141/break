@@ -51,6 +51,10 @@ let issue = mongoose.Schema({
         type: schema.Types.ObjectId,
         ref: 'User'
     },
+    reporter: {
+        type: schema.Types.ObjectId,
+        ref: 'User'
+    },
     created_at: {
         type: Date,
     }

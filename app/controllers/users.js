@@ -18,7 +18,7 @@ router.get('/users', async (req, res) => {
                 let regex = new RegExp(req.query.name.replace(' ', '|'), 'i');
                 filters.$or = [ { firstname: regex }, { lastname: regex } ];
             }
-            let users = await User.find(filters).sort('firstname');
+            let users = await User.find(filters).sort('firstname').exec();
             res.send(users);
         }
     });

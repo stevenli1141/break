@@ -7,7 +7,7 @@
       <label for="project" class="col-md-3 control-label">Project</label>
       <div class="col-md-9">
         <input type="hidden" name="project" value="{{project._id}}">
-        <input type="text" name="ngproject" class="form-control" ng-model="project"
+        <input type="text" name="ngproject" class="form-control" autocomplete="off" ng-model="project"
           uib-typeahead="project as project.key for project in loadProjects($viewValue)"
           typeahead-template-url="typeaheadProject.html">
       </div>
@@ -22,7 +22,8 @@
         <label for="assignee" class="col-md-3 control-label">Assign to</label>
         <div class="col-md-9">
           <input type="hidden" name="assignee" value="{{assignee._id}}">
-          <input type="text" class="form-control" name="ngassignee" ng-model="assignee" ng-change="loadUsers()"
+          <input type="text" class="form-control" name="ngassignee" autocomplete="off"
+            ng-model="assignee" ng-change="loadUsers()"
             uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
             typeahead-template-url="typeaheadUser.html">
         </div>

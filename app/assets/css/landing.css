@@ -1,0 +1,14 @@
+.landing-content {
+    margin-top: 50px;
+}
+
+.landing-banner {
+    padding: 5% 10%;
+    text-align: left;
+}
+
+@media (max-width: 676px) {
+    .landing-banner {
+        text-align: center;
+    }
+}

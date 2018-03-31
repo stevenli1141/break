@@ -6,34 +6,48 @@
       <a class="btn btn-issue" ng-click="open()">Edit</a>
     </div>
 
-    <table class="issue-table">
-      <tr class="issue-property">
-        <td>Project</td>
-        <td ng-cloak>{{issue.project.name}}</td>
-        <td>Assigned to</td>
-        <td><a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname }}</a></td>
-      </tr>
-      <tr class="issue-property">
-        <td>Sprint</td>
-        <td ng-cloak>{{issue.sprint.name || 'None'}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Type</td>
-        <td ng-cloak>{{issue.type}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Priority</td>
-        <td ng-cloak>{{issue.priority}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Status</td>
-        <td ng-cloak>{{issue.status}}</td>
-      </tr>
-      <tr class="issue-property">
-        <td>Labels</td>
-        <td ng-cloak>{{issue.labels | formatLabels}}</td>
-      </tr>
-    </table>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="issue-table">
+          <tr class="issue-property">
+            <td class="issue-property-label">Project</td>
+            <td ng-cloak>{{issue.project.name}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Sprint</td>
+            <td ng-cloak>{{issue.sprint.name || 'None'}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Type</td>
+            <td ng-cloak>{{issue.type}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Priority</td>
+            <td ng-cloak>{{issue.priority}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Status</td>
+            <td ng-cloak>{{issue.status}}</td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Labels</td>
+            <td ng-cloak>{{issue.labels | formatLabels}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="issue-table">
+          <tr class="issue-property">
+            <td class="issue-property-label">Assigned to</td>
+            <td><a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a></td>
+          </tr>
+          <tr class="issue-property">
+            <td class="issue-property-label">Reporter</td>
+            <td><a href="/users/{{issue.reporter._id}}">{{issue.reporter | fullname}}</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
     <div class="issue-desc-header">Description</div>
     <div class="issue-desc">
@@ -45,10 +59,10 @@
 </div>
 <script type="text/ng-template" id="modal.html">
   <div class="modal-header">
-    <h5 ng-bind="_issue.title"></h5>
     <button type="button" class="close" aria-label="close" ng-click="close()">
       <span aria-hidden="true"><i class="fa fa-times"></i></span>
     </button>
+    <h5 class="modal-title" ng-bind="_issue.title"></h5>
   </div>
   <div class="modal-body form-horizontal">
     <div class="form-group row">
@@ -60,7 +74,7 @@
     <div class="form-group row">
       <label for="assignee" class="col-md-3 control-label">Assign to</label>
       <div class="col-md-9">
-        <input type="text" class="form-control" name="assignee" ng-model="_issue.assignee"
+        <input type="text" class="form-control" name="assignee" autocomplete="off" ng-model="_issue.assignee"
           ng-change="loadUsers()" uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
           typeahead-template-url="typeaheadTemplate.html">
       </div>
@@ -109,7 +123,8 @@
 <script type="text/ng-template" id="typeaheadTemplate.html">
   <a>
     <span class="break-icon"></span>
-    <span>{{match.model | fullname}}</span>
+    <strong>{{match.model | fullname}}</strong>
+    <small>{{match.model.title}}</small>
   </a>
 </script>
 

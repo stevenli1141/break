@@ -1,4 +1,4 @@
-element {
+:root {
     --theme-color: #095adc;
 }
 
@@ -8,7 +8,8 @@ element {
     background-color: #095adc;
     color: white;
 }
-.btn-theme:hover {
+.btn-theme:hover,
+.btn-theme:focus {
     background-color: #0a68f5;
     color: white;
 }
