@@ -31,11 +31,12 @@
         <td ng-cloak>{{issue.key}}</td>
         <td>
           <a href="/issues/{{issue.key}}" ng-cloak>{{issue.title}}</a>
+          <div class="badge type-{{issue.type | cssclass}}" ng-cloak>{{issue.type}}</div>
         </td>
         <td>
           <a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a>
         </td>
-        <td ng-cloak>{{issue.status}}</td>
+        <td><span class="badge status-{{issue.status | cssclass}}" ng-cloak>{{issue.status}}</span></td>
       </tr>
     </tbody>
   </table>

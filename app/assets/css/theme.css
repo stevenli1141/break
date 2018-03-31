@@ -31,6 +31,46 @@
     background-color: #f6f6f6;
 }
 
+.type-label {
+    display: inline-block;
+    border-radius: 100px;
+    padding: 3px 6px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* Colour scheme */
+
+.type-bug {
+    background-color: #f0ad4e;
+}
+.type-task {
+    background-color: #5bc0de;
+}
+.type-upgrade {
+    background-color: #095adc;
+}
+.type-project {
+    background-color: #60c400;
+}
+
+.status-planning {
+    background-color: #c4c4c4;
+}
+.status-in-progress {
+    background-color: #f0ad4e;
+}
+.status-resolved {
+    background-color: #095adc;
+}
+.status-promoted {
+    background-color: #5bc0de;
+}
+.status-closed {
+    background-color: #5cb85c;
+}
+
 /* Typography */
 
 .no-records {

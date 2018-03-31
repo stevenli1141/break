@@ -82,5 +82,11 @@
             if (!user) return '';
             return user.firstname + ' ' + user.lastname;
         }
+    })
+    .filter('cssclass', function() {
+        return function(text) {
+            text = text || '';
+            return text.toLowerCase().replace(' ', '-');
+        }
     });
 })(angular)
