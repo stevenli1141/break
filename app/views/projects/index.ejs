@@ -1,6 +1,5 @@
 <div class="project-list" ng-controller="projectsController">
   <h3>Projects</h3>
-  <p class="no-records-text" ng-if="projects.length === 0" ng-cloak>There are currently no projects</p>
   <table class="table projects-table">
     <thead>
       <tr>
@@ -19,6 +18,7 @@
       </tr>
     </tbody>
   </table>
+  <p class="no-records" ng-if="projects.length === 0" ng-cloak>There are currently no projects</p>
   <a class="btn btn-theme" href="#project_modal" data-toggle="modal">
     <i class="fa fa-plus"></i> Add new project</a>
 </div>

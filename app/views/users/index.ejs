@@ -1,7 +1,6 @@
 <div class="record-list" ng-controller="usersController">
   <h3>Users</h3>
   <%- include('../_flash') %>
-  <p class="no-records-text" ng-if="users.length === 0">There are currently no users</p>
   <table ng-if="users.length > 0" class="table projects-table">
     <thead>
       <tr>

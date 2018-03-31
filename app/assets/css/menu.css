@@ -135,7 +135,7 @@
 
 .dropdown-menu {
     overflow-y: auto;
-    z-index: 1051 !important;
+    z-index: 1051;
 }
 
 @media (max-width: 676px) {

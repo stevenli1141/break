@@ -79,6 +79,16 @@
     user-select: none;
 }
 
+/* Spacing */
+
+.body-content {
+    padding: 20px 80px;
+}
+
+.center-block {
+    text-align: center;
+}
+
 textarea {
     white-space: pre-line;
 }

@@ -1,7 +1,5 @@
 'use strict';
 
-let debug = require('debug')('http');
-
 exports.requireLogin = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
@@ -23,8 +21,6 @@ exports.requireOffline = (req, res, next) => {
 }
 
 exports.requireAdmin = (req, res, next) => {
-    debug('Require admin');
-    debug(req.user.admin);
     if (req.isAuthenticated() && req.user.admin) {
         return next();
     }

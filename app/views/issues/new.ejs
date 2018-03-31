@@ -1,4 +1,4 @@
-<div class="issue-form" ng-controller="issuesFormController">
+<div class="issue-form body-content" ng-controller="issuesFormController">
   <%- include('../_flash') %>
   <form action="/issues" method="POST" class="form-horizontal" id="issueform">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -57,7 +57,9 @@
         <textarea name="description" form="issueform" class="form-control" rows="5"></textarea>
       </div>
     </div>
-    <button type="submit" class="btn btn-theme">Create issue</button>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-theme">Create issue</button>
+    </div>
   </form>
 </div>
 <script type="text/ng-template" id="typeaheadProject.html">
@@ -70,7 +72,8 @@
 <script type="text/ng-template" id="typeaheadUser.html">
   <a>
     <span class="break-icon"></span>
-    <span>{{match.model | fullname}}</span>
+    <strong>{{match.model | fullname}}</strong>
+    <small>{{match.model.title}}</small>
   </a>
 </script>
 
