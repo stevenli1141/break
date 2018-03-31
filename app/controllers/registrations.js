@@ -1,5 +1,6 @@
 'use strict';
 
+let User = require('../models/user');
 let authorize = require('../helpers/authorize');
 
 module.exports = (app, passport) => {
@@ -12,4 +13,23 @@ module.exports = (app, passport) => {
         failureRedirect: '/signup',
         failureFlash: true
     }));
+
+    app.post('/settings', authorize.requireLogin, async (req, res) => {
+        try {
+            let user = await User.findByIdAndUpdate(req.user._id).exec();
+            user.password = req.body.password;
+            user = await user.save();
+            req.flash('notice', 'Settings successfully updated');
+            res.format({
+                html: () => { res.redirect('/users/' + req.user._id); },
+                json: () => { res.send(user); }
+            });
+        } catch(err) {
+            req.flash('error', 'Failed to update');
+            res.format({
+                html: () => { res.redirect('/users/' + req.user._id ); },
+                json: () => { res.status(500).send(); }
+            });
+        }
+    });
 }
