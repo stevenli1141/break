@@ -44,6 +44,6 @@ module.exports = (app) => {
 
     app.use((err, req, res, next) => {
         res.status(404);
-        res.render('error', { err: err });
+        res.render('error', { err: err, user: null, csrfToken: req.csrfToken() });
     });
 }

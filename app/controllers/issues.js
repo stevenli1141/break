@@ -14,19 +14,23 @@ router.get('/issues', async (req, res) => {
                 let params = { project: projects };
                 if (req.query.projectkey && req.query.projectkey.length > 0) {
                     params.key = new RegExp('^' + req.query.projectkey + '-');
+                } else if (req.query.key) {
+                    params.key = new RegExp('^' + req.query.key, 'i');
                 }
                 if (req.query.title && req.query.title.length > 0) {
                     params.title = new RegExp(req.query.title, 'i');
                 }
-                debug('Query');
-                debug(req.query);
                 if (req.query.assigned === 'true') {
                     params.assignee = req.user._id;
                 }
                 if (req.query.openOnly === 'true') {
                     params.status = { $not: /^Closed$/ };
                 }
-                let issues = await Issue.find(params).sort({ created_at: -1 }).populate('assignee').exec();
+                if (req.query.relates_to) {
+                    params.relates_to = req.query.relates_to;
+                }
+                let limit = Number(req.query.limit) || 50;
+                let issues = await Issue.find(params).sort({ created_at: -1 }).limit(limit).populate('assignee').exec();
                 res.send(issues);
             }
         });
@@ -45,6 +49,7 @@ router.get('/issues/:key', (req, res, next) => {
                 let issue = await Issue.findOne({ key: req.params.key })
                     .populate('project')
                     .populate('sprint')
+                    .populate('relates_to')
                     .populate('assignee')
                     .populate('reporter').exec();
                 res.send(issue);
@@ -57,7 +62,8 @@ router.post('/issues', async (req, res, next) => {
     try {
         let params = req.body;
         if (params.assignee === '') { delete params.assignee; }
-        let issue = new Issue(req.body);
+        if (params.relates_to === '') { delete params.relates_to; }
+        let issue = new Issue(params);
         issue.reporter = req.user._id;
         let project = await Project.findByIdAndUpdate(req.body.project, {
             $inc: { total: 1 }
@@ -87,9 +93,12 @@ router.put('/issues/:key', async (req, res, next) => {
         if (req.body.assignee) {
             req.body.assignee = req.body.assignee._id;
         }
+        if (req.body.relates_to) {
+            req.body.relates_to = req.body.relates_to._id;
+        }
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
-        }).populate('project').populate('sprint').populate('assignee').populate('reporter').exec();
+        }).populate('project').populate('sprint').populate('relates_to').populate('assignee').populate('reporter').exec();
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }

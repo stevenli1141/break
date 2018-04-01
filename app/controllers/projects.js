@@ -27,6 +27,7 @@ router.get('/projects', async (req, res, next) => {
 router.get('/projects/:key', async (req, res, next) => {
     try {
         let project = await Project.findOne({ key: req.params.key }).populate('lead').exec();
+        if (!project) { throw new Error('Not found'); }
         res.format({
             html: () => { res.render('projects/main', { project: project }); },
             json: () => { res.json(project); }
@@ -37,7 +38,7 @@ router.get('/projects/:key', async (req, res, next) => {
 router.get('/projects/:key/edit', async (req, res, next) => {
     try {
         let project = await Project.findOne({ key: req.params.key }).populate('lead').exec();
-        if (!req.user.admin && !project.lead._id.equals(req.user._id)) {
+        if (!project || !req.user.admin && !project.lead._id.equals(req.user._id)) {
             throw new Error('Unauthorized access');
         }
         res.format({

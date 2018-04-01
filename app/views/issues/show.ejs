@@ -31,10 +31,15 @@
             <td ng-cloak>{{issue.status}}</td>
           </tr>
           <tr class="issue-property">
+            <td class="issue-property-label">Relates to</td>
+            <td ng-cloak>{{issue.relates_to.key}} {{issue.relates_to.title}}</td>
+          </tr>
+          <tr class="issue-property">
             <td class="issue-property-label">Labels</td>
             <td ng-cloak>{{issue.labels | formatLabels}}</td>
           </tr>
         </table>
+        
       </div>
       <div class="col-md-6">
         <table class="issue-table">
@@ -51,6 +56,18 @@
               <td ng-cloak>{{issue.created_at | date:'MMM d, y h:mm a'}}</td>
             </tr>
         </table>
+      </div>
+    </div>
+    <div class="row" ng-if="related_issues.length > 0">
+      <div class="col-md-6 related-issues-section">
+        <div class="section-label">Related</div>
+        <ul class="related-issues">
+          <li class="related-issue" ng-repeat="related in related_issues">
+            <span class="pull-right badge type-{{related.type | cssclass}}">{{related.type}}</span>
+            <a href="/issues/{{related.key}}">{{related.key}}</a>
+            <span>{{related.title}}</span>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -81,7 +98,7 @@
       <div class="col-md-9">
         <input type="text" class="form-control" name="assignee" autocomplete="off" ng-model="_issue.assignee"
           ng-change="loadUsers()" uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
-          typeahead-template-url="typeaheadTemplate.html">
+          typeahead-template-url="/typeaheadUser.html">
       </div>
     </div>
     <div class="form-group row">
@@ -114,6 +131,14 @@
       </div>
     </div>
     <div class="form-group row">
+      <label for="relates_to" class="col-md-3 control-label">Relates to</label>
+      <div class="col-md-9">
+        <input type="text" name="sprint" class="form-control" ng-model="_issue.relates_to"
+          uib-typeahead="related as related.key for related in loadIssues($viewValue)"
+          typeahead-template-url="/typeaheadIssue.html">
+      </div>
+    </div>
+    <div class="form-group row">
       <label for="description" class="col-md-3 control-label">Description</label>
       <div class="col-md-9">
         <textarea name="description" class="form-control" ng-model="_issue.description" rows="7"></textarea>
@@ -125,13 +150,7 @@
     <button class="btn btn-default" ng-click="close()">Cancel</button>
   </div>
 </script>
-<script type="text/ng-template" id="typeaheadTemplate.html">
-  <a>
-    <span class="break-icon"></span>
-    <strong>{{match.model | fullname}}</strong>
-    <small>{{match.model.title}}</small>
-  </a>
-</script>
+
 
 <%- contentFor('title') %>
 <%= key %>

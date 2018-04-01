@@ -1,46 +1,53 @@
-<div class="registration-form">
-  <h2>Get started</h2>
-  <hr>
-  <form action="signup" accept-charset="UTF-8" method="POST">
-    <div class="form-group">
-      <%- include('_flash') %>
-      <h3 class="narrow">Create an account for your organization and project</h3>
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-      <div class="form-group">
-        <label for="username">Email</label>
-        <input type="text" class="form-control" name="email" id="email" required>
-      </div>
-      <div class="form-group">
-        <label for="firstname">First Name</label>
-        <input type="text" class="form-control" name="firstname" id="firstname" required>
-      </div>
-      <div class="form-group">
-        <label for="lastname">Last Name</label>
-        <input type="text" class="form-control" name="lastname" id="lastname" required>
-      </div>
-      <div class="form-group">
-        <label for="orgname">Organization name</label>
-        <input type="text" class="form-control" name="orgname" id="orgname" required>
-      </div>
-      <div class="form-group">
-        <label for="orgtype">Organization type</label>
-        <input type="text" class="form-control" name="orgtype" id="orgtype" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password <small class="password-condition">Must be at least 7 characters long</small></label>
-        <input type="password" class="form-control" name="password" id="password" required>
-      </div>
-      <div class="form-group">
-        <label for="confirm">Confirm Password</label>
-        <input type="password" class="form-control" name="confirm" id="confirm" required>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 registration-form">
+    <h2>Get started</h2>
+    <hr>
+    <h4 class="narrow">Create an account for your organization and project</h4>
+    <form action="signup" accept-charset="UTF-8" method="POST">
+      <div class="form-group row">
+        <%- include('_flash') %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="username">Email</label>
+            <input type="text" class="form-control" name="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" name="firstname" id="firstname" required>
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" name="lastname" id="lastname" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password <small class="password-condition">Must be at least 7 characters long</small></label>
+            <input type="password" class="form-control" name="password" id="password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" class="form-control" name="confirm" id="confirm" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="orgname">Organization name</label>
+            <input type="text" class="form-control" name="orgname" id="orgname" required>
+          </div>
+          <div class="form-group">
+            <label for="orgtype">Organization type</label>
+            <input type="text" class="form-control" name="orgtype" id="orgtype" required>
+          </div>
+        </div>
       </div>
       <div class="confirm-group">
         <button type="submit" class="btn btn-theme">Create account</button>
       </div>
-    </div>
-  </form>
-  <p>Already have an account?</p>
-  <a href="/login" class="btn btn-default">Log in</a>
+    </form>
+    <hr>
+    <p>Already have an account?</p>
+    <a href="/login" class="btn btn-default">Log in</a>
+  </div>
 </div>
 
 <%- contentFor('title') %>

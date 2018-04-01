@@ -72,6 +72,5 @@
     IssuesFormCtrl.$inject = ['$scope', 'restFactory'];
 
     angular.module('break')
-    .controller('issuesController', IssuesCtrl)
-    .controller('issuesFormController', IssuesFormCtrl);
+    .controller('issuesController', IssuesCtrl);
 })()

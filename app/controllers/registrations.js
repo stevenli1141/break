@@ -14,6 +14,10 @@ module.exports = (app, passport) => {
         failureFlash: true
     }));
 
+    app.get('/settings', authorize.requireLogin, async (req, res) => {
+        res.render('settings', { user: req.user, csrfToken: req.csrfToken() });
+    });
+
     app.post('/settings', authorize.requireLogin, async (req, res) => {
         try {
             let user = await User.findByIdAndUpdate(req.user._id).exec();
