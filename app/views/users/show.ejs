@@ -10,18 +10,11 @@
     <label class="control-label">Add user to project: </label>
     <input type="text" class="form-control" ng-model="project"
       uib-typeahead="project as project.key for project in loadProjects()"
-      typeahead-template-url="typeaheadProject.html">
+      typeahead-template-url="/typeaheadProject.html">
     <div class="horizontal-spacer"></div>
     <button class="btn btn-theme" ng-click="addUserToProject(project)">Add</button>
   </div>
 </div>
-<script type="text/ng-template" id="typeaheadProject.html">
-  <a>
-    <span class="break-icon"></span>
-    <strong>{{match.label}}</strong>
-    <small>&nbsp&nbsp{{match.model.name}}</small>
-  </a>
-</script>
 
 <%- contentFor('title') %>
 <%= user.name() %>

@@ -62,7 +62,7 @@
       <div class="col-md-9">
         <input type="text" name="lead" class="form-control" ng-model="_project.lead"
           uib-typeahead="user as (user | fullname) for user in loadUsers()"
-          typeahead-template-url="typeaheadUser.html">
+          typeahead-template-url="/typeaheadUser.html">
       </div>
     </div>
   </div>
@@ -85,7 +85,7 @@
       <div class="col-md-9">
         <input type="text" name="lead" class="form-control" ng-model="_user"
           uib-typeahead="user as (user | fullname) for user in loadUsers()"
-          typeahead-template-url="typeaheadUser.html">
+          typeahead-template-url="/typeaheadUser.html">
       </div>
     </div>
   </div>
@@ -94,13 +94,6 @@
     <button class="btn btn-theme" ng-click="update()">Update project</button>
     <button class="btn btn-default" ng-click="close()">Cancel</button>
   </div>
-</script>
-<script type="text/ng-template" id="typeaheadUser.html">
-  <a>
-    <span class="break-icon"></span>
-    <strong>{{match.label}}</strong>
-    <small>&nbsp&nbsp{{match.model.title}}</small>
-  </a>
 </script>
 
 <%- contentFor('title') %>

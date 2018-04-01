@@ -10,7 +10,7 @@
           <input type="hidden" name="project" value="{{project._id}}">
           <input type="text" name="ngproject" class="form-control" autocomplete="off" ng-model="project"
             uib-typeahead="project as project.key for project in loadProjects($viewValue)"
-            typeahead-template-url="typeaheadProject.html">
+            typeahead-template-url="/typeaheadProject.html">
         </div>
       </div>
       <div class="form-group row">
@@ -26,7 +26,7 @@
             <input type="text" name="ngassignee" class="form-control" autocomplete="off"
               ng-model="assignee" ng-change="loadUsers()"
               uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
-              typeahead-template-url="typeaheadUser.html">
+              typeahead-template-url="/typeaheadUser.html">
           </div>
         </div>
       <div class="form-group row">
@@ -53,11 +53,12 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="relates_to" class="col-md-3 control-label">Relates to</label>
+        <input type="hidden" name="relates_to" value="{{relates_to._id}}">
+        <label for="relates_to_key" class="col-md-3 control-label">Relates to</label>
         <div class="col-md-9">
-          <input type="text" name="relates_to" class="form-control" autocomplete="off" ng-model="relates_to"
+          <input type="text" name="relates_to_key" class="form-control" autocomplete="off" ng-model="relates_to"
             uib-typeahead="issue as issue.key for issue in loadIssues($viewValue)"
-            typeahead-template-url="typeaheadIssue.html">
+            typeahead-template-url="/typeaheadIssue.html">
         </div>
       </div>
       <div class="form-group row">
@@ -72,27 +73,7 @@
     </form>
   </div>
 </div>
-<script type="text/ng-template" id="typeaheadProject.html">
-  <a>
-    <span class="break-icon"></span>
-    <strong>{{match.label}}</strong>
-    <small>&nbsp&nbsp{{match.model.name}}</small>
-  </a>
-</script>
-<script type="text/ng-template" id="typeaheadUser.html">
-  <a>
-    <span class="break-icon"></span>
-    <strong>{{match.model | fullname}}</strong>
-    <small>{{match.model.title}}</small>
-  </a>
-</script>
-<script type="text/ng-template" id="typeaheadIssue.html">
-  <a>
-    <span class="break-icon"></span>
-    <strong>{{match.model.key}}</strong>
-    <small>{{match.model.title}}</small>
-  </a>
-</script>
+
 
 <%- contentFor('title') %>
 Create new issue

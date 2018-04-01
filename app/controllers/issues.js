@@ -27,7 +27,7 @@ router.get('/issues', async (req, res) => {
                     params.status = { $not: /^Closed$/ };
                 }
                 if (req.query.relates_to) {
-                    params.relates_to = req.query.relates_to._id;
+                    params.relates_to = req.query.relates_to;
                 }
                 let limit = Number(req.query.limit) || 50;
                 let issues = await Issue.find(params).sort({ created_at: -1 }).limit(limit).populate('assignee').exec();
@@ -49,6 +49,7 @@ router.get('/issues/:key', (req, res, next) => {
                 let issue = await Issue.findOne({ key: req.params.key })
                     .populate('project')
                     .populate('sprint')
+                    .populate('relates_to')
                     .populate('assignee')
                     .populate('reporter').exec();
                 res.send(issue);
@@ -61,8 +62,8 @@ router.post('/issues', async (req, res, next) => {
     try {
         let params = req.body;
         if (params.assignee === '') { delete params.assignee; }
-        if (params.relates_to) { params.relates_to = params.relates_to._id; }
-        let issue = new Issue(req.body);
+        if (params.relates_to === '') { delete params.relates_to; }
+        let issue = new Issue(params);
         issue.reporter = req.user._id;
         let project = await Project.findByIdAndUpdate(req.body.project, {
             $inc: { total: 1 }
@@ -92,9 +93,12 @@ router.put('/issues/:key', async (req, res, next) => {
         if (req.body.assignee) {
             req.body.assignee = req.body.assignee._id;
         }
+        if (req.body.relates_to) {
+            req.body.relates_to = req.body.relates_to._id;
+        }
         let issue = await Issue.findOneAndUpdate({ key: req.params.key }, req.body, {
             new: true
-        }).populate('project').populate('sprint').populate('assignee').populate('reporter').exec();
+        }).populate('project').populate('sprint').populate('relates_to').populate('assignee').populate('reporter').exec();
         res.format({
             html: () => { res.redirect('/issues/' + req.params.key); },
             json: () => { res.send(issue); }

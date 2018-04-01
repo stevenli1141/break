@@ -19,6 +19,26 @@
     width: 30%;
 }
 
+.related-issues-section {
+    margin: 12px 0px;
+}
+
+.related-issues {
+    margin: 12px 0px;
+    border: 1px solid #e1e1e1;
+    border-bottom: none;
+    padding: 0px;
+}
+
+.related-issue {
+    border-bottom: 1px solid #e1e1e1;
+    padding: 8px 16px;
+    list-style-type: none;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
 .issue-desc-header {
     margin-bottom: 8px;
     border-bottom: 1px solid #c4c4c4;

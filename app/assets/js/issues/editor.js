@@ -17,16 +17,29 @@
         };
 
         $scope.issue = {};
+        $scope.related_issues = [];
         
         restFactory.get(window.location.pathname).then(function(data) {
             $scope.issue = data;
             $scope.$apply();
+            return restFactory.get('/issues', { relates_to: $scope.issue._id });
+        }).then(function(data) {
+            $scope.related_issues = data;
+            $scope.$apply();
         }).catch(function(err) {
-            $scope.issue = {};
+            alert('Error loading issues');
         });
 
         $scope.loadUsers = function() {
             restFactory.get('/users').then(function(data) {
+                return data;
+            }).catch(function(err) {
+                return [];
+            });
+        }
+
+        $scope.loadIssues = function(value) {
+            return restFactory.get('/issues', { key: value, limit: 6 }).then(function(data) {
                 return data;
             }).catch(function(err) {
                 return [];
