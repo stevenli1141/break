@@ -32,7 +32,7 @@
           </tr>
           <tr class="issue-property">
             <td class="issue-property-label">Relates to</td>
-            <td ng-cloak>{{issue.relates_to.key}} {{issue.relates_to.title}}</td>
+            <td ng-cloak><a href="/issues/{{issue.relates_to.key}}">{{issue.relates_to.key}}</a> {{issue.relates_to.title}}</td>
           </tr>
           <tr class="issue-property">
             <td class="issue-property-label">Labels</td>
