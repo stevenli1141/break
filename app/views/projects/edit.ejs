@@ -1,9 +1,107 @@
-<form action="/projects/<%= project.key %>" method="PUT">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-  <label>Name</label>
-  <input type="text" name="name" value="<%= project.name %>">
-  <button type="submit" class="btn btn-success">Edit</button>
-</form>
+<div class="body-content" ng-controller="projectController">
+  <h1 ng-cloak>{{project.key}} <small>{{project.name}}</small></h1>
+  <div class="grid-panel">
+    <div class="grid-panel-header">
+      <button class="btn btn-theme" ng-click="openProjectModal()">Edit Project Settings</button>
+    </div>
+    <div class="grid-panel-body">
+      <h4>Project lead</h4>
+      <div class="row">
+        <div class="col-md-2" ng-if="project.lead">
+          <div class="grid-item center-block">
+            <div>
+              <i class="fa fa-2x fa-user"></i>
+            </div>
+            <a href="/users/{{project.lead._id}}" ng-cloak>{{project.lead | fullname}}</a>
+            <div ng-cloak>{{project.lead.title}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-panel-body">
+      <h4>Members</h4>
+      <a href="" ng-click="openUserModal()"><i class="fa fa-plus"></i> Add users</a>
+      <div class="row">
+        <p class="no-records" ng-if="users.length === 0" ng-cloak>No users to show</p>
+        <div class="col-md-2" ng-repeat="user in users | limitTo:24">
+          <div class="grid-item center-block">
+            <div>
+              <i class="fa fa-2x fa-user"></i>
+            </div>
+            <a href="/users/{{user._id}}">{{user.firstname}} {{user.lastname}}</a>
+            <div ng-cloak>{{user.title}}</div>
+            <div><a href="" ng-click="removeUser(user._id)">Remove</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/ng-template" id="projectModal.html">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="close" ng-click="close()">
+      <span aria-hidden="true"><i class="fa fa-times"></i></span>
+    </button>
+    <h5 class="modal-title">Add Project</h5>
+  </div>
+  <div class="modal-body form-horizontal">
+    <div class="form-group row">
+      <label for="title" class="col-md-3 control-label">Name</label>
+      <div class="col-md-9">
+        <input type="text" name="name" class="form-control" ng-model="_project.name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="type" class="col-md-3 control-label">Type</label>
+      <div class="col-md-9">
+        <input type="text" name="type" class="form-control" ng-model="_project.type">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="lead" class="col-md-3 control-label">Project lead</label>
+      <div class="col-md-9">
+        <input type="text" name="lead" class="form-control" ng-model="_project.lead"
+          uib-typeahead="user as (user | fullname) for user in loadUsers()"
+          typeahead-template-url="typeaheadUser.html">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-theme" ng-click="update()">Update project</button>
+    <button class="btn btn-default" ng-click="close()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="userModal.html">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="close" ng-click="close()">
+      <span aria-hidden="true"><i class="fa fa-times"></i></span>
+    </button>
+    <h5 class="modal-title">Add User</h5>
+  </div>
+  <div class="modal-body form-horizontal">
+    <div class="form-group row">
+      <label for="lead" class="col-md-3 control-label">User</label>
+      <div class="col-md-9">
+        <input type="text" name="lead" class="form-control" ng-model="_user"
+          uib-typeahead="user as (user | fullname) for user in loadUsers()"
+          typeahead-template-url="typeaheadUser.html">
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-theme" ng-click="update()">Update project</button>
+    <button class="btn btn-default" ng-click="close()">Cancel</button>
+  </div>
+</script>
+<script type="text/ng-template" id="typeaheadUser.html">
+  <a>
+    <span class="break-icon"></span>
+    <strong>{{match.label}}</strong>
+    <small>&nbsp&nbsp{{match.model.title}}</small>
+  </a>
+</script>
 
 <%- contentFor('title') %>
 Edit project

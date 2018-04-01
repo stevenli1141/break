@@ -116,6 +116,25 @@
     border-right: 1px solid #c4c4c4;
 }
 
+.sidebar-icons {
+    margin: 0px;
+    padding: 0px;
+}
+
+.sidebar-link {
+    display: block;
+    height: 70px;
+    padding: 15px;
+    text-align: center;
+    list-style-type: none;
+}
+
+.sidebar-icon {
+    width: 40px;
+    font-size: 24px;
+    color: #555;
+}
+
 .footer {
     margin-top: 20px;
     border-top: 1px solid #e1e1e1;

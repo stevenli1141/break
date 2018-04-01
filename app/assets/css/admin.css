@@ -8,11 +8,11 @@
 }
 
 .grid-panel-header {
-    border-bottom: 1px solid #e1e1e1;
     padding: 12px;
 }
 
 .grid-panel-body {
+    border-top: 1px solid #e1e1e1;
     padding: 12px;
 }
 

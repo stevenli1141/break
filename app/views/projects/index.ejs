@@ -1,25 +1,27 @@
 <div class="project-list" ng-controller="projectsController">
   <h3>Projects</h3>
-  <table class="table projects-table">
+  <table class="table table-responsive">
     <thead>
       <tr>
         <th>Project Key</th>
         <th>Name</th>
         <th>Type</th>
         <th>Lead</th>
+        <th ng-if="admin()" ng-cloak>Edit</th>
       </tr>
     </thead>
     <tbody>
       <tr class="project-name-row" ng-repeat="project in projects">
-        <td ng-bind="project.key"></td>
+        <td  ng-cloak>{{project.key}}</td>
         <td><a href="/projects/{{project.key}}" ng-bind="project.name"></a></td>
         <td ng-bind="project.type"></td>
-        <td ng-cloak>{{project.lead.name | fullname}}</td>
+        <td ng-cloak>{{project.lead | fullname}}</td>
+        <td ng-if="admin()"><a href="/projects/{{project.key}}/edit">Edit</a> </td>
       </tr>
     </tbody>
   </table>
   <p class="no-records" ng-if="projects.length === 0" ng-cloak>There are currently no projects</p>
-  <a class="btn btn-theme" href="#project_modal" data-toggle="modal">
+  <a class="btn btn-theme" href="#project_modal" data-toggle="modal" ng-if="admin()">
     <i class="fa fa-plus"></i> Add new project</a>
 </div>
 
