@@ -18,8 +18,6 @@ router.get('/issues', async (req, res) => {
                 if (req.query.title && req.query.title.length > 0) {
                     params.title = new RegExp(req.query.title, 'i');
                 }
-                debug('Query');
-                debug(req.query);
                 if (req.query.assigned === 'true') {
                     params.assignee = req.user._id;
                 }

@@ -15,7 +15,7 @@
         <td  ng-cloak>{{project.key}}</td>
         <td><a href="/projects/{{project.key}}" ng-bind="project.name"></a></td>
         <td ng-bind="project.type"></td>
-        <td ng-cloak>{{project.lead | fullname}}</td>
+        <td><a href="/users/{{project.lead._id}}" ng-cloak>{{project.lead | fullname}}</a></td>
         <td ng-if="admin()"><a href="/projects/{{project.key}}/edit">Edit</a> </td>
       </tr>
     </tbody>
