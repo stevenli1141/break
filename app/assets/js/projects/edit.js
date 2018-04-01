@@ -1,7 +1,6 @@
 (function() {
     function ProjectCtrl($scope, $uibModal, restFactory) {
         restFactory.get(window.location.pathname).then(function(data) {
-            console.log(data);
             $scope.project = data;
             $scope.$apply();
             return restFactory.get('/users', { project: $scope.project._id });
@@ -12,7 +11,7 @@
             // TODO Handle error
         });
 
-        $scope.open = function() {
+        $scope.openProjectModal = function() {
             var modalInstance = $uibModal.open({
                 templateUrl: 'projectModal.html',
                 controller: 'projectModalController',
@@ -76,6 +75,10 @@
     }
 
     ProjectModalCtrl.$inject = ['$scope', '$uibModalInstance', 'restFactory'];
+
+    function UserModalCtrl($scope, $uibModalInstance, restFactory, project) {
+        //
+    }
 
     angular.module('break')
     .controller('projectController', ProjectCtrl)

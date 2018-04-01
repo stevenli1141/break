@@ -34,9 +34,12 @@ router.get('/projects/:key', async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
-router.get('/projects/:key/edit', authorize.requireAdmin, async (req, res, next) => {
+router.get('/projects/:key/edit', async (req, res, next) => {
     try {
         let project = await Project.findOne({ key: req.params.key }).populate('lead').exec();
+        if (!req.user.admin && !project.lead._id.equals(req.user._id)) {
+            throw new Error('Unauthorized access');
+        }
         res.format({
             html: () => { res.render('projects/edit', { error: req.flash('error') }); },
             json: () => { res.send(project); }

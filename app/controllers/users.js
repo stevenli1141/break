@@ -6,6 +6,9 @@ let User = require('../models/user');
 let debug = require('debug')('http');
 
 router.get('/user', async (req, res) => {
+    if (req.query.projects === 'true') {
+        return res.send(await User.findById(req.user).populate('projects').exec());
+    }
     res.send(req.user);
 });
 

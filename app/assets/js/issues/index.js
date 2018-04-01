@@ -13,8 +13,11 @@
             };
         }
 
-        restFactory.get('/user').then(function(user) {
-            if (user.projects) { $scope.filters.project = user.projects; }
+        restFactory.get('/user', { projects: true }).then(function(user) {
+            if (user.projects.length > 0) {
+                $scope.filters.project = user.projects[0];
+                $scope.$apply();
+            }
             return restFactory.get('/issues', getParams());
         }).then(function(data) {
             $scope.issues = data;
@@ -24,7 +27,6 @@
         });
 
         $scope.update = function() {
-            console.log(getParams());
             restFactory.get('/issues', getParams()).then(function(data) {
                 $scope.issues = data;
                 $scope.$apply();

@@ -2,7 +2,7 @@
   <h1 ng-cloak>{{project.key}} <small>{{project.name}}</small></h1>
   <div class="grid-panel">
     <div class="grid-panel-header">
-      <button class="btn btn-theme" ng-click="open()">Edit Project Settings</button>
+      <button class="btn btn-theme" ng-click="openProjectModal()">Edit Project Settings</button>
     </div>
     <div class="grid-panel-body">
       <h4>Project lead</h4>
@@ -20,6 +20,7 @@
     </div>
     <div class="grid-panel-body">
       <h4>Members</h4>
+      <a href="" ng-click="addUser()"><i class="fa fa-plus"></i> Add users</a>
       <div class="row">
         <p class="no-records" ng-if="users.length === 0" ng-cloak>No users to show</p>
         <div class="col-md-2" ng-repeat="user in users | limitTo:24">
