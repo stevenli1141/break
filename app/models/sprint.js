@@ -24,7 +24,8 @@ let sprint = mongoose.Schema({
         ref: 'Project'
     },
     created_at: {
-        type: Date
+        type: Date,
+        default: Date.now
     }
 });
 

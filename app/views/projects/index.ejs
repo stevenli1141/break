@@ -7,14 +7,16 @@
         <th>Name</th>
         <th>Type</th>
         <th>Lead</th>
+        <th ng-if="admin()" ng-cloak>Edit</th>
       </tr>
     </thead>
     <tbody>
       <tr class="project-name-row" ng-repeat="project in projects">
-        <td  ng-cloak><a ng-if="admin()" href="/projects/{{project.key}}/edit">Edit</a> {{project.key}}</td>
+        <td  ng-cloak>{{project.key}}</td>
         <td><a href="/projects/{{project.key}}" ng-bind="project.name"></a></td>
         <td ng-bind="project.type"></td>
         <td ng-cloak>{{project.lead | fullname}}</td>
+        <td ng-if="admin()"><a href="/projects/{{project.key}}/edit">Edit</a> </td>
       </tr>
     </tbody>
   </table>

@@ -1,7 +1,13 @@
 <div class="body-content" ng-controller="projectController">
   <h1 ng-cloak>{{project.key}} <small>{{project.name}}</small></h1>
-  <button class="btn btn-theme" ng-click="open()">Edit Project Settings</button>
-  <div>Lead: <span ng-bind="project.lead | fullname"></span></div>
+  <div class="grid-panel">
+    <div class="grid-panel-header">
+      <button class="btn btn-theme" ng-click="open()">Edit Project Settings</button>
+    </div>
+    <div class="grid-panel-body">
+      <div><strong>Project lead</strong><div ng-bind="project.lead | fullname"></div></div>
+    </div>
+  </div>
 </div>
 <script type="text/ng-template" id="projectModal.html">
   <div class="modal-header">

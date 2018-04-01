@@ -35,7 +35,8 @@ let project = mongoose.Schema({
         ref: 'User'
     },
     created_at: {
-        type: Date
+        type: Date,
+        default: Date.now
     }
 });
 
