@@ -1,16 +1,21 @@
+.login-background {
+    height: calc(100vh - 50px);
+    background-color: #f6f6f6;
+}
+
 .login-form {
-    width: 50%;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-top: 16px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
     padding: 25px 40px;
+    background-color: white;
+}
+
+.login-body {
+    margin: 20px;
 }
 
 .registration-form {
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -26,4 +31,14 @@
 
 .get-started-text {
     color: #777;
+}
+
+@media (max-width: 676px) {
+    .login-background {
+        background-color: white;
+    }
+    .login-form {
+        border: none;
+        border-radius: 0px;
+    }
 }

@@ -1,19 +1,25 @@
-<div class="login-form">
-  <p>Log in to your account</p>
-  <%- include('_flash') %>
-  <form action="/login" accept-charset="UTF-8" method="POST">
-    <input name="utf8" type="hidden" value="&#x2713;" />
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-    <div class="form-group">
-      <input class="form-control" placeholder="Enter your email" autofocus="autofocus" type="text" value="" name="email" id="email" />
+<div class="login-background row">
+  <div class="col-md-4 col-md-offset-4 login-form">
+    <div class="center-block">
+      <h2>Break</h2>
+      <strong>Log in to your account</strong>
     </div>
-    <div class="form-group">
-      <input class="form-control" placeholder="Password" autocomplete="off" type="password" name="password" id="password" />
+    <div class="login-body center-block">
+      <form action="/login" accept-charset="UTF-8" method="POST">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <div class="form-group">
+          <input class="form-control" placeholder="Enter your email" autofocus="autofocus" type="text" value="" name="email" id="email" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" placeholder="Password" autocomplete="off" type="password" name="password" id="password" />
+        </div>
+        <input type="submit" name="commit" value="Continue" class="btn btn-theme btn-wide" data-disable-with="Log in" />
+      </form>
+      <hr>
+      <a href="/signup">Sign up for an account</a>
     </div>
-    <input type="submit" name="commit" value="Continue" class="btn btn-theme" data-disable-with="Log in" />
-  </form>
-  <hr>
-  <a href="/signup">Sign up for an account</a>
+  </div>
 </div>
 
 <%- contentFor('title') %>
