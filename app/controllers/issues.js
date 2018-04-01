@@ -14,6 +14,8 @@ router.get('/issues', async (req, res) => {
                 let params = { project: projects };
                 if (req.query.projectkey && req.query.projectkey.length > 0) {
                     params.key = new RegExp('^' + req.query.projectkey + '-');
+                } else if (req.query.key) {
+                    params.key = new RegExp('^' + req.query.key, 'i');
                 }
                 if (req.query.title && req.query.title.length > 0) {
                     params.title = new RegExp(req.query.title, 'i');
@@ -24,7 +26,11 @@ router.get('/issues', async (req, res) => {
                 if (req.query.openOnly === 'true') {
                     params.status = { $not: /^Closed$/ };
                 }
-                let issues = await Issue.find(params).sort({ created_at: -1 }).populate('assignee').exec();
+                if (req.query.relates_to) {
+                    params.relates_to = req.query.relates_to._id;
+                }
+                let limit = Number(req.query.limit) || 50;
+                let issues = await Issue.find(params).sort({ created_at: -1 }).limit(limit).populate('assignee').exec();
                 res.send(issues);
             }
         });
@@ -55,6 +61,7 @@ router.post('/issues', async (req, res, next) => {
     try {
         let params = req.body;
         if (params.assignee === '') { delete params.assignee; }
+        if (params.relates_to) { params.relates_to = params.relates_to._id; }
         let issue = new Issue(req.body);
         issue.reporter = req.user._id;
         let project = await Project.findByIdAndUpdate(req.body.project, {

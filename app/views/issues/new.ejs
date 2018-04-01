@@ -1,66 +1,76 @@
-<div class="new-issue-container" ng-controller="issuesFormController">
-  <%- include('../_flash') %>
-  <form action="/issues" method="POST" class="form-horizontal" id="issueform">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <input type="hidden" name="status" value="Planning">
-    <div class="form-group row">
-      <label for="project" class="col-md-3 control-label">Project</label>
-      <div class="col-md-9">
-        <input type="hidden" name="project" value="{{project._id}}">
-        <input type="text" name="ngproject" class="form-control" autocomplete="off" ng-model="project"
-          uib-typeahead="project as project.key for project in loadProjects($viewValue)"
-          typeahead-template-url="typeaheadProject.html">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="title" class="col-md-3 control-label">Title</label>
-      <div class="col-md-9">
-        <input type="text" class="form-control" name="title" id="title" required>
-      </div>
-    </div>
-    <div class="form-group row">
-        <label for="assignee" class="col-md-3 control-label">Assign to</label>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 new-issue-form" ng-controller="issuesFormController">
+    <%- include('../_flash') %>
+    <form action="/issues" method="POST" class="form-horizontal" id="issueform">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <input type="hidden" name="status" value="Planning">
+      <div class="form-group row">
+        <label for="project" class="col-md-3 control-label">Project</label>
         <div class="col-md-9">
-          <input type="hidden" name="assignee" value="{{assignee._id}}">
-          <input type="text" class="form-control" name="ngassignee" autocomplete="off"
-            ng-model="assignee" ng-change="loadUsers()"
-            uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
-            typeahead-template-url="typeaheadUser.html">
+          <input type="hidden" name="project" value="{{project._id}}">
+          <input type="text" name="ngproject" class="form-control" autocomplete="off" ng-model="project"
+            uib-typeahead="project as project.key for project in loadProjects($viewValue)"
+            typeahead-template-url="typeaheadProject.html">
         </div>
       </div>
-    <div class="form-group row">
-        <label for="type" class="col-md-3 control-label">Type</label>
+      <div class="form-group row">
+        <label for="title" class="col-md-3 control-label">Title</label>
         <div class="col-md-9">
-          <select name="type" class="form-control">
-            <option value="Task">Task</option>
-            <option value="Feature">Feature</option>
-            <option value="Project">Project</option>
-            <option value="Bug">Bug</option>
-            <option value="Upgrade">Upgrade</option>
+          <input type="text" class="form-control" name="title" id="title" required>
+        </div>
+      </div>
+      <div class="form-group row">
+          <label for="assignee" class="col-md-3 control-label">Assign to</label>
+          <div class="col-md-9">
+            <input type="hidden" name="assignee" value="{{assignee._id}}">
+            <input type="text" name="ngassignee" class="form-control" autocomplete="off"
+              ng-model="assignee" ng-change="loadUsers()"
+              uib-typeahead="user as (user | fullname) for user in users | filter:userFilter"
+              typeahead-template-url="typeaheadUser.html">
+          </div>
+        </div>
+      <div class="form-group row">
+          <label for="type" class="col-md-3 control-label">Type</label>
+          <div class="col-md-9">
+            <select name="type" class="form-control">
+              <option value="Task">Task</option>
+              <option value="Feature">Feature</option>
+              <option value="Project">Project</option>
+              <option value="Bug">Bug</option>
+              <option value="Upgrade">Upgrade</option>
+            </select>
+          </div>
+        </div>
+      <div class="form-group row">
+        <label for="priority" class="col-md-3 control-label">Priority</label>
+        <div class="col-md-9">
+          <select name="priority" class="form-control">
+            <option value="Blocker">Blocker</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
         </div>
       </div>
-    <div class="form-group row">
-      <label for="priority" class="col-md-3 control-label">Priority</label>
-      <div class="col-md-9">
-        <select name="priority" class="form-control">
-          <option value="Blocker">Blocker</option>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select>
+      <div class="form-group row">
+        <label for="relates_to" class="col-md-3 control-label">Relates to</label>
+        <div class="col-md-9">
+          <input type="text" name="relates_to" class="form-control" autocomplete="off" ng-model="relates_to"
+            uib-typeahead="issue as issue.key for issue in loadIssues($viewValue)"
+            typeahead-template-url="typeaheadIssue.html">
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="description" class="col-md-3 control-label">Description</label>
-      <div class="col-md-9">
-        <textarea name="description" form="issueform" class="form-control" rows="5"></textarea>
+      <div class="form-group row">
+        <label for="description" class="col-md-3 control-label">Description</label>
+        <div class="col-md-9">
+          <textarea name="description" form="issueform" class="form-control" rows="5"></textarea>
+        </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-theme">Create issue</button>
-    </div>
-  </form>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-theme">Create issue</button>
+      </div>
+    </form>
+  </div>
 </div>
 <script type="text/ng-template" id="typeaheadProject.html">
   <a>
@@ -73,6 +83,13 @@
   <a>
     <span class="break-icon"></span>
     <strong>{{match.model | fullname}}</strong>
+    <small>{{match.model.title}}</small>
+  </a>
+</script>
+<script type="text/ng-template" id="typeaheadIssue.html">
+  <a>
+    <span class="break-icon"></span>
+    <strong>{{match.model.key}}</strong>
     <small>{{match.model.title}}</small>
   </a>
 </script>
