@@ -44,7 +44,11 @@ router.get('/issues/new', (req, res) => {
 router.get('/issues/:key', (req, res, next) => {
     try {
         res.format({
-            html: () => { res.render('issues/show', { key: req.params.key }); },
+            html: async () => {
+                let issue = await Issue.findOne({ key: req.params.key });
+                if (!issue) { next(new Error()); }
+                res.render('issues/show', { key: req.params.key });
+            },
             json: async () => {
                 let issue = await Issue.findOne({ key: req.params.key })
                     .populate('project')
