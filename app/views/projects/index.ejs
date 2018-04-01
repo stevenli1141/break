@@ -21,7 +21,7 @@
     </tbody>
   </table>
   <p class="no-records" ng-if="projects.length === 0" ng-cloak>There are currently no projects</p>
-  <a class="btn btn-theme" href="#project_modal" data-toggle="modal">
+  <a class="btn btn-theme" href="#project_modal" data-toggle="modal" ng-if="admin()">
     <i class="fa fa-plus"></i> Add new project</a>
 </div>
 

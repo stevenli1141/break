@@ -75,6 +75,11 @@ router.put('/projects/:key', authorize.requireAdmin, async (req, res) => {
         let project = await Project.findOneAndUpdate({ key: req.params.key }, params, {
             new: true
         }).populate('lead').exec();
+
+        if (params.lead) {
+            User.findByIdAndUpdate(project.lead, { $addToSet: { projects: project._id } }).exec();
+        }
+
         res.format({
             html: () => { res.redirect('/projects'); },
             json: () => { res.json(project); }

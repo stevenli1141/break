@@ -18,6 +18,9 @@ router.get('/users', async (req, res) => {
                 let regex = new RegExp(req.query.name.replace(' ', '|'), 'i');
                 filters.$or = [ { firstname: regex }, { lastname: regex } ];
             }
+            if (req.query.project) {
+                filters.projects = req.query.project;
+            }
             let users = await User.find(filters).sort('firstname').exec();
             res.send(users);
         }
@@ -26,7 +29,7 @@ router.get('/users', async (req, res) => {
 
 router.get('/users/:id', async (req, res, next) => {
     try {
-        let user = await User.findById(req.params.id);
+        let user = await User.findById(req.params.id).populate('projects').exec();
         res.format({
             html: () => { res.render('users/show', { user: user }); },
             json: () => { res.send(user); }
@@ -61,14 +64,18 @@ router.post('/users', authorize.requireAdmin, async (req, res) => {
     }
 });
 
-router.put('/users', authorize.requireAdmin, async (req, res) => {
+router.put('/users/:id', authorize.requireAdmin, async (req, res) => {
     try {
-        //
+        let params = { $addToSet: { projects: req.body.addProject } }
+        let user = await User.findByIdAndUpdate(req.params.id, params, {
+            new: true
+        }).populate('projects').exec();
         res.format({
-            html: () => { res.redirect('/users/' + req.bodys._id); },
+            html: () => { res.redirect('/users/' + req.user._id); },
             json: () => { res.send(user); }
         });
     } catch (err) {
+        debug(err);
         req.flash('error', 'Failed');
         res.format({
             html: () => { res.redirect('/users/' + req.body._id); },

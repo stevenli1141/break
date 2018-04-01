@@ -5,7 +5,33 @@
       <button class="btn btn-theme" ng-click="open()">Edit Project Settings</button>
     </div>
     <div class="grid-panel-body">
-      <div><strong>Project lead</strong><div ng-bind="project.lead | fullname"></div></div>
+      <h4>Project lead</h4>
+      <div class="row">
+        <div class="col-md-2" ng-if="project.lead">
+          <div class="grid-item center-block">
+            <div>
+              <i class="fa fa-2x fa-user"></i>
+            </div>
+            <a href="/users/{{project.lead._id}}" ng-cloak>{{project.lead | fullname}}</a>
+            <div ng-cloak>{{project.lead.title}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-panel-body">
+      <h4>Members</h4>
+      <div class="row">
+        <p class="no-records" ng-if="users.length === 0" ng-cloak>No users to show</p>
+        <div class="col-md-2" ng-repeat="user in users | limitTo:24">
+          <div class="grid-item center-block">
+            <div>
+              <i class="fa fa-2x fa-user"></i>
+            </div>
+            <a href="/users/{{user._id}}">{{user.firstname}} {{user.lastname}}</a>
+            <div ng-cloak>{{user.title}}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

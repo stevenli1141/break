@@ -4,6 +4,10 @@
             console.log(data);
             $scope.project = data;
             $scope.$apply();
+            return restFactory.get('/users', { project: $scope.project._id });
+        }).then(function(data) {
+            $scope.users = data;
+            $scope.$apply();
         }).catch(function(err) {
             // TODO Handle error
         });
@@ -25,11 +29,22 @@
                 restFactory.put('/projects/' + project.key, project).then(function(data) {
                     $scope.project = data;
                     $scope.$apply();
+                    $scope.loadProjectUsers();
                 }).catch(function(err) {
                     // TODO Handle error
                 });
             }, function() {});
         };
+
+        $scope.loadProjectUsers = function() {
+            restFactory.get('/users', { project: $scope.project._id }).then(function(data) {
+                $scope.users = data;
+                $scope.$apply();
+            }).catch(function(err) {
+                $scope.users = [];
+                $scope.$apply();
+            });
+        }
     }
 
     ProjectCtrl.$inject = ['$scope', '$uibModal', 'restFactory'];

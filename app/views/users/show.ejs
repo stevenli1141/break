@@ -1,7 +1,27 @@
-<div ng-controller="userController">
+<div class="body-content" ng-controller="userController">
   <h3 ng-cloak>{{user | fullname}}</h3>
   <p>{{user.title}}</p>
+  <div>
+    <strong>Projects: </strong>
+    <span ng-if="user.projects.length === 0">None</span>
+    <span ng-repeat="proj in user.projects">{{proj.name}} </span>
+  </p>
+  <div class="form-inline" ng-if="admin()" ng-cloak>
+    <label class="control-label">Add user to project: </label>
+    <input type="text" class="form-control" ng-model="project"
+      uib-typeahead="project as project.key for project in loadProjects()"
+      typeahead-template-url="typeaheadProject.html">
+    <div class="horizontal-spacer"></div>
+    <button class="btn btn-theme" ng-click="addUserToProject(project)">Add</button>
+  </div>
 </div>
+<script type="text/ng-template" id="typeaheadProject.html">
+  <a>
+    <span class="break-icon"></span>
+    <strong>{{match.label}}</strong>
+    <small>&nbsp&nbsp{{match.model.name}}</small>
+  </a>
+</script>
 
 <%- contentFor('title') %>
 <%= user.name() %>

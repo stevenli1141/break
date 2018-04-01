@@ -26,7 +26,7 @@
     <div class="grid-panel-body">
       <div class="row">
         <p class="no-records" ng-if="projects.length === 0" ng-cloak>No projects to show</p>
-        <div class="col-md-3" ng-repeat="project in projects | limitTo:8">
+        <div class="col-md-3" ng-repeat="project in projects | limitTo:16">
           <div class="grid-item">
             <strong><a href="/projects/{{project.key}}" ng-cloak>{{project.name}}</a></strong>
             <div ng-cloak>{{project.type}}</div>
