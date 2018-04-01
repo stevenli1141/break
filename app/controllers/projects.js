@@ -71,11 +71,14 @@ router.post('/projects', authorize.requireAdmin, async (req, res) => {
     });
 });
 
-router.put('/projects/:key', authorize.requireAdmin, async (req, res) => {
+router.put('/projects/:id', async (req, res) => {
     try {
+        if (!req.user.admin && !req.user._id.equals(req.params.id)) {
+            throw new Error('Unauthorized access');
+        }
         let params = req.body;
         if (params.lead) { params.lead = params.lead._id; }
-        let project = await Project.findOneAndUpdate({ key: req.params.key }, params, {
+        let project = await Project.findByIdAndUpdate(req.params.id, params, {
             new: true
         }).populate('lead').exec();
 
@@ -96,7 +99,7 @@ router.put('/projects/:key', authorize.requireAdmin, async (req, res) => {
     }
 });
 
-router.delete('/projects/:key', authorize.requireLogin, async (req, res) => {
+router.delete('/projects/:key', authorize.requireAdmin, async (req, res) => {
     let project = await Project.find({ key: req.params.key });
     project.remove().then((project) => {
         res.format({

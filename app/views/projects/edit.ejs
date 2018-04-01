@@ -20,7 +20,7 @@
     </div>
     <div class="grid-panel-body">
       <h4>Members</h4>
-      <a href="" ng-click="addUser()"><i class="fa fa-plus"></i> Add users</a>
+      <a href="" ng-click="openUserModal()"><i class="fa fa-plus"></i> Add users</a>
       <div class="row">
         <p class="no-records" ng-if="users.length === 0" ng-cloak>No users to show</p>
         <div class="col-md-2" ng-repeat="user in users | limitTo:24">
@@ -65,6 +65,30 @@
       </div>
     </div>
   </div>
+  <div class="modal-footer">
+    <button class="btn btn-theme" ng-click="update()">Update project</button>
+    <button class="btn btn-default" ng-click="close()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="userModal.html">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="close" ng-click="close()">
+      <span aria-hidden="true"><i class="fa fa-times"></i></span>
+    </button>
+    <h5 class="modal-title">Add User</h5>
+  </div>
+  <div class="modal-body form-horizontal">
+    <div class="form-group row">
+      <label for="lead" class="col-md-3 control-label">User</label>
+      <div class="col-md-9">
+        <input type="text" name="lead" class="form-control" ng-model="_user"
+          uib-typeahead="user as (user | fullname) for user in loadUsers()"
+          typeahead-template-url="typeaheadUser.html">
+      </div>
+    </div>
+  </div>
+
   <div class="modal-footer">
     <button class="btn btn-theme" ng-click="update()">Update project</button>
     <button class="btn btn-default" ng-click="close()">Cancel</button>

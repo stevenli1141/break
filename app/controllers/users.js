@@ -2,6 +2,7 @@
 
 let router = require('./application');
 let authorize = require('../helpers/authorize');
+let Project = require('../models/project');
 let User = require('../models/user');
 let debug = require('debug')('http');
 
@@ -67,8 +68,16 @@ router.post('/users', authorize.requireAdmin, async (req, res) => {
     }
 });
 
-router.put('/users/:id', authorize.requireAdmin, async (req, res) => {
+router.put('/users/:id', async (req, res) => {
     try {
+        if (!req.user.admin && !req.body.addProject) {
+            throw new Error('Unauthorized access');
+        } else if (!req.user.admin) {
+            let project = await Project.findById(req.body.addProject).exec();
+            if (!req.user._id.equals(project.lead)) {
+                throw new Error('Unauthorized access');
+            }
+        }
         let params = { $addToSet: { projects: req.body.addProject } }
         let user = await User.findByIdAndUpdate(req.params.id, params, {
             new: true
