@@ -1,7 +1,21 @@
-<div class="sidebar hidden-xs">
-  <% if (user) { %>
+<% if (user) { %>
+  <div class="sidebar hidden-xs">
     <a class="org-icon" href="/">
       <span><%= user.organization.name[0] %></span>
     </a>
-  <% } %>
-</div>
+
+    <ul class="sidebar-icons">
+      <li>
+        <a href="/projects/" class="sidebar-link">
+          <div class="sidebar-icon">
+            <i class="far fa-clipboard"></i>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="/projects/" class="sidebar-link">
+        </a>
+      </li>
+    </ul>
+  </div>
+<% } %>
