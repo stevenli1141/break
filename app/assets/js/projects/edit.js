@@ -21,6 +21,15 @@
             });
         }
 
+        $scope.removeUser = function(user_id) {
+            restFactory.put('/users/' + user_id, { removeProject: $scope.project._id }).then(function(data) {
+                $scope.loadProjectUsers();
+                alert('User has been removed');
+            }).catch(function(err) {
+                alert('You cannot remove yourself');
+            });
+        }
+
         $scope.openProjectModal = function() {
             var modalInstance = $uibModal.open({
                 templateUrl: 'projectModal.html',

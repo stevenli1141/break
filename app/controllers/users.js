@@ -70,15 +70,22 @@ router.post('/users', authorize.requireAdmin, async (req, res) => {
 
 router.put('/users/:id', async (req, res) => {
     try {
-        if (!req.user.admin && !req.body.addProject) {
+        if (!req.user.admin && !(req.body.addProject || req.body.removeProject)) {
             throw new Error('Unauthorized access');
         } else if (!req.user.admin) {
-            let project = await Project.findById(req.body.addProject).exec();
+            let project = await Project.findById(req.body.addProject || req.body.removeProject).exec();
             if (!req.user._id.equals(project.lead)) {
                 throw new Error('Unauthorized access');
+            } else if (project.lead.equals(req.params.id)) {
+                throw new Error('Unauthorized action');
             }
         }
-        let params = { $addToSet: { projects: req.body.addProject } }
+        let params = {};
+        if(req.body.addProject) {
+            params.$addToSet = { projects: req.body.addProject };
+        } else if (req.body.removeProject) {
+            params.$pull = { projects: req.body.removeProject };
+        }
         let user = await User.findByIdAndUpdate(req.params.id, params, {
             new: true
         }).populate('projects').exec();
@@ -87,11 +94,10 @@ router.put('/users/:id', async (req, res) => {
             json: () => { res.send(user); }
         });
     } catch (err) {
-        debug(err);
         req.flash('error', 'Failed');
         res.format({
             html: () => { res.redirect('/users/' + req.body._id); },
-            json: () => { res.status(500).send(err); }
+            json: () => { res.status(500).json(err); }
         });
     }
 });
