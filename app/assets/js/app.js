@@ -73,8 +73,9 @@
     })
     .filter('markdown', ['$sce', function($sce) {
         return function(text) {
-            var converter = new showdown.Converter();
-            return converter.makeHtml(text || '');
+            var converter = new showdown.Converter({ tables: true });
+            var text = converter.makeHtml(text || '');
+            return text.replace('<table>', '<table class="table">');
         }
     }])
     .filter('fullname', function() {
