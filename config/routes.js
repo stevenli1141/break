@@ -27,7 +27,7 @@ module.exports = (app) => {
     // Landing root
     app.use('/', landing);
 
-    registrationsController(app, passport);
+    app.use('/', registrationsController(passport));
     sessionsController(app, passport);
 
     app.use('/', projects);

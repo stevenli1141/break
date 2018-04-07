@@ -1,3 +1,6 @@
+<% if (typeof notice !== 'undefined' && notice.length > 0) { %>
+  <div class="alert alert-success"><%= notice %></div>
+<% } %>
 <% if (typeof error !== 'undefined' && error.length > 0) { %>
   <div class="alert alert-danger"><%= error %></div>
 <% } %>

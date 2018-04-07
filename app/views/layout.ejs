@@ -32,10 +32,10 @@
     <script src="/js/users/index.js"></script>
 
     <%- include('_topbar') %>
-    <% if (showSidebar) { %>
+    <% if ( typeof showSidebar !== 'undefined' && showSidebar) { %>
       <%- include('_sidebar') %>
     <% } %>
-    <div class="<%= showSidebar ? 'main-content' : 'landing-content' %>" ng-app="break">
+    <div class="<%= (typeof showSidebar !== 'undefined' && showSidebar) ? 'main-content' : 'landing-content' %>" ng-app="break">
       <%- body %>
     </div>
 

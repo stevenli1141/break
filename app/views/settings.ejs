@@ -1,5 +1,28 @@
-<div class="body-content">
-  <h3>Settings</h3>
+<div class="body-content row">
+  <div class="col-md-8 col-md-offset-2">
+    <h3>Settings</h3>
+    <hr>
+    <%- include('_flash') %>
+    <form action="/settings" method="POST" class="form-horizontal">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <h4>Change my password</h4>
+      <div class="form-group row">
+        <label class="col-md-3 control-label">Enter new password</label>
+        <div class="col-md-9">
+          <input type="password" name="password" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 control-label">Confirm new password</label>
+        <div class="col-md-9">
+          <input type="password" name="confirm_password" class="form-control" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-theme">Update account settings</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <%- contentFor('title') %>
