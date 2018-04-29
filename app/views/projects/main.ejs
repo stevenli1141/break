@@ -12,7 +12,7 @@
         <td ng-repeat="status in statuses">
           <ul class="board-list">
             <li class="board-list-item" ng-repeat="issue in issues | filter:{status: status}" ng-cloak>
-              <div class="board-issue" ng-click="showIssue(issue)" href="/issues/{{issue.key}}">
+              <div class="board-issue" ng-click="showIssue(issue)">
                 <div class="board-issue-details">
                   <div class="board-issue-key">{{issue.key}}</div>
                   <div class="pull-right user-initials" ng-if="issue.assignee">
@@ -28,6 +28,20 @@
       </tr>
     </table>
   </div>
+
+  <script type="text/ng-template" id="modal.html">
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="close" ng-click="close()">
+        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+      </button>
+      <h5 class="modal-title" ng-bind="issue.title"></h5>
+    </div>
+    <div class="modal-body">
+      <h4><a href="/issues/{{issue.key}}">{{issue.key}}</a> - {{issue.title}}</h4>
+      <div><span class="badge type-{{issue.type | cssclass}}">{{issue.type}}</span></div>
+      <p ng-bind-html="issue.description | markdown"></p>
+    </div>
+  </script>
 </div>
 
 <%- contentFor('title') %>
