@@ -1,0 +1,36 @@
+.board-category {
+    width: 20%;
+}
+
+.board-list {
+    padding-left: 0px;
+}
+
+.board-list-item {
+    list-style-type: none;
+}
+
+.board-issue,
+.board-issue:hover,
+.board-issue:focus {
+    display: block;
+    margin: 4px 0px;
+    border: 1px solid #e1e1e1;
+    padding: 8px;
+    color: black;
+    cursor: pointer;
+}
+.board-issue {
+    background-color: white;
+}
+.board-issue:hover,
+.board-issue:focus {
+    background-color: #f6f6f6;
+}
+
+.board-issue-key {
+    font-size: 12px;
+    font-weight: 500;
+    color: #777;
+}
+

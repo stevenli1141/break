@@ -29,13 +29,11 @@
     <script src="/js/issues/editor.js"></script>
     <script src="/js/projects/index.js"></script>
     <script src="/js/projects/edit.js"></script>
+    <script src="/js/projects/show.js"></script>
     <script src="/js/users/index.js"></script>
 
     <%- include('_topbar') %>
-    <% if ( typeof showSidebar !== 'undefined' && showSidebar) { %>
-      <%- include('_sidebar') %>
-    <% } %>
-    <div class="<%= (typeof showSidebar !== 'undefined' && showSidebar) ? 'main-content' : 'landing-content' %>" ng-app="break">
+    <div class="landing-content" ng-app="break">
       <%- body %>
     </div>
 

@@ -102,6 +102,18 @@
     text-transform: uppercase;
 }
 
+.user-initials {
+    width: 28px;
+    margin: 2px;
+    border-radius: 4px;
+    padding: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #85b2fa;
+    color: white;
+}
+
 /* Iconography */
 
 .org-icon,

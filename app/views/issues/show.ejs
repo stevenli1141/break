@@ -12,7 +12,9 @@
         <table class="issue-table">
           <tr class="issue-property">
             <td class="issue-property-label">Project</td>
-            <td ng-cloak>{{issue.project.name}}</td>
+            <td ng-cloak>
+              <a href="/projects/{{issue.project.key}}">{{issue.project.name}}</a>
+            </td>
           </tr>         
           <tr class="issue-property">
             <td class="issue-property-label">Sprint</td>
