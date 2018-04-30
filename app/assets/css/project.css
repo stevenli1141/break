@@ -1,5 +1,31 @@
+.project-board {
+    background-color: #2374f9;
+}
+
+.project-board-header {
+    padding: 4px 8px;
+    color: white;
+}
+
+.board-name {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.board-table {
+    width: 100%;
+}
+
 .board-category {
     width: 20%;
+    vertical-align: top;
+}
+
+.board-list-container {
+    margin: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #f1f1f1;
 }
 
 .board-list {
@@ -34,3 +60,9 @@
     color: #777;
 }
 
+@media (max-width: 676px) {
+    .board-category {
+        width: 100%;
+        display: table-row;
+    }
+}

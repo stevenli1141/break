@@ -5,7 +5,7 @@ exports.requireLogin = (req, res, next) => {
         return next();
     }
     res.format({
-        html: () => { redirect('/login'); },
+        html: () => { res.redirect('/login'); },
         json: () => { res.status(401).send(); }
     });
 }
@@ -15,7 +15,7 @@ exports.requireOffline = (req, res, next) => {
         return next();
     }
     res.format({
-        html: () => { redirect('/'); },
+        html: () => { res.redirect('/'); },
         json: () => { res.status(500).send(); }
     });
 }

@@ -1,29 +1,30 @@
 <div class="project-board" ng-controller="projectBoardController">
   <!-- Main project board SPA-->
   <div class="project-board-header">
-    <h3 ng-cloak>{{project.name}}</h3>
+    <span class="board-name">{{project.name}}</span>
+    <span class="horizontal-spacer"></span>
   </div>
   <div class="project-issues">
-    <table class="table">
+    <table class="board-table">
       <tr>
-        <th class="board-category" ng-repeat="status in statuses" ng-cloak>{{status}}</th>
-      </tr>
-      <tr>
-        <td ng-repeat="status in statuses">
-          <ul class="board-list">
-            <li class="board-list-item" ng-repeat="issue in issues | filter:{status: status}" ng-cloak>
-              <div class="board-issue" ng-click="showIssue(issue)">
-                <div class="board-issue-details">
-                  <div class="board-issue-key">{{issue.key}}</div>
-                  <div class="pull-right user-initials" ng-if="issue.assignee">
-                    {{issue.assignee | initials}}
+        <td class="board-category" ng-repeat="status in statuses">
+          <div class="board-list-container">
+            <h4>{{status}}</h4>
+            <ul class="board-list">
+              <li class="board-list-item" ng-repeat="issue in issues | filter:{status: status}" ng-cloak>
+                <div class="board-issue" ng-click="showIssue(issue)">
+                  <div class="board-issue-details">
+                    <div class="board-issue-key">{{issue.key}}</div>
+                    <div class="pull-right user-initials" ng-if="issue.assignee">
+                      {{issue.assignee | initials}}
+                    </div>
+                    <div>{{issue.title}}</div>
+                    <div class="badge type-{{issue.type | cssclass}}">{{issue.type}}</div>
                   </div>
-                  <div>{{issue.title}}</div>
-                  <div class="badge type-{{issue.type | cssclass}}">{{issue.type}}</div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </td>
       </tr>
     </table>
