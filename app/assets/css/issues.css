@@ -49,3 +49,12 @@
 .new-issue-form {
     padding: 20px;
 }
+
+.board-issue-header {
+    margin-bottom: 12px;
+}
+
+.board-issue-title {
+    font-size: 20px;
+    font-weight: 400;
+}

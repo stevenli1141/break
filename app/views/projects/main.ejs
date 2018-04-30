@@ -38,9 +38,21 @@
       <h5 class="modal-title" ng-bind="issue.title"></h5>
     </div>
     <div class="modal-body">
-      <h4><a href="/issues/{{issue.key}}">{{issue.key}}</a> - {{issue.title}}</h4>
-      <div><span class="badge type-{{issue.type | cssclass}}">{{issue.type}}</span></div>
+      <div class="board-issue-header">
+        <div class="pull-right" ng-if="issue.assignee">
+          <a href="/users/{{issue.assignee._id}}" class="user-initials">{{issue.assignee | initials}}</a>
+          <a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a>
+        </div>
+        <span class="board-issue-title"><a href="/issues/{{issue.key}}">{{issue.key}}</a> - {{issue.title}}</span>
+        <span class="badge badge-align type-{{issue.type | cssclass}}">{{issue.type}}</span>
+      </div>
+      <div><strong>Description</strong></div>
+      <div class="horizontal-divider"></div>
       <p ng-bind-html="issue.description | markdown"></p>
+    </div>
+    <div class="modal-footer center-block">
+      <a href="/issues/{{issue.key}}" class="btn btn-theme">View</a>
+      <button class="btn btn-default" ng-click="close()">Close</button>
     </div>
   </script>
 </div>

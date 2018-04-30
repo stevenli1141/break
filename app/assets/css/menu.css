@@ -41,7 +41,6 @@
     display: inline-block;
     height: 100%;
     padding: 14px 10px;
-    box-sizing: border-box;
     font-size: 15px;
     color: black;
     text-decoration: none;
@@ -145,11 +144,6 @@
 .issue-list,
 .record-list {
     padding: 12px;
-}
-
-.horizontal-spacer {
-    display: inline-block;
-    padding-left: 20px;
 }
 
 .dropdown-menu {
