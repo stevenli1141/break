@@ -73,8 +73,9 @@
     })
     .filter('markdown', ['$sce', function($sce) {
         return function(text) {
-            var converter = new showdown.Converter();
-            return converter.makeHtml(text || '');
+            var converter = new showdown.Converter({ tables: true });
+            var text = converter.makeHtml(text || '');
+            return text.replace('<table>', '<table class="table table-bordered">');
         }
     }])
     .filter('fullname', function() {
@@ -83,7 +84,12 @@
             return user.firstname + ' ' + user.lastname;
         }
     })
-    .filter('cssclass', function() {
+    .filter('initials', function() {
+        return function(user) {
+            if (!user) return '';
+            return user.firstname[0] + user.lastname[0];
+        }
+    }).filter('cssclass', function() {
         return function(text) {
             text = text || '';
             return text.toLowerCase().replace(' ', '-');

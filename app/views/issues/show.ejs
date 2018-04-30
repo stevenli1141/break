@@ -12,7 +12,9 @@
         <table class="issue-table">
           <tr class="issue-property">
             <td class="issue-property-label">Project</td>
-            <td ng-cloak>{{issue.project.name}}</td>
+            <td ng-cloak>
+              <a href="/projects/{{issue.project.key}}">{{issue.project.name}}</a>
+            </td>
           </tr>         
           <tr class="issue-property">
             <td class="issue-property-label">Sprint</td>
@@ -45,11 +47,17 @@
         <table class="issue-table">
           <tr class="issue-property">
             <td class="issue-property-label">Assigned to</td>
-            <td><a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a></td>
+            <td ng-if="issue.assignee">
+              <a href="/users/{{issue.assignee._id}}" class="user-initials">{{issue.assignee | initials}}</a>
+              <a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a>
+            </td>
           </tr>
           <tr class="issue-property">
             <td class="issue-property-label">Reporter</td>
-            <td><a href="/users/{{issue.reporter._id}}">{{issue.reporter | fullname}}</a></td>
+            <td ng-if="issue.reporter">
+              <a href="/users/{{issue.reporter._id}}" class="user-initials">{{issue.reporter | initials}}</a>
+              <a href="/users/{{issue.reporter._id}}">{{issue.reporter | fullname}}</a>
+            </td>
           </tr>
           <tr class="issue-property">
               <td class="issue-property-label">Created on</td>

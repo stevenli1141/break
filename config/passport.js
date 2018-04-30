@@ -24,7 +24,7 @@ module.exports = (passport) => {
         try {
             let user = await User.findOne({ email: username }).exec();
             if (!user || !user.validPassword(password)) {
-                return done(null, false, req.flash('error', 'Incorrect username or password'));
+                return done(null, false, req.flash('error', 'Invalid username or password'));
             }
             return done(null, user);
         } catch (err) {

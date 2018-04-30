@@ -1,5 +1,60 @@
-<div class="project-board">
+<div class="project-board" ng-controller="projectBoardController">
   <!-- Main project board SPA-->
+  <div class="project-board-header">
+    <span class="board-name">{{project.name}}</span>
+    <span class="horizontal-spacer"></span>
+  </div>
+  <div class="project-issues">
+    <table class="board-table">
+      <tr>
+        <td class="board-category" ng-repeat="status in statuses">
+          <div class="board-list-container">
+            <h4>{{status}}</h4>
+            <ul class="board-list">
+              <li class="board-list-item" ng-repeat="issue in issues | filter:{status: status}" ng-cloak>
+                <div class="board-issue" ng-click="showIssue(issue)">
+                  <div class="board-issue-details">
+                    <div class="board-issue-key">{{issue.key}}</div>
+                    <div class="pull-right user-initials" ng-if="issue.assignee">
+                      {{issue.assignee | initials}}
+                    </div>
+                    <div>{{issue.title}}</div>
+                    <div class="badge type-{{issue.type | cssclass}}">{{issue.type}}</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script type="text/ng-template" id="modal.html">
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="close" ng-click="close()">
+        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+      </button>
+      <h5 class="modal-title" ng-bind="issue.title"></h5>
+    </div>
+    <div class="modal-body">
+      <div class="board-issue-header">
+        <div class="pull-right" ng-if="issue.assignee">
+          <a href="/users/{{issue.assignee._id}}" class="user-initials">{{issue.assignee | initials}}</a>
+          <a href="/users/{{issue.assignee._id}}">{{issue.assignee | fullname}}</a>
+        </div>
+        <span class="board-issue-title"><a href="/issues/{{issue.key}}">{{issue.key}}</a> - {{issue.title}}</span>
+        <span class="badge badge-align type-{{issue.type | cssclass}}">{{issue.type}}</span>
+      </div>
+      <div><strong>Description</strong></div>
+      <div class="horizontal-divider"></div>
+      <p ng-bind-html="issue.description | markdown"></p>
+    </div>
+    <div class="modal-footer center-block">
+      <a href="/issues/{{issue.key}}" class="btn btn-theme">View</a>
+      <button class="btn btn-default" ng-click="close()">Close</button>
+    </div>
+  </script>
 </div>
 
 <%- contentFor('title') %>
