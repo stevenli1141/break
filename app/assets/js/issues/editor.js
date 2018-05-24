@@ -53,7 +53,7 @@
             restFactory.get('/activities', { issue: $scope.issue._id }).then(function(data) {
                 $scope.activities = data;
                 $scope.$apply();
-            }).catch((err) => {
+            }).catch(function(err) {
                 console.log('Failed to load activity');
             });
         }
@@ -79,7 +79,7 @@
             restFactory.post('/activities', params).then(function(data) {
                 $scope.comment = '';
                 $scope.loadActivity();
-            }).catch((err) => {
+            }).catch(function(err) {
                 console.log(err);
                 console.log('Failed to post comment');
             });
