@@ -17,7 +17,7 @@
         }
 
         $scope.loadIssues = function(value) {
-            return restFactory.get('/issues', { key: value, limit: 6 }).then(function(data) {
+            return restFactory.get('/issues', { key: value, title: value, limit: 6 }).then(function(data) {
                 return data;
             }).catch(function(err) {
                 return [];

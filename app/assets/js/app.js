@@ -35,7 +35,7 @@
                     $.ajax({
                         url: url,
                         method: 'POST',
-                        data: params,
+                        data: data,
                         dataType: 'json',
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('X-CSRF-Token', AUTH_TOKEN);

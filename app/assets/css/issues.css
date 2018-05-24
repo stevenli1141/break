@@ -58,3 +58,12 @@
     font-size: 20px;
     font-weight: 400;
 }
+
+.activity-record {
+    border-bottom: 1px solid #e1e1e1;
+    padding: 12px 0px;
+}
+
+.activity-header {
+    margin-bottom: 6px;
+}

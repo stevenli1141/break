@@ -14,11 +14,10 @@ router.get('/issues', async (req, res) => {
                 let params = { project: projects };
                 if (req.query.projectkey && req.query.projectkey.length > 0) {
                     params.key = new RegExp('^' + req.query.projectkey + '-');
+                } else if (req.query.key && req.query.title && req.query.title.length > 0) {
+                    params['$or'] = [ { title: new RegExp(req.query.title, 'i') }, { key: new RegExp('^' + req.query.key, 'i') } ];
                 } else if (req.query.key) {
                     params.key = new RegExp('^' + req.query.key, 'i');
-                }
-                if (req.query.title && req.query.title.length > 0) {
-                    params.title = new RegExp(req.query.title, 'i');
                 }
                 if (req.query.assigned === 'true') {
                     params.assignee = req.user._id;

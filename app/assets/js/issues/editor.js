@@ -18,6 +18,8 @@
 
         $scope.issue = {};
         $scope.related_issues = [];
+        $scope.activities = [];
+        $scope.comment = '';
         
         restFactory.get(window.location.pathname).then(function(data) {
             $scope.issue = data;
@@ -26,6 +28,7 @@
         }).then(function(data) {
             $scope.related_issues = data;
             $scope.$apply();
+            $scope.loadActivity();
         }).catch(function(err) {
             alert('Error loading issues');
         });
@@ -46,6 +49,15 @@
             });
         }
 
+        $scope.loadActivity = function() {
+            restFactory.get('/activities', { issue: $scope.issue._id }).then(function(data) {
+                $scope.activities = data;
+                $scope.$apply();
+            }).catch((err) => {
+                console.log('Failed to load activity');
+            });
+        }
+
         $scope.nextStatus = function() {
             return resolutions[$scope.issue.status];
         }
@@ -55,6 +67,21 @@
             restFactory.put(window.location.pathname, $scope.issue).then(function(data) {
                 $scope.issue = data;
                 $scope.$apply;
+            });
+        }
+
+        $scope.postComment = function() {
+            var params = {
+                issue: $scope.issue,
+                activity: { type: 'comment', message: $scope.comment }
+            };
+            console.log(params);
+            restFactory.post('/activities', params).then(function(data) {
+                $scope.comment = '';
+                $scope.loadActivity();
+            }).catch((err) => {
+                console.log(err);
+                console.log('Failed to post comment');
             });
         }
 
