@@ -35,7 +35,7 @@ router.get('/users/:id', async (req, res, next) => {
     try {
         let user = await User.findById(req.params.id).populate('projects').exec();
         res.format({
-            html: () => { res.render('users/show', { user: user }); },
+            html: () => { res.render('users/show', { pageuser: user }); },
             json: () => { res.send(user); }
         });
     } catch (err) {

@@ -41,7 +41,7 @@
 
 .issue-desc-header {
     margin-bottom: 8px;
-    border-bottom: 1px solid #c4c4c4;
+    border-bottom: 1px solid #e1e1e1;
     padding: 4px 0px;
     font-weight: bold;
 }
@@ -59,11 +59,18 @@
     font-weight: 400;
 }
 
+.activity {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-top: 1px solid #e1e1e1;
+}
+
 .activity-record {
     border-bottom: 1px solid #e1e1e1;
     padding: 12px 0px;
 }
 
 .activity-header {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
+

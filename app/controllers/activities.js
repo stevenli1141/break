@@ -9,11 +9,15 @@ let debug = require('debug')('http');
 
 router.get('/activities', async (req, res, next) => {
     try {
-        let activities = await Activity.find({ issue: req.query.issue })
-                                    .populate('user')
-                                    .sort({ time: -1 })
-                                    .exec();
-        debug(activities);
+        let params = {};
+        if (req.query.issue) {
+            params.issue = req.query.issue;
+        }
+        if (req.query.user) {
+            params.user = req.query.user;
+        }
+        let activities = await Activity.find(params)
+                                .populate('user').populate('issue').sort({ time: -1 }).exec();
         res.format({
             html: () => {
                 next(new Error());

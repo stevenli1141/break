@@ -86,13 +86,11 @@
 
     <div class="activity">
       <h4>Activity</h4>
-      <hr>
       <div class="comments">
         <div class="form-group">
           <textarea class="form-control" rows="3" ng-model="comment"></textarea>
         </div>
         <button class="btn btn-default" ng-click="postComment()">Add comment</button>
-        <hr>
         <div class="activity-record" ng-repeat="activity in activities">
           <div class="activity-header">
             <a href="/users/{{activity.user._id}}" class="user-initials">{{ activity.user | initials}}</a>
