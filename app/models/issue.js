@@ -7,6 +7,7 @@ let schema = mongoose.Schema;
  * Issue
  * 
  * belongs to: project, sprint, user
+ * has many: activities
  */
 
 let issue = mongoose.Schema({

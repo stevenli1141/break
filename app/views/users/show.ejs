@@ -14,7 +14,22 @@
     <div class="horizontal-spacer"></div>
     <button class="btn btn-theme" ng-click="addUserToProject(project)">Add</button>
   </div>
+
+  <hr>
+  <h4>Activity</h4>
+  <div class="activity-record" ng-repeat="activity in activities">
+    <div ng-if="activity.type == 'comment'">
+      <div class="activity-header">
+        <span class="pull-right" ng-cloak>{{ activity.time | date:'MMM d, y h:mm a'}}</span>
+        <a href="/users/{{activity.user._id}}" class="user-initials">{{ activity.user | initials}}</a>
+        <strong ng-cloak>{{ activity.user | fullname }}</strong> commented in
+        <a href="/issues/{{activity.issue.key}}">{{ activity.issue.key }} - {{ activity.issue.title }}</a>
+      </div>
+      <p class="activity-comment" ng-bind-html="activity.message | markdown"></p>
+    </div>
+  </div>
 </div>
 
+
 <%- contentFor('title') %>
-<%= user.name() %>
+View profile - <%= pageuser.name() %>

@@ -46,13 +46,13 @@
         <span class="board-issue-title"><a href="/issues/{{issue.key}}">{{issue.key}}</a> - {{issue.title}}</span>
         <span class="badge badge-align type-{{issue.type | cssclass}}">{{issue.type}}</span>
       </div>
-      <div><strong>Description</strong></div>
-      <div class="horizontal-divider"></div>
+      <div>Created {{ issue.created_at | date:'MMM d, y' }}</div>
+      <div class="issue-desc-header">Description</div>
       <p ng-bind-html="issue.description | markdown"></p>
     </div>
     <div class="modal-footer center-block">
       <a href="/issues/{{issue.key}}" class="btn btn-theme">View</a>
-      <button class="btn btn-default" ng-click="close()">Close</button>
+      <button class="btn btn-default" ng-click="close()">Hide</button>
     </div>
   </script>
 </div>

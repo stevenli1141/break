@@ -10,9 +10,10 @@ let passportConfig = require('./passport');
 let registrationsController = require(global.appRoot + '/app/controllers/registrations');
 let sessionsController = require(global.appRoot + '/app/controllers/sessions');
 let admin = require(global.appRoot + '/app/controllers/admin');
+let activities = require(global.appRoot + '/app/controllers/activities');
 let landing = require(global.appRoot + '/app/controllers/landing');
-let projects = require(global.appRoot + '/app/controllers/projects');
 let issues = require(global.appRoot + '/app/controllers/issues');
+let projects = require(global.appRoot + '/app/controllers/projects');
 let users = require(global.appRoot + '/app/controllers/users');
 let dashboard = require(global.appRoot + '/app/controllers/dashboard');
 
@@ -30,8 +31,9 @@ module.exports = (app) => {
     app.use('/', registrationsController(passport));
     app.use('/', sessionsController(passport));
 
-    app.use('/', projects);
+    app.use('/', activities);
     app.use('/', issues);
+    app.use('/', projects);
     app.use('/', users);
 
     // Administration
