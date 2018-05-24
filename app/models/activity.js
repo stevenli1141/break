@@ -19,6 +19,10 @@ let activity = mongoose.Schema({
         type: String,
         required: true
     },
+    edited: {
+        type: Boolean,
+        default: false
+    },
     issue: {
         type: schema.Types.ObjectId,
         ref: 'Issue',
