@@ -65,12 +65,16 @@ module.exports = (passport) => {
             newUser.password = password;
             newUser.firstname = req.body.firstname;
             newUser.lastname = req.body.lastname;
+            newUser.title = req.body.title;
             newUser.admin = true;
             newUser.organization = newOrg._id;
+
+            debug(newUser);
             newUser = await newUser.save();
 
             return done(null, newUser);
         } catch (err) {
+            debug(err);
             return done(null, false, req.flash('error', err));
         }
     }));

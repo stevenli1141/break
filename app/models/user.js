@@ -26,7 +26,7 @@ let user = mongoose.Schema({
     },
     title: {
         type: String,
-        required: true
+        default: ''
     },
     projects: [{
         type: schema.Types.ObjectId,
