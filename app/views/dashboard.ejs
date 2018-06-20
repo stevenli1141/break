@@ -8,7 +8,7 @@
         <div class="panel-body">
           <div class="no-records" ng-if="issues.length === 0" ng-cloak>No issues to show</div>
           <table class="panel-table">
-            <tr class="panel-tr" ng-repeat="issue in issues">
+            <tr class="panel-tr" ng-repeat="issue in issues | limitTo:10">
               <td ng-cloak>{{issue.key}}</td>
               <td><a href="/issues/{{issue.key}}" ng-cloak>{{issue.title}}</a></td>
               <td><span class="badge status-{{issue.status | cssclass}}" ng-cloak>{{issue.status}}</span></td>
