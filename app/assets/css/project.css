@@ -12,6 +12,13 @@
     font-weight: 500;
 }
 
+.project-backlog {
+    color: white;
+}
+.project-backlog:hover {
+    color: #f6f6f6;
+}
+
 .board-table {
     width: 100%;
 }

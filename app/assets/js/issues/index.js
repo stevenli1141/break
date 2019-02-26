@@ -14,8 +14,22 @@
         }
 
         restFactory.get('/user', { projects: true }).then(function(user) {
-            if (user.projects.length > 0) {
-                $scope.filters.project = user.projects[0];
+            if (user.projects.length) {
+                let idx = 0;
+                
+                let key = location.search.split('project=')[1];
+                if (key) {
+                    for (let i = 0; i < user.projects.length; ++i) {
+                        if (user.projects[i].key == key) {
+                            idx = i;
+                            break;
+                        }
+                    }
+                    $scope.filters.project = user.projects[idx];
+                }
+                else {   
+                    $scope.filters.project = user.projects[0];
+                }
                 $scope.$apply();
             }
             return restFactory.get('/issues', getParams());
