@@ -15,11 +15,11 @@
 
         restFactory.get('/user', { projects: true }).then(function(user) {
             if (user.projects.length) {
-                let idx = 0;
+                var idx = 0;
                 
-                let key = location.search.split('project=')[1];
+                var key = location.search.split('project=')[1];
                 if (key) {
-                    for (let i = 0; i < user.projects.length; ++i) {
+                    for (var i = 0; i < user.projects.length; ++i) {
                         if (user.projects[i].key == key) {
                             idx = i;
                             break;
